@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200&display=swap');
+
 .container {
     position: absolute;
     top: 0;
@@ -5,11 +7,32 @@
     z-index: 50;
     background-color: white;
     height: 100%;
-    width: 450px;
+    width: 500px;
     padding: 50px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+}
+
+.Name {
+    font-family: 'Oswald', sans-serif;
+    font-size: calc(0.5vw + 1.5rem);
+    width: 100%;
+    margin-bottom: 50px;
+    text-align: center;
+}
+
+.toHome {
+    font-weight: bold;
+    color: #6d6d6d;
+    margin: 0px;
+    display: flex;
+
+    align-items: center;
+}
+
+.toHome i {
+    margin-right: 5px;
 }
 
 .Form {
@@ -19,10 +42,60 @@
 .field input {
     width: 100%;
     height: 40px;
-    margin-bottom: 20px;
+    margin: 20px 0px;
     border-top: transparent;
     border-right: transparent;
     border-left: transparent;
     border-bottom: 1px solid rgb(59, 63, 68, 0.2);
     font-size: calc(0.1vw + 1rem);
+}
+
+.field input:focus {
+    outline: none;
+    border-bottom: 2px solid #fbd25a;
+}
+
+.submit {
+    width: 100%;
+    height: 50px;
+    margin: 20px 0px;
+    background-color: #fbd25a;
+    border: none;
+    border-radius: 8px;
+    font-size: calc(0.1vw + 1rem);
+    font-weight: 700;
+    color: #2e2e2e;
+}
+
+.Registered {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+    color: #6d6d6d;
+}
+
+.toLogin {
+    font-weight: bold;
+    color: #6d6d6d;
+    margin: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.toLogin i {
+    margin-left: 5px;
+}
+
+@media (max-width: 500px) {
+    .container {
+        width: 100%;
+    }
+
+    .field input {
+        margin: 15px 0px;
+    }
 }

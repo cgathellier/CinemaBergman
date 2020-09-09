@@ -10,7 +10,7 @@ const LayoutRegAuth = ({ regOrAuth }) => {
     return (
         <div className={classes.container}>
             <div className={classes.illustration}>
-                <img src={imgCinema} alt='Grande salle du Cinema Bergman' />
+                <img src={imgCinema} alt='Grande salle du Cinema Bergman' className={classes.imgCinema} />
             </div>
             {form}
         </div>

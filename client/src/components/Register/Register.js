@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import classes from './Register.module.css';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -21,7 +21,7 @@ function Register() {
         e.preventDefault();
 
         if (password !== password2) {
-            console.alert('Les mots de passes ne correspondent pas');
+            console.log('Les mots de passes ne correspondent pas');
         } else {
             let newUser = {
                 name,
@@ -48,10 +48,16 @@ function Register() {
 
     return (
         <div className={classes.container}>
-            <h1>Créez votre compte</h1>
-            <p>
-                <Link to='/'>Retourner à la page d'accueil</Link>
-            </p>
+            <div className={classes.Name}>
+                <NavLink to='/'>Cinéma Bergman</NavLink>
+            </div>
+            <div>
+                <Link to='/'>
+                    <p className={classes.toHome}>
+                        <i className='fas fa-angle-left'></i>Retourner à la page d'accueil
+                    </p>
+                </Link>
+            </div>
             <form className={classes.Form} onSubmit={e => onSubmit(e)}>
                 <div className={classes.field}>
                     <input
@@ -95,9 +101,14 @@ function Register() {
                 </div>
                 <input type='submit' className={classes.submit} value='Continuer'></input>
             </form>
-            <p className={classes.Registered}>
-                Vous avez déjà un compte ? <Link to='/login'>Connectez-vous</Link>
-            </p>
+            <div className={classes.Registered}>
+                Vous avez déjà un compte ?
+                <NavLink to='/login'>
+                    <p className={classes.toLogin}>
+                        Connectez-vous<i className='fas fa-angle-right'></i>
+                    </p>
+                </NavLink>
+            </div>
         </div>
     );
 }
