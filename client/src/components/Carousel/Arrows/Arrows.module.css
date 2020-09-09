@@ -1,0 +1,38 @@
+.Arrow {
+    box-sizing: border-box;
+    width: 80px;
+    max-width: 40%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    color: #97adc5;
+    opacity: 0;
+    transition: opacity ease-in-out 200ms;
+    z-index: 100;
+}
+
+.Arrow:hover {
+    opacity: 1;
+    cursor: pointer;
+}
+
+.right {
+    position: absolute;
+    right: 0;
+}
+
+.left {
+    position: absolute;
+    left: 0;
+}
+
+.Arrow i {
+    transition: all ease-in-out 200ms;
+}
+
+.Arrow i:hover {
+    transform: scale(1.1);
+}

@@ -1,12 +1,14 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import Main from './containers/Main';
 
-const App = () => {
+function App() {
     return (
-        <Fragment>
-            <h1>App</h1>
-        </Fragment>
+        <BrowserRouter>
+            <Main />
+        </BrowserRouter>
     );
-};
+}
 
 export default App;

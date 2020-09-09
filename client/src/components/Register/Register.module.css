@@ -1,0 +1,28 @@
+.container {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 50;
+    background-color: white;
+    height: 100%;
+    width: 450px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.Form {
+    width: 100%;
+}
+
+.field input {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 20px;
+    border-top: transparent;
+    border-right: transparent;
+    border-left: transparent;
+    border-bottom: 1px solid rgb(59, 63, 68, 0.2);
+    font-size: calc(0.1vw + 1rem);
+}

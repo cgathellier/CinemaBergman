@@ -1,0 +1,22 @@
+.container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+.illustration {
+    height: inherit;
+    width: inherit;
+}
+
+img {
+    height: inherit;
+    width: inherit;
+    object-fit: cover;
+}
+
+@media (max-width: 500px) {
+    .illustration {
+        display: none;
+    }
+}
