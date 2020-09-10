@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import classes from './Register.module.css';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
+import history from '../../history';
 
 function Register() {
     const [formData, setFormData] = useState({
@@ -38,8 +39,8 @@ function Register() {
 
                 const body = JSON.stringify(newUser);
 
-                const res = await axios.post('/api/users', body, config);
-                console.log(res.data);
+                await axios.post('/api/users', body, config);
+                history.push('/');
             } catch (error) {
                 console.error(error.response.data);
             }

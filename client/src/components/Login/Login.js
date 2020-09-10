@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import classes from './Login.module.css';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
+import history from '../../history';
 
-function Login() {
+function Login(props) {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -32,8 +33,8 @@ function Login() {
 
             const body = JSON.stringify(auth);
 
-            const res = await axios.post('/api/auth', body, config);
-            console.log(res.data);
+            await axios.post('/api/auth', body, config);
+            history.push('/');
         } catch (error) {
             console.error(error.response.data);
         }

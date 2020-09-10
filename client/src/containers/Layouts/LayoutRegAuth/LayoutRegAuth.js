@@ -3,10 +3,10 @@ import Register from '../../../components/Register/Register';
 import Login from '../../../components/Login/Login';
 import classes from './LayoutRegAuth.module.css';
 
-const LayoutRegAuth = ({ regOrAuth }) => {
+const LayoutRegAuth = props => {
     const imgCinema = require('../../../img/cinema.jpg');
 
-    const form = regOrAuth === 'register' ? <Register /> : <Login />;
+    const form = props.regOrAuth === 'register' ? <Register {...props} /> : <Login {...props} />;
     return (
         <div className={classes.container}>
             <div className={classes.illustration}>

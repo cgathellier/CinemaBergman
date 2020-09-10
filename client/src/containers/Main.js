@@ -1,11 +1,12 @@
 import React, { Component, Fragment } from 'react';
-import { Route } from 'react-router-dom';
+import { Route, Router } from 'react-router-dom';
 
 import LayoutHome from './Layouts/LayoutHome/LayoutHome';
 import LayoutFilms from './Layouts/LayoutFilms/LayoutFilms';
 import LayoutBooking from './Layouts/LayoutBooking/LayoutBooking';
 import LayoutRegAuth from './Layouts/LayoutRegAuth/LayoutRegAuth';
 import Toolbar from '../components/Toolbar/Toolbar';
+import history from '../history';
 
 const filmsSpecs = [
     {
@@ -74,30 +75,32 @@ class Main extends Component {
     render() {
         return (
             <Fragment>
-                <Toolbar />
-                <Route
-                    path='/'
-                    exact
-                    render={() => (
-                        <LayoutHome
-                            filmsSpecs={this.state.filmsList}
-                            onPosterClick={this.handlePosterClick}
-                        />
-                    )}
-                />
-                <Route
-                    path='/films'
-                    render={props => (
-                        <LayoutFilms
-                            filmsSpecs={this.state.filmsList}
-                            posterClicked={this.state.posterClicked}
-                            {...props}
-                        />
-                    )}
-                />
-                <Route path='/reservation' component={LayoutBooking} />
-                <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
-                <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
+                <Router history={history}>
+                    <Toolbar />
+                    <Route
+                        path='/'
+                        exact
+                        render={() => (
+                            <LayoutHome
+                                filmsSpecs={this.state.filmsList}
+                                onPosterClick={this.handlePosterClick}
+                            />
+                        )}
+                    />
+                    <Route
+                        path='/films'
+                        render={props => (
+                            <LayoutFilms
+                                filmsSpecs={this.state.filmsList}
+                                posterClicked={this.state.posterClicked}
+                                {...props}
+                            />
+                        )}
+                    />
+                    <Route path='/reservation' component={LayoutBooking} />
+                    <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
+                    <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
+                </Router>
             </Fragment>
         );
     }
