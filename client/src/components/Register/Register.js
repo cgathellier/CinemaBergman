@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import classes from './Register.module.css';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';

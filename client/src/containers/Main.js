@@ -1,11 +1,11 @@
 import React, { Component, Fragment } from 'react';
 import { Route } from 'react-router-dom';
 
-import Toolbar from '../components/Toolbar/Toolbar';
 import LayoutHome from './Layouts/LayoutHome/LayoutHome';
 import LayoutFilms from './Layouts/LayoutFilms/LayoutFilms';
 import LayoutBooking from './Layouts/LayoutBooking/LayoutBooking';
 import LayoutRegAuth from './Layouts/LayoutRegAuth/LayoutRegAuth';
+import Toolbar from '../components/Toolbar/Toolbar';
 
 const filmsSpecs = [
     {
@@ -74,7 +74,7 @@ class Main extends Component {
     render() {
         return (
             <Fragment>
-                {/* <Toolbar /> */}
+                <Toolbar />
                 <Route
                     path='/'
                     exact

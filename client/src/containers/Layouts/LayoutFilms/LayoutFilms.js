@@ -3,7 +3,6 @@ import { Route } from 'react-router-dom';
 import classes from './LayoutFilms.module.css';
 import FilmsList from '../../../components/FilmsList/FilmsList';
 import FilmDetails from '../../../components/FilmDetails/FilmDetails';
-import Toolbar from '../../../components/Toolbar/Toolbar';
 
 class LayoutFilms extends Component {
     constructor(props) {
@@ -31,7 +30,6 @@ class LayoutFilms extends Component {
     render() {
         return (
             <Fragment>
-                <Toolbar />
                 <div className={classes.Container}>
                     <Route
                         path='/films'

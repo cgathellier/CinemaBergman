@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import Register from '../../../components/Register/Register';
 import Login from '../../../components/Login/Login';
 import classes from './LayoutRegAuth.module.css';

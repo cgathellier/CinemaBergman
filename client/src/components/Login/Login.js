@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import classes from './Login.module.css';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
