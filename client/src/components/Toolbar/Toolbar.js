@@ -1,8 +1,19 @@
-import React from 'react';
+import React, { useState } from 'react';
 import classes from './Toolbar.module.css';
 import { NavLink } from 'react-router-dom';
 
 const Toolbar = () => {
+    const [isAdmin, setIsAdmin] = useState(true);
+    const adminNav = isAdmin ? (
+        <NavLink to='/admin' activeClassName={classes.active}>
+            <div>
+                <i className={['fas fa-user-lock', classes.Icons].join(' ')}></i>Admin
+            </div>
+        </NavLink>
+    ) : (
+        ''
+    );
+
     return (
         <div className={classes.Toolbar}>
             <div className={classes.Presentation}>
@@ -22,12 +33,13 @@ const Toolbar = () => {
                 </div>
             </div>
             <div className={classes.Menu}>
+                {adminNav}
                 <NavLink to='/films' activeClassName={classes.active}>
                     <div>
                         <i className={['fas fa-film', classes.Icons].join(' ')}></i>Films
                     </div>
                 </NavLink>
-                <NavLink to='/michel' activeClassName={classes.active}>
+                <NavLink to='/billets' activeClassName={classes.active}>
                     <div>
                         <i className={['fas fa-receipt', classes.Icons].join(' ')}></i>Vos billets
                     </div>

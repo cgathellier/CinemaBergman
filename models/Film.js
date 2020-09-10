@@ -17,7 +17,7 @@ const FilmSchema = new mongoose.Schema({
         type: String,
         required,
     },
-    public: {
+    classification: {
         type: String,
         required,
     },

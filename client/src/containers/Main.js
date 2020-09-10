@@ -7,6 +7,7 @@ import LayoutBooking from './Layouts/LayoutBooking/LayoutBooking';
 import LayoutRegAuth from './Layouts/LayoutRegAuth/LayoutRegAuth';
 import Toolbar from '../components/Toolbar/Toolbar';
 import history from '../history';
+import AdminPanel from './Layouts/AdminPanel/AdminPanel';
 
 const filmsSpecs = [
     {
@@ -100,6 +101,7 @@ class Main extends Component {
                     <Route path='/reservation' component={LayoutBooking} />
                     <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
                     <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
+                    <Route path='/admin' render={() => <AdminPanel />} />
                 </Router>
             </Fragment>
         );
