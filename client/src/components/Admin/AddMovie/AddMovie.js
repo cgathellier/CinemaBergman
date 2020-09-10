@@ -1,16 +1,20 @@
 import React, { useState } from 'react';
 
 import classes from './AddMovie.module.css';
+import axios from 'axios';
 
 function AddMovie() {
+    const [showtimeDay, setShowtimeDay] = useState('');
+    const [showtimeHour, setShowtimeHour] = useState('');
+    const [showtimesArray, setShowtimesArray] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         director: '',
         duration: '',
         genre: '',
         classification: '',
-        onScreenDate: '',
-        showtimes: [],
+        release: '',
+        showtimes: '',
         poster: '',
         snap: '',
         synopsis: '',
@@ -22,7 +26,7 @@ function AddMovie() {
         duration,
         genre,
         classification,
-        onScreenDate,
+        release,
         showtimes,
         poster,
         snap,
@@ -33,8 +37,44 @@ function AddMovie() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
-    const onSubmit = e => {
+    const onDayChange = e => {
+        setShowtimeDay(e.target.value);
+    };
+
+    const onHourChange = e => {
+        setShowtimeHour(e.target.value);
+    };
+
+    const addShowtime = () => {
+        const horaire = { showtimeDay, showtimeHour };
+        setFormData({ ...formData, showtimes: horaire });
+    };
+
+    const onSubmit = async e => {
         e.preventDefault();
+
+        const newFilm = {
+            title,
+            director,
+            duration,
+            genre,
+            classification,
+            release,
+            showtimes,
+            poster,
+            snap,
+            synopsis,
+        };
+
+        const config = {
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        };
+
+        const body = JSON.stringify(newFilm);
+
+        await axios.post('/api/admin/film', body, config);
     };
 
     return (
@@ -91,11 +131,12 @@ function AddMovie() {
                     ></input>
                 </div>
                 <div className={classes.field}>
+                    <label for='release'>Date de sortie *</label>
                     <input
                         type='date'
-                        placeholder='Date de sortie *'
-                        value={onScreenDate}
-                        name='onScreenDate'
+                        id='release'
+                        value={release}
+                        name='release'
                         required
                         onChange={e => onChange(e)}
                     ></input>
@@ -111,17 +152,40 @@ function AddMovie() {
                     ></input>
                 </div>
                 <div className={classes.field}>
+                    <p className={classes.addShowtimes}>Ajouter une séance *</p>
+                    <div className={classes.showtimes}>
+                        <div>
+                            <label for='date'>Date *</label>
+                            <input
+                                type='date'
+                                id='date'
+                                value={showtimes}
+                                name='showtimes'
+                                required
+                                onChange={e => onDayChange(e)}
+                            ></input>
+                        </div>
+                        <div>
+                            <label for='hour'>Heure *</label>
+                            <input
+                                type='time'
+                                id='hour'
+                                value={showtimes}
+                                name='showtimes'
+                                required
+                                onChange={e => onHourChange(e)}
+                            ></input>
+                        </div>
+                    </div>
                     <input
-                        type='datetime-local'
-                        placeholder='Séances *'
-                        value={showtimes}
-                        name='showtimes'
-                        required
-                        onChange={e => onChange(e)}
+                        type='submit'
+                        className={classes.submitSchedule}
+                        value='Ajouter la séance'
+                        onSubmit={() => addShowtime()}
                     ></input>
                 </div>
                 <div className={classes.field}>
-                    <label for='poster'>Affiche du film</label>
+                    <label for='poster'>Affiche du film *</label>
                     <input
                         type='file'
                         accept='.jpeg'
@@ -133,7 +197,7 @@ function AddMovie() {
                     ></input>
                 </div>
                 <div className={classes.field}>
-                    <label for='snap'>Image extraite du film</label>
+                    <label for='snap'>Image extraite du film *</label>
                     <input
                         type='file'
                         accept='.jpeg'

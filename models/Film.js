@@ -21,12 +21,12 @@ const FilmSchema = new mongoose.Schema({
         type: String,
         required,
     },
-    onScreenDate: {
+    release: {
         type: Date,
         required,
     },
     showtimes: {
-        type: Date,
+        type: Array,
         required,
     },
     poster: {
