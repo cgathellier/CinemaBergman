@@ -7,6 +7,7 @@ function AddMovie() {
     const [Day, setDay] = useState('');
     const [Hour, setHour] = useState('');
     const [showtimesArray, setShowtimesArray] = useState([]);
+    // const [file, setFile] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         director: '',
@@ -15,6 +16,7 @@ function AddMovie() {
         classification: '',
         release: '',
         showtimes: null,
+        // images: null,
         poster: '',
         snap: '',
         synopsis: '',
@@ -30,6 +32,7 @@ function AddMovie() {
         showtimes,
         poster,
         snap,
+        // images,
         synopsis,
     } = formData;
 
@@ -82,6 +85,18 @@ function AddMovie() {
         setHour('');
     };
 
+    const onPosterChange = e => {
+        const newPoster = e.target.file;
+        // setFile(file => [e.target.file, ...file]);
+        setFormData({ ...formData, poster: newPoster });
+    };
+
+    const onSnapChange = e => {
+        const newSnap = e.target.file;
+        // setFile(file => [...file, e.target.file]);
+        setFormData({ ...formData, snap: newSnap });
+    };
+
     const onSubmit = async e => {
         e.preventDefault();
 
@@ -95,6 +110,7 @@ function AddMovie() {
             classification,
             release,
             showtimes,
+            // images,
             poster,
             snap,
             synopsis,
@@ -250,9 +266,9 @@ function AddMovie() {
                         accept='.jpeg'
                         id='poster'
                         value={poster}
-                        name='poster'
+                        name='image'
                         required
-                        onChange={e => onChange(e)}
+                        onChange={e => onPosterChange(e)}
                     ></input>
                 </div>
                 <div className={classes.field}>
@@ -262,9 +278,9 @@ function AddMovie() {
                         accept='.jpeg'
                         id='snap'
                         value={snap}
-                        name='snap'
+                        name='image'
                         required
-                        onChange={e => onChange(e)}
+                        onChange={e => onSnapChange(e)}
                     ></input>
                 </div>
 
