@@ -51,19 +51,19 @@
     font-family: 'Roboto', sans-serif;
 }
 
-.showtimes {
+.showtimesInputs {
     display: flex;
 }
 
-.showtimes div {
+.showtimesInputs div {
     flex: 1;
 }
 
-.showtimes div:first-of-type {
+.showtimesInputs div:first-of-type {
     margin-right: 30px;
 }
 
-.showtimes label {
+.showtimesInputs label {
     background-color: #ff9742;
     width: fit-content;
     padding: 10px 20px;
@@ -81,6 +81,7 @@
     font-weight: 700;
     color: #2e2e2e;
     align-self: center;
+    cursor: pointer;
 }
 
 .submitSchedule {
@@ -94,4 +95,47 @@
     font-size: calc(0.1vw + 1rem);
     font-weight: 700;
     color: #2e2e2e;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.st_list {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+}
+
+.st_elt {
+    width: fit-content;
+    padding: 5px;
+    height: 30px;
+    margin-right: 20px;
+    border: solid 1px #3b3f44;
+    border-radius: 8px;
+    box-shadow: 0px 5px 5px rgb(59, 63, 68, 0.3);
+    position: relative;
+}
+
+.crossContainer {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(50%, -50%);
+    color: #db0000;
+}
+
+.cross {
+    font-size: calc(0.1vw + 1rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: solid 1px #db0000;
+    background-color: white;
+    border-radius: 50%;
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
 }
