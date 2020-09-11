@@ -151,25 +151,45 @@ function AddMovie() {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
-                    <input
+                <div className={[classes.field, classes.list].join(' ')}>
+                    <label htmlFor='Genre'>Genre *</label>
+                    <select
                         type='text'
-                        placeholder='Genre *'
                         value={genre}
                         name='genre'
                         required
                         onChange={e => onChange(e)}
-                    ></input>
+                        id='Genre'
+                    >
+                        <option value='Comédie'>Comédie</option>
+                        <option value='Drame'>Drame</option>
+                        <option value='Historique'>Historique</option>
+                        <option value='Thriller'>Thriller</option>
+                        <option value='Horreur'>Horreur</option>
+                        <option value='Romantique'>Romantique</option>
+                        <option value='Science-Fiction'>Science-Fiction</option>
+                        <option value='Guerre'>Guerre</option>
+                        <option value='Action'>Action</option>
+                        <option value='Documentaire'>Documentaire</option>
+                        <option value='Aventure'>Aventure</option>
+                        <option value='Policier'>Policier</option>
+                    </select>
                 </div>
-                <div className={classes.field}>
-                    <input
+                <div className={[classes.field, classes.list].join(' ')}>
+                    <label htmlFor='Classification'>Classification *</label>
+                    <select
                         type='text'
-                        placeholder='Classification *'
                         value={classification}
                         name='classification'
                         required
                         onChange={e => onChange(e)}
-                    ></input>
+                        id='Classification'
+                    >
+                        <option value='Tous publics'>Tous publics</option>
+                        <option value='-12'>-12</option>
+                        <option value='-16'>-16</option>
+                        <option value='-18'>-18</option>
+                    </select>
                 </div>
                 <div className={classes.field}>
                     <label htmlFor='release'>Date de sortie *</label>

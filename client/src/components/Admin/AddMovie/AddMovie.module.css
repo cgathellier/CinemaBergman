@@ -139,3 +139,19 @@
     height: 20px;
     cursor: pointer;
 }
+
+.field select {
+    width: 200px;
+    height: 40px;
+    margin: 20px 0;
+    padding: 0px 10px;
+    font-size: calc(0.1vw + 1rem);
+    outline: none;
+    border-radius: 8px;
+    background-color: white;
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+}
