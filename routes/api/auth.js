@@ -26,7 +26,7 @@ router.get('/', auth, async (req, res) => {
 });
 
 // @route           POST api/auth
-// @description     Authenticate user & get token
+// @description     Login user & get token
 // @access          Public
 router.post(
     '/',
@@ -45,13 +45,13 @@ router.post(
         try {
             let user = await User.findOne({ email });
             if (!user) {
-                return res.status(400).send('Invalid credentials');
+                return res.status(400).send('Identifiants incorrects');
             }
 
             const match = await bcrypt.compare(password, user.password);
 
             if (!match) {
-                return res.status(400).send('Invalid credentials');
+                return res.status(400).send('Identifiants incorrects');
             }
 
             const payload = {

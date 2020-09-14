@@ -12,13 +12,13 @@ function AddMovie() {
         title: '',
         director: '',
         duration: '',
-        genre: '',
-        classification: '',
+        genre: 'Comédie',
+        classification: 'Tous publics',
         release: '',
-        showtimes: null,
+        showtimes: showtimesArray,
         // images: null,
-        poster: '',
-        snap: '',
+        // poster: '',
+        // snap: '',
         synopsis: '',
     });
 
@@ -30,8 +30,8 @@ function AddMovie() {
         classification,
         release,
         showtimes,
-        poster,
-        snap,
+        // poster,
+        // snap,
         // images,
         synopsis,
     } = formData;
@@ -61,6 +61,7 @@ function AddMovie() {
                 item => item[Object.keys(item)[0]] !== targetDay && item[Object.keys(item)[1]] !== targetHour
             )
         );
+        setFormData({ ...formData, showtimes: showtimesArray });
     };
 
     const onChange = e => {
@@ -81,21 +82,22 @@ function AddMovie() {
         }
         const horaire = { Day, Hour };
         setShowtimesArray(showtimesArray => [...showtimesArray, horaire]);
+        setFormData({ ...formData, showtimes: showtimesArray });
         setDay('');
         setHour('');
     };
 
-    const onPosterChange = e => {
-        const newPoster = e.target.file;
-        // setFile(file => [e.target.file, ...file]);
-        setFormData({ ...formData, poster: newPoster });
-    };
+    // const onPosterChange = e => {
+    //     const newPoster = e.target.file;
+    //     // setFile(file => [e.target.file, ...file]);
+    //     setFormData({ ...formData, poster: newPoster });
+    // };
 
-    const onSnapChange = e => {
-        const newSnap = e.target.file;
-        // setFile(file => [...file, e.target.file]);
-        setFormData({ ...formData, snap: newSnap });
-    };
+    // const onSnapChange = e => {
+    //     const newSnap = e.target.file;
+    //     // setFile(file => [...file, e.target.file]);
+    //     setFormData({ ...formData, snap: newSnap });
+    // };
 
     const onSubmit = async e => {
         e.preventDefault();
@@ -111,15 +113,18 @@ function AddMovie() {
             release,
             showtimes,
             // images,
-            poster,
-            snap,
+            // poster,
+            // snap,
             synopsis,
         };
+
+        const token = localStorage.getItem('token');
 
         try {
             const config = {
                 headers: {
                     'Content-Type': 'application/json',
+                    'x-auth-token': token,
                 },
             };
 
@@ -238,7 +243,6 @@ function AddMovie() {
                                 id='date'
                                 value={Day}
                                 name='showtimes'
-                                required
                                 onChange={e => onDayChange(e)}
                             ></input>
                         </div>
@@ -249,7 +253,6 @@ function AddMovie() {
                                 id='hour'
                                 value={Hour}
                                 name='showtimes'
-                                required
                                 onChange={e => onHourChange(e)}
                             ></input>
                         </div>
@@ -259,11 +262,11 @@ function AddMovie() {
                     </div>
                     <div className={classes.st_list}>{showtimesElt}</div>
                 </div>
-                <div className={classes.field}>
+                {/* <div className={classes.field}>
                     <label htmlFor='poster'>Affiche du film *</label>
                     <input
                         type='file'
-                        accept='.jpeg'
+                        accept='.jpeg,.jpg,.png'
                         id='poster'
                         value={poster}
                         name='image'
@@ -275,14 +278,14 @@ function AddMovie() {
                     <label htmlFor='snap'>Image extraite du film *</label>
                     <input
                         type='file'
-                        accept='.jpeg'
+                        accept='.jpeg,.jpg,.png'
                         id='snap'
                         value={snap}
                         name='image'
                         required
                         onChange={e => onSnapChange(e)}
                     ></input>
-                </div>
+                </div> */}
 
                 <input type='submit' className={classes.submit} value='Continuer'></input>
             </form>

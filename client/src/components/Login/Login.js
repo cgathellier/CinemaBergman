@@ -33,7 +33,10 @@ function Login(props) {
 
             const body = JSON.stringify(auth);
 
-            await axios.post('/api/auth', body, config);
+            const res = await axios.post('/api/auth', body, config);
+            localStorage.setItem('token', res.data.token);
+
+            console.log(res.data);
             history.push('/');
         } catch (error) {
             console.error(error.response.data);

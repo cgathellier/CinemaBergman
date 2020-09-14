@@ -22,17 +22,6 @@ const filmsSpecs = [
         },
     },
     {
-        title: 'Blade Runner',
-        director: 'Ridley Scott',
-        duration: '1h57',
-        genre: 'SF/Thriller',
-        public: 'Tous publics',
-        year: '1982',
-        shows: {
-            today: '',
-        },
-    },
-    {
         title: "Breakfast at Tiffany's",
         director: 'Blake Edwards',
         duration: '1h55',
