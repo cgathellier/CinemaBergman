@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 import classes from './AddMovie.module.css';
 import axios from 'axios';
@@ -7,7 +7,6 @@ function AddMovie() {
     const [Day, setDay] = useState('');
     const [Hour, setHour] = useState('');
     const [showtimesArray, setShowtimesArray] = useState([]);
-    // const [file, setFile] = useState([]);
     const [formData, setFormData] = useState({
         title: '',
         director: '',
@@ -15,11 +14,14 @@ function AddMovie() {
         genre: 'Comédie',
         classification: 'Tous publics',
         release: '',
-        showtimes: showtimesArray,
-        // images: null,
+        showtimes: [],
         // poster: '',
         // snap: '',
         synopsis: '',
+    });
+
+    useEffect(() => {
+        setFormData({ ...formData, showtimes: showtimesArray });
     });
 
     const {
@@ -32,7 +34,6 @@ function AddMovie() {
         showtimes,
         // poster,
         // snap,
-        // images,
         synopsis,
     } = formData;
 
@@ -89,13 +90,11 @@ function AddMovie() {
 
     // const onPosterChange = e => {
     //     const newPoster = e.target.file;
-    //     // setFile(file => [e.target.file, ...file]);
     //     setFormData({ ...formData, poster: newPoster });
     // };
 
     // const onSnapChange = e => {
     //     const newSnap = e.target.file;
-    //     // setFile(file => [...file, e.target.file]);
     //     setFormData({ ...formData, snap: newSnap });
     // };
 
@@ -112,7 +111,6 @@ function AddMovie() {
             classification,
             release,
             showtimes,
-            // images,
             // poster,
             // snap,
             synopsis,
@@ -268,7 +266,6 @@ function AddMovie() {
                         type='file'
                         accept='.jpeg,.jpg,.png'
                         id='poster'
-                        value={poster}
                         name='image'
                         required
                         onChange={e => onPosterChange(e)}
@@ -280,7 +277,6 @@ function AddMovie() {
                         type='file'
                         accept='.jpeg,.jpg,.png'
                         id='snap'
-                        value={snap}
                         name='image'
                         required
                         onChange={e => onSnapChange(e)}

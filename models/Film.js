@@ -29,10 +29,6 @@ const FilmSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
-    // images: {
-    //     type: Array,
-    //     required: true,
-    // },
     // poster: {
     //     type: String,
     //     required: true,

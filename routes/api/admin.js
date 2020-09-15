@@ -60,8 +60,8 @@ router.post(
                 release,
                 showtimes,
                 synopsis,
-                // posterUrl: `${req.protocol}://${req.get('host')}/client/src/img/${poster.filename}`,
-                // snapUrl: `${req.protocol}://${req.get('host')}/client/src/img/${snap.filename}`,
+                // posterUrl: `${req.protocol}://${req.get('host')}/images/${poster.filename}`,
+                // snapUrl: `${req.protocol}://${req.get('host')}/images/${snap.filename}`,
             });
 
             await film.save();
