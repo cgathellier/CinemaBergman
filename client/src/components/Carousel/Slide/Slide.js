@@ -2,7 +2,7 @@ import React from 'react';
 import classes from './Slide.module.css';
 
 const Slide = props => {
-    const imgPath = require('../../../img/snaps/' + props.title + '.jpeg');
+    const imgPath = require('../../../../../images/snaps/' + props.title + '.jpeg');
 
     return (
         <div className={classes.Slide}>

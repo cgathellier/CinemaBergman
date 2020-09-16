@@ -1,18 +1,34 @@
-import React, { Fragment } from 'react';
+import axios from 'axios';
+import React, { Fragment, useEffect, useState } from 'react';
 import classes from './FilmDetails.module.css';
 
-const FilmDetails = props => {
-    const snapPath = require('../../img/snaps/' + props.match.params.title + '.jpeg');
-    const posterPath = require('../../img/posters/' + props.match.params.title + '.jpeg');
+const FilmDetails = () => {
+    const [filmData, setFilmData] = useState([]);
+
+    useEffect(() => {
+        const filmUrl = window.location.href;
+        const id = filmUrl.split('/films/')[1];
+        const getData = async () => {
+            const res = await axios.get(`/api/films/${id}`);
+            setFilmData(res.data);
+            console.log(res.data);
+        };
+        getData();
+    }, []);
+
+    const snapPath = require('../../../../images/snaps/' + filmData.title + '.jpeg');
+    const posterPath = require('../../../../images/posters/' + filmData.title + '.jpeg');
+
     return (
         <Fragment>
             <div className={classes.Container}>
-                <img src={snapPath} alt={props.match.params.title} className={classes.Instant} />
+                <img src={snapPath} alt={filmData.title} className={classes.Instant} />
                 <div className={classes.grad}>
                     <div>
-                        <p className={classes.Title}>Title</p>
+                        <p className={classes.Title}>{filmData.title}</p>
                         <p className={classes.GenreDuration}>
-                            Genre (Durée) <span className={classes.PublicBtn}>Public</span>
+                            {filmData.genre} ({filmData.duration})
+                            <span className={classes.PublicBtn}>{filmData.classification}</span>
                         </p>
                         <div className={classes.SeancesBtn}>
                             <i className='far fa-clock'></i> Séances
@@ -29,18 +45,14 @@ const FilmDetails = props => {
                     <div>
                         <div className={classes.Presentation}>
                             <div className={classes.imgContainer}>
-                                <img
-                                    src={posterPath}
-                                    alt={props.match.params.title}
-                                    className={classes.Poster}
-                                />
+                                <img src={posterPath} alt={filmData.title} className={classes.Poster} />
                             </div>
                             <div className={classes.Infos}>
                                 <p>
-                                    Sortie : <span>(date de sortie dans le cinéma)</span>
+                                    Sortie : <span>{filmData.release}</span>
                                 </p>
                                 <p>
-                                    Réalisé par <span>(Director)</span>
+                                    Réalisé par <span>{filmData.director}</span>
                                 </p>
                                 <p>Avec (Acteurs)</p>
                             </div>
@@ -52,11 +64,7 @@ const FilmDetails = props => {
                             <i className='far fa-star'></i>
                             <i className='far fa-star'></i>
                         </div>
-                        <div className={classes.Synopsis}>
-                            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec tellus posuere,
-                            ultrices purus vitae, sollicitudin odio. Nam at ante id felis condimentum
-                            lobortis. Nulla consectetur lorem ut arcu tristique, eu luctus ipsum malesuada.
-                        </div>
+                        <div className={classes.Synopsis}>{filmData.synopsis}</div>
                     </div>
                 </div>
             </div>

@@ -22,7 +22,7 @@ const AddMovie = () => {
 
     useEffect(() => {
         setFormData({ ...formData, showtimes: showtimesArray });
-    }, [showtimesArray, formData]);
+    }, [showtimesArray]);
 
     const {
         title,
@@ -128,7 +128,7 @@ const AddMovie = () => {
 
             const body = JSON.stringify(newFilm);
 
-            await axios.post('/api/film', body, config);
+            await axios.post('/api/films', body, config);
         } catch (error) {
             if (error.response.data) {
                 return console.log(error.response.data);

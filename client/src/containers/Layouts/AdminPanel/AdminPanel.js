@@ -16,8 +16,8 @@ const AdminPanel = () => {
                 </NavLink>
             </nav>
 
-            <Route exact path='/admin/addmovie' render={() => <AddMovie />} />
-            <Route exact path='/admin/modifymovie' render={() => <ModifyMovie />} />
+            <Route exact path='/admin/addmovie' component={AddMovie} />
+            <Route exact path='/admin/modifymovie' component={ModifyMovie} />
         </div>
     );
 };

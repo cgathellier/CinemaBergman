@@ -12,8 +12,8 @@ const LayoutFilms = props => {
         if (props.posterClicked) setPosterClicked(props.posterClicked);
     }, [props.posterClicked]);
 
-    const handlePosterClick = filmSpecs => {
-        setPosterClicked(filmSpecs);
+    const handleClickPoster = filmInfos => {
+        setPosterClicked(filmInfos);
     };
 
     return (
@@ -22,13 +22,11 @@ const LayoutFilms = props => {
                 <Route
                     path='/films'
                     exact
-                    render={() => (
-                        <FilmsList filmsSpecs={props.filmsSpecs} onPosterClick={() => handlePosterClick()} />
-                    )}
+                    render={() => <FilmsList filmsList={props.filmsList} onClickPoster={handleClickPoster} />}
                 />
                 <Route
                     path='/films/:title'
-                    render={props => <FilmDetails filmSpecs={posterClicked} {...props} />}
+                    render={props => <FilmDetails filmInfos={posterClicked} {...props} />}
                 />
             </div>
         </Fragment>

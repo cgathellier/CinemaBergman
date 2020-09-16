@@ -52,7 +52,8 @@
 
 .PublicBtn {
     color: white;
-    font-size: 0.8rem;
+    font-size: calc(0.1vw + 1rem);
+    margin-left: 20px;
     padding: 4px 13px;
     border-radius: 7px;
     background: rgba(96, 100, 105, 0.5);
@@ -62,7 +63,7 @@
     width: fit-content;
     color: white;
     font-weight: 500;
-    font-size: 1.2rem;
+    font-size: calc(0.4vw + 1rem);
     padding: 10px 35px;
     border-radius: 11px;
     background: #3b3f44;
@@ -80,7 +81,7 @@
     width: 100%;
     border-bottom: solid 1px rgb(59, 63, 68, 0.5);
     display: flex;
-    font-size: 0.9rem;
+    font-size: calc(0.1vw + 1rem);
     font-weight: 600;
     padding: 20px 0px;
 }
@@ -96,7 +97,6 @@
 
 .Toolbar span i {
     margin-right: 5px;
-    font-size: 1.1rem;
 }
 
 .Toolbar span:not(:last-of-type) {

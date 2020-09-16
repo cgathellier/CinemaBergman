@@ -72,6 +72,19 @@ router.post(
     }
 );
 
+// @route           GET api/film/:id
+// @description     Get one film
+// @access          Public
+
+router.get('/:id', async (req, res) => {
+    try {
+        let film = await Film.findOne({ _id: req.params.id });
+        return res.status(200).json(film);
+    } catch (error) {
+        return res.status(401).json({ error: error.message });
+    }
+});
+
 // @route           GET api/film
 // @description     Get all films
 // @access          Public
@@ -83,14 +96,6 @@ router.get('/', async (req, res) => {
     } catch (error) {
         return res.status(401).json({ error: error.message });
     }
-});
-
-// @route           GET api/film/:id
-// @description     Get one film
-// @access          Public
-
-router.get('/:id', async (req, res) => {
-    let film = await Film.findById;
 });
 
 module.exports = router;

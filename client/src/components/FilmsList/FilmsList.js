@@ -3,21 +3,21 @@ import FilmItem from './FilmItem/FilmItem';
 import classes from './FilmsList.module.css';
 
 const FilmsList = props => {
-    const handleClickPoster = filmSpecs => {
-        props.onPosterClick(filmSpecs);
+    const handleClickPoster = filmInfos => {
+        props.onClickPoster(filmInfos);
     };
 
     let filmItems;
-    if (props.filmsSpecs) {
-        let filmSpecs = props.filmsSpecs;
-        filmItems = filmSpecs.map((film, index) => {
+    if (props.filmsList) {
+        let filmsList = props.filmsList;
+        filmItems = filmsList.map((film, index) => {
             return (
                 <FilmItem
                     genre={film.genre}
                     title={film.title}
-                    fullSpecs={film}
+                    filmInfos={film}
                     key={film.title + index}
-                    onClickPoster={() => handleClickPoster()}
+                    onClickPoster={handleClickPoster}
                 />
             );
         });

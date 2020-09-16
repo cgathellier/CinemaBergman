@@ -10,7 +10,7 @@ const Carousel = props => {
     const [filmsList, setFilmsList] = useState([]);
 
     useEffect(() => {
-        setFilmsList(props.filmsSpecs);
+        setFilmsList(props.filmsList);
         setIntervalFunction();
         return () => clearIntervalFunction();
     }, [slideIndex]);
@@ -20,11 +20,11 @@ const Carousel = props => {
     let filmDisplayed;
     let currentSlide = null;
     let dots;
-    if (props.filmsSpecs) {
-        filmDisplayed = props.filmsSpecs[slideIndex];
+    if (props.filmsList) {
+        filmDisplayed = props.filmsList[slideIndex];
         if (filmDisplayed) {
             currentSlide = <Slide title={filmDisplayed.title} />;
-            dots = props.filmsSpecs.map((film, index) => {
+            dots = props.filmsList.map((film, index) => {
                 return (
                     <Dots
                         key={index}
@@ -39,7 +39,7 @@ const Carousel = props => {
 
     const previousFilm = () => {
         clearIntervalFunction();
-        const lastIndex = props.filmsSpecs.length - 1;
+        const lastIndex = props.filmsList.length - 1;
         const newIndex = slideIndex === 0 ? lastIndex : slideIndex - 1;
         setSlideIndex(newIndex);
         setIntervalFunction();
@@ -47,7 +47,7 @@ const Carousel = props => {
 
     const nextFilm = () => {
         clearIntervalFunction();
-        const lastIndex = props.filmsSpecs.length - 1;
+        const lastIndex = props.filmsList.length - 1;
         const newIndex = slideIndex === lastIndex ? 0 : slideIndex + 1;
         setSlideIndex(newIndex);
         setIntervalFunction();
@@ -61,7 +61,7 @@ const Carousel = props => {
 
     const setIntervalFunction = () => {
         interval = setInterval(() => {
-            const lastIndex = props.filmsSpecs.length - 1;
+            const lastIndex = props.filmsList.length - 1;
             const newIndex = slideIndex === lastIndex ? 0 : slideIndex + 1;
             setSlideIndex(newIndex);
         }, 5000);
