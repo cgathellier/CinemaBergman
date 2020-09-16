@@ -5,12 +5,12 @@ const auth = require('../../middleware/auth');
 const multer = require('multer');
 const { check, validationResult } = require('express-validator');
 
-// @route           POST api/admin/film
-// @description     Post a new film
+// @route           POST api/film
+// @description     Create a new film
 // @access          Private/admin
 
 router.post(
-    '/film',
+    '/',
     [
         auth,
         [
@@ -71,5 +71,26 @@ router.post(
         }
     }
 );
+
+// @route           GET api/film
+// @description     Get all films
+// @access          Public
+
+router.get('/', async (req, res) => {
+    try {
+        let films = await Film.find();
+        return res.status(200).json(films);
+    } catch (error) {
+        return res.status(401).json({ error: error.message });
+    }
+});
+
+// @route           GET api/film/:id
+// @description     Get one film
+// @access          Public
+
+router.get('/:id', async (req, res) => {
+    let film = await Film.findById;
+});
 
 module.exports = router;

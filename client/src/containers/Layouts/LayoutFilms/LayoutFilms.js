@@ -1,54 +1,38 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import classes from './LayoutFilms.module.css';
 import FilmsList from '../../../components/FilmsList/FilmsList';
 import FilmDetails from '../../../components/FilmDetails/FilmDetails';
 
-class LayoutFilms extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            posterClicked: [],
-        };
-    }
+const LayoutFilms = props => {
+    const [posterClicked, setPosterClicked] = useState([]);
 
-    componentDidMount() {
-        if (this.props.posterClicked) {
-            this.setState({ posterClicked: this.props.posterClicked });
-        }
+    useEffect(() => {
         window.scroll(0, 0);
-    }
+        if (props.posterClicked) setPosterClicked(props.posterClicked);
+    }, [props.posterClicked]);
 
-    componentDidUpdate() {
-        window.scroll(0, 0);
-    }
-
-    handlePosterClick = filmSpecs => {
-        this.setState({ posterClicked: filmSpecs });
+    const handlePosterClick = filmSpecs => {
+        setPosterClicked(filmSpecs);
     };
 
-    render() {
-        return (
-            <Fragment>
-                <div className={classes.Container}>
-                    <Route
-                        path='/films'
-                        exact
-                        render={() => (
-                            <FilmsList
-                                filmsSpecs={this.props.filmsSpecs}
-                                onPosterClick={this.handlePosterClick}
-                            />
-                        )}
-                    />
-                    <Route
-                        path='/films/:title'
-                        render={props => <FilmDetails filmSpecs={this.state.posterClicked} {...props} />}
-                    />
-                </div>
-            </Fragment>
-        );
-    }
-}
+    return (
+        <Fragment>
+            <div className={classes.Container}>
+                <Route
+                    path='/films'
+                    exact
+                    render={() => (
+                        <FilmsList filmsSpecs={props.filmsSpecs} onPosterClick={() => handlePosterClick()} />
+                    )}
+                />
+                <Route
+                    path='/films/:title'
+                    render={props => <FilmDetails filmSpecs={posterClicked} {...props} />}
+                />
+            </div>
+        </Fragment>
+    );
+};
 
 export default LayoutFilms;

@@ -1,103 +1,84 @@
-import React, { Component } from 'react';
+import React, { useEffect, useState } from 'react';
 import Arrows from './Arrows/Arrows';
 
 import classes from './Carousel.module.css';
 import Slide from './Slide/Slide';
 import Dots from './Dots/Dots';
 
+const Carousel = props => {
+    const [slideIndex, setSlideIndex] = useState(0);
+    const [filmsList, setFilmsList] = useState([]);
 
-class Carousel extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            slideIndex: 0,
-            filmsList: [],
+    useEffect(() => {
+        setFilmsList(props.filmsSpecs);
+        setIntervalFunction();
+        return () => clearIntervalFunction();
+    }, [slideIndex]);
+
+    let interval;
+
+    let filmDisplayed;
+    let currentSlide = null;
+    let dots;
+    if (props.filmsSpecs) {
+        filmDisplayed = props.filmsSpecs[slideIndex];
+        if (filmDisplayed) {
+            currentSlide = <Slide title={filmDisplayed.title} />;
+            dots = props.filmsSpecs.map((film, index) => {
+                return (
+                    <Dots
+                        key={index}
+                        selected={index === slideIndex ? 'true' : 'false'}
+                        index={index}
+                        handleClickDot={() => clickDot()}
+                    />
+                );
+            });
         }
-        this.interval = null;
     }
 
-    componentDidMount() {
-        this.setState({ filmsList: this.props.filmsSpecs });
-        this.setIntervalFunction();
-    }
+    const previousFilm = () => {
+        clearIntervalFunction();
+        const lastIndex = props.filmsSpecs.length - 1;
+        const newIndex = slideIndex === 0 ? lastIndex : slideIndex - 1;
+        setSlideIndex(newIndex);
+        setIntervalFunction();
+    };
 
-    componentWillUnmount() {
-        this.clearIntervalFunction();
-    }
+    const nextFilm = () => {
+        clearIntervalFunction();
+        const lastIndex = props.filmsSpecs.length - 1;
+        const newIndex = slideIndex === lastIndex ? 0 : slideIndex + 1;
+        setSlideIndex(newIndex);
+        setIntervalFunction();
+    };
 
-    previousFilm = () => {
-        this.clearIntervalFunction();
-        const lastIndex = this.props.filmsSpecs.length - 1;
-        const { slideIndex } = this.state;
-        const shouldIndexReset = slideIndex === 0;
-        const newIndex = shouldIndexReset ? lastIndex : slideIndex - 1;
-        this.setState({ slideIndex: newIndex })
-        this.setIntervalFunction();
-    }
+    const clickDot = index => {
+        clearIntervalFunction();
+        setSlideIndex(index);
+        setIntervalFunction();
+    };
 
-    nextFilm = () => {
-        this.clearIntervalFunction();
-        const lastIndex = this.props.filmsSpecs.length - 1;
-        const { slideIndex } = this.state;
-        const shouldIndexReset = slideIndex === lastIndex;
-        const newIndex = shouldIndexReset ? 0 : slideIndex + 1;
-        this.setState({ slideIndex: newIndex })
-        this.setIntervalFunction();
-    }
+    const setIntervalFunction = () => {
+        interval = setInterval(() => {
+            const lastIndex = props.filmsSpecs.length - 1;
+            const newIndex = slideIndex === lastIndex ? 0 : slideIndex + 1;
+            setSlideIndex(newIndex);
+        }, 5000);
+    };
 
-    clickDot = (index) => {
-        this.clearIntervalFunction();
-        this.setState({ slideIndex: index })
-        this.setIntervalFunction();
-    }
+    const clearIntervalFunction = () => {
+        clearInterval(interval);
+    };
 
-    setIntervalFunction = () => {
-        this.interval = setInterval(() => {
-            const lastIndex = this.props.filmsSpecs.length - 1;
-            const { slideIndex } = this.state;
-            const shouldIndexReset = slideIndex === lastIndex;
-            const newIndex = shouldIndexReset ? 0 : slideIndex + 1;
-            this.setState({ slideIndex: newIndex })
-        }, 5000)
-    }
-
-    clearIntervalFunction = () => {
-        clearInterval(this.interval)
-    }
-
-
-
-    render() {
-        let filmDisplayed;
-        let currentSlide = null;
-        let dots;
-        if (this.props.filmsSpecs) {
-            filmDisplayed = this.props.filmsSpecs[this.state.slideIndex];
-            if (filmDisplayed) {
-                currentSlide = <Slide title={filmDisplayed.title} />
-                dots = this.props.filmsSpecs.map((film, index) => {
-                    return (
-                        <Dots key={index} selected={index === this.state.slideIndex ? "true" : "false"} index={index} handleClickDot={this.clickDot} />
-                    )
-                })
-            }
-        }
-
-
-
-
-        return (
-            <div className={classes.Container}>
-                <Arrows direction="left" handleClick={this.previousFilm} />
-                <Arrows direction="right" handleClick={this.nextFilm} />
-                {currentSlide}
-                <div className={classes.dotsContainer}>
-                    {dots}
-                </div>
-            </div>
-        )
-    }
-}
-
+    return (
+        <div className={classes.Container}>
+            <Arrows direction='left' handleClick={() => previousFilm()} />
+            <Arrows direction='right' handleClick={() => nextFilm()} />
+            {currentSlide}
+            <div className={classes.dotsContainer}>{dots}</div>
+        </div>
+    );
+};
 
 export default Carousel;

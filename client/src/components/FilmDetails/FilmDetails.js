@@ -2,13 +2,12 @@ import React, { Fragment } from 'react';
 import classes from './FilmDetails.module.css';
 
 const FilmDetails = props => {
-    const instantPath = require('../../img/snaps/' + props.match.params.title + '.jpeg');
+    const snapPath = require('../../img/snaps/' + props.match.params.title + '.jpeg');
     const posterPath = require('../../img/posters/' + props.match.params.title + '.jpeg');
-    console.log(props);
     return (
         <Fragment>
             <div className={classes.Container}>
-                <img src={instantPath} alt={props.match.params.title} className={classes.Instant} />
+                <img src={snapPath} alt={props.match.params.title} className={classes.Instant} />
                 <div className={classes.grad}>
                     <div>
                         <p className={classes.Title}>Title</p>
@@ -21,7 +20,7 @@ const FilmDetails = props => {
                     </div>
                     <div className={classes.Toolbar}>
                         <span className={classes.Note}>
-                            <i class='fas fa-heart'></i>Noter
+                            <i className='fas fa-heart'></i>Noter
                         </span>
                         <span className={classes.AddList}>
                             <div className={classes.PlusSign}>+</div>Ajouter à la liste
@@ -47,11 +46,11 @@ const FilmDetails = props => {
                             </div>
                         </div>
                         <div className={classes.Stars}>
-                            <i class='far fa-star'></i>
-                            <i class='far fa-star'></i>
-                            <i class='far fa-star'></i>
-                            <i class='far fa-star'></i>
-                            <i class='far fa-star'></i>
+                            <i className='far fa-star'></i>
+                            <i className='far fa-star'></i>
+                            <i className='far fa-star'></i>
+                            <i className='far fa-star'></i>
+                            <i className='far fa-star'></i>
                         </div>
                         <div className={classes.Synopsis}>
                             Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras nec tellus posuere,

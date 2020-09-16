@@ -5,10 +5,6 @@ import { Link } from 'react-router-dom';
 const filmItem = props => {
     const imgPath = require('../../../img/posters/' + props.title + '.jpeg');
 
-    const handleClickSeances = () => {
-        props.onClickSeances(props.fullSpecs);
-    };
-
     const handleClickPoster = () => {
         props.onClickPoster(props.fullSpecs);
     };
@@ -26,9 +22,6 @@ const filmItem = props => {
                 </Link>
                 <div className={classes.genre} title={props.genre}>
                     {props.genre}
-                </div>
-                <div className={classes.seances} onClick={handleClickSeances}>
-                    <i className='far fa-clock'></i>Séances
                 </div>
             </div>
             <div className={classes.title} title={props.title}>

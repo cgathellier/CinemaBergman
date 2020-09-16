@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 import classes from './AddMovie.module.css';
 import axios from 'axios';
 
-function AddMovie() {
+const AddMovie = () => {
     const [Day, setDay] = useState('');
     const [Hour, setHour] = useState('');
     const [showtimesArray, setShowtimesArray] = useState([]);
@@ -22,7 +22,7 @@ function AddMovie() {
 
     useEffect(() => {
         setFormData({ ...formData, showtimes: showtimesArray });
-    });
+    }, [showtimesArray, formData]);
 
     const {
         title,
@@ -128,7 +128,7 @@ function AddMovie() {
 
             const body = JSON.stringify(newFilm);
 
-            await axios.post('/api/admin/film', body, config);
+            await axios.post('/api/film', body, config);
         } catch (error) {
             if (error.response.data) {
                 return console.log(error.response.data);
@@ -287,6 +287,6 @@ function AddMovie() {
             </form>
         </div>
     );
-}
+};
 
 export default AddMovie;

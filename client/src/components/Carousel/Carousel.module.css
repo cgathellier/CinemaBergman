@@ -1,6 +1,7 @@
 .Container {
     width: 100%;
-    height: 600px;
+    /* height: 600px; */
+    height: calc(100vh - 140px);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -18,20 +19,12 @@
     right: 80px;
 }
 
-
 @media (max-width: 549px) {
-    .Container {
-        height: 250px;
-    }
     .dotsContainer {
         right: 40px;
     }
-    
 }
 @media (max-width: 849px) {
-    .Container {
-        height: 450px;
-    }
     .dotsContainer {
         right: 60px;
     }

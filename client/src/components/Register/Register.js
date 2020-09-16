@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 
-function Register() {
+const Register = () => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -112,6 +112,6 @@ function Register() {
             </div>
         </div>
     );
-}
+};
 
 export default Register;

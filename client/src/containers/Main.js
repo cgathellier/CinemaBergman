@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { Route, Router } from 'react-router-dom';
 
 import LayoutHome from './Layouts/LayoutHome/LayoutHome';
@@ -17,6 +17,17 @@ const filmsSpecs = [
         genre: 'Drame/Histoire',
         public: 'Tous publics',
         year: '1984',
+        shows: {
+            today: '',
+        },
+    },
+    {
+        title: 'Blade Runner',
+        director: 'Ridley Scott',
+        duration: '1h57',
+        genre: 'SF/Thriller',
+        public: 'Tous publics',
+        year: '1982',
         shows: {
             today: '',
         },
@@ -45,56 +56,42 @@ const filmsSpecs = [
     },
 ];
 
-class Main extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            filmsList: [],
-            posterClicked: null,
-        };
-    }
+const Main = () => {
+    const [filmsList, setFilmList] = useState([]);
+    const [posterClicked, setPosterClicked] = useState(null);
 
-    componentDidMount() {
-        this.setState({ filmsList: filmsSpecs });
-    }
+    useEffect(() => {
+        setFilmList(filmsSpecs);
+    }, [filmsSpecs]);
 
-    handlePosterClick = filmSpecs => {
-        this.setState({ posterClicked: filmSpecs });
+    const handlePosterClick = filmSpecs => {
+        setPosterClicked(filmSpecs);
     };
 
-    render() {
-        return (
-            <Fragment>
-                <Router history={history}>
-                    <Toolbar />
-                    <Route
-                        path='/'
-                        exact
-                        render={() => (
-                            <LayoutHome
-                                filmsSpecs={this.state.filmsList}
-                                onPosterClick={this.handlePosterClick}
-                            />
-                        )}
-                    />
-                    <Route
-                        path='/films'
-                        render={props => (
-                            <LayoutFilms
-                                filmsSpecs={this.state.filmsList}
-                                posterClicked={this.state.posterClicked}
-                                {...props}
-                            />
-                        )}
-                    />
-                    <Route path='/reservation' component={LayoutBooking} />
-                    <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
-                    <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
-                    <Route path='/admin' render={() => <AdminPanel />} />
-                </Router>
-            </Fragment>
-        );
-    }
-}
+    return (
+        <Fragment>
+            <Router history={history}>
+                <Toolbar />
+                <Route
+                    path='/'
+                    exact
+                    render={() => (
+                        <LayoutHome filmsSpecs={filmsList} onPosterClick={() => handlePosterClick()} />
+                    )}
+                />
+                <Route
+                    path='/films'
+                    render={props => (
+                        <LayoutFilms filmsSpecs={filmsList} posterClicked={posterClicked} {...props} />
+                    )}
+                />
+                <Route path='/reservation' component={LayoutBooking} />
+                <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
+                <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
+                <Route path='/admin' render={() => <AdminPanel />} />
+            </Router>
+        </Fragment>
+    );
+};
 
 export default Main;
