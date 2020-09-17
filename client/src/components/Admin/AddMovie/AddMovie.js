@@ -3,6 +3,19 @@ import React, { useEffect, useState } from 'react';
 import classes from './AddMovie.module.css';
 import axios from 'axios';
 
+class Film {
+    title;
+    director;
+    duration;
+    genre;
+    classification;
+    release;
+    showtimes;
+    poster;
+    // snap;
+    synopsis;
+}
+
 const AddMovie = () => {
     const [Day, setDay] = useState('');
     const [Hour, setHour] = useState('');
@@ -16,7 +29,7 @@ const AddMovie = () => {
         release: '',
         showtimes: [],
         poster: '',
-        snap: '',
+        // snap: '',
         synopsis: '',
     });
 
@@ -33,7 +46,7 @@ const AddMovie = () => {
         release,
         showtimes,
         poster,
-        snap,
+        // snap,
         synopsis,
     } = formData;
 
@@ -90,39 +103,21 @@ const AddMovie = () => {
 
     const onPosterChange = e => {
         const newPoster = e.target.files[0];
+        // const newPoster = e.target.value;
         setFormData({ ...formData, poster: newPoster });
     };
 
-    const onSnapChange = e => {
-        const newSnap = e.target.files[0];
-        setFormData({ ...formData, snap: newSnap });
-    };
+    // const onSnapChange = e => {
+    //     const newSnap = e.target.files[0];
+    //     setFormData({ ...formData, snap: newSnap });
+    // };
 
-    const onSubmit = async e => {
+    const onSubmit = e => {
         e.preventDefault();
 
-        const newFilm = {
-            title,
-            director,
-            duration,
-            genre,
-            classification,
-            release,
-            showtimes,
-            poster,
-            snap,
-            synopsis,
-        };
-
-        const formData = new FormData();
-
-        Object.entries(newFilm).forEach(film => {
-            formData.append(`${film[0]}`, film[1]);
-        });
-
-        const token = localStorage.getItem('token');
-
         try {
+            const token = localStorage.getItem('token');
+
             const config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
@@ -130,9 +125,49 @@ const AddMovie = () => {
                 },
             };
 
+            const newFilm = new Film();
+            newFilm.title = title;
+            newFilm.director = director;
+            newFilm.duration = duration;
+            newFilm.genre = genre;
+            newFilm.classification = classification;
+            newFilm.release = release;
+            newFilm.showtimes = showtimes;
+            newFilm.poster = '';
+            // newFilm.snap,
+            newFilm.synopsis = synopsis;
+
+            const createNewFilmWithFile = async (film, image) => {
+                const formData = new FormData();
+                formData.append('film', JSON.stringify(film));
+                formData.append('image', image, film.title);
+                const res = await axios.post('/api/films', formData, config);
+                console.log(res.data);
+                return res.data;
+            };
+
+            createNewFilmWithFile(newFilm, poster);
+
+            // const newFilm = {
+            //     title,
+            //     director,
+            //     duration,
+            //     genre,
+            //     classification,
+            //     release,
+            //     showtimes,
+            //     poster,
+            //     // snap,
+            //     synopsis,
+            // };
+
+            // Object.entries(newFilm).forEach(film => {
+            //     formData.append(`${film[0]}`, film[1]);
+            // });
+
             // const body = JSON.stringify(newFilm);
 
-            await axios.post('/api/films', formData, config);
+            // await axios.post('/api/films', formData, config);
         } catch (error) {
             // if (error.response.data) {
             //     return console.log(error.response.data);
@@ -275,7 +310,7 @@ const AddMovie = () => {
                         onChange={e => onPosterChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                {/* <div className={classes.field}>
                     <label htmlFor='snap'>Image extraite du film *</label>
                     <input
                         type='file'
@@ -285,7 +320,7 @@ const AddMovie = () => {
                         required
                         onChange={e => onSnapChange(e)}
                     ></input>
-                </div>
+                </div> */}
 
                 <input type='submit' className={classes.submit} value='Continuer'></input>
             </form>
