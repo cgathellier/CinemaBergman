@@ -29,14 +29,14 @@ const FilmSchema = new mongoose.Schema({
         type: Array,
         required: true,
     },
-    // poster: {
-    //     type: String,
-    //     required: true,
-    // },
-    // snap: {
-    //     type: String,
-    //     required: true,
-    // },
+    poster: {
+        type: String,
+        required: true,
+    },
+    snap: {
+        type: String,
+        required: true,
+    },
     synopsis: {
         type: String,
         required: true,

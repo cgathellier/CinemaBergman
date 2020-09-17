@@ -15,8 +15,8 @@ const AddMovie = () => {
         classification: 'Tous publics',
         release: '',
         showtimes: [],
-        // poster: '',
-        // snap: '',
+        poster: '',
+        snap: '',
         synopsis: '',
     });
 
@@ -32,8 +32,8 @@ const AddMovie = () => {
         classification,
         release,
         showtimes,
-        // poster,
-        // snap,
+        poster,
+        snap,
         synopsis,
     } = formData;
 
@@ -88,20 +88,18 @@ const AddMovie = () => {
         setHour('');
     };
 
-    // const onPosterChange = e => {
-    //     const newPoster = e.target.file;
-    //     setFormData({ ...formData, poster: newPoster });
-    // };
+    const onPosterChange = e => {
+        const newPoster = e.target.files[0];
+        setFormData({ ...formData, poster: newPoster });
+    };
 
-    // const onSnapChange = e => {
-    //     const newSnap = e.target.file;
-    //     setFormData({ ...formData, snap: newSnap });
-    // };
+    const onSnapChange = e => {
+        const newSnap = e.target.files[0];
+        setFormData({ ...formData, snap: newSnap });
+    };
 
     const onSubmit = async e => {
         e.preventDefault();
-
-        setFormData({ ...formData, showtimes: showtimesArray });
 
         const newFilm = {
             title,
@@ -111,28 +109,34 @@ const AddMovie = () => {
             classification,
             release,
             showtimes,
-            // poster,
-            // snap,
+            poster,
+            snap,
             synopsis,
         };
+
+        const formData = new FormData();
+
+        Object.entries(newFilm).forEach(film => {
+            formData.append(`${film[0]}`, film[1]);
+        });
 
         const token = localStorage.getItem('token');
 
         try {
             const config = {
                 headers: {
-                    'Content-Type': 'application/json',
+                    'Content-Type': 'multipart/form-data',
                     'x-auth-token': token,
                 },
             };
 
-            const body = JSON.stringify(newFilm);
+            // const body = JSON.stringify(newFilm);
 
-            await axios.post('/api/films', body, config);
+            await axios.post('/api/films', formData, config);
         } catch (error) {
-            if (error.response.data) {
-                return console.log(error.response.data);
-            }
+            // if (error.response.data) {
+            //     return console.log(error.response.data);
+            // }
             console.log(error);
         }
     };
@@ -260,7 +264,7 @@ const AddMovie = () => {
                     </div>
                     <div className={classes.st_list}>{showtimesElt}</div>
                 </div>
-                {/* <div className={classes.field}>
+                <div className={classes.field}>
                     <label htmlFor='poster'>Affiche du film *</label>
                     <input
                         type='file'
@@ -281,7 +285,7 @@ const AddMovie = () => {
                         required
                         onChange={e => onSnapChange(e)}
                     ></input>
-                </div> */}
+                </div>
 
                 <input type='submit' className={classes.submit} value='Continuer'></input>
             </form>

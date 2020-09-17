@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const Film = require('../../models/Film');
 const auth = require('../../middleware/auth');
-const multer = require('multer');
+const multer = require('../../middleware/auth');
 const { check, validationResult } = require('express-validator');
 
 // @route           POST api/film
@@ -21,11 +21,11 @@ router.post(
             check('classification', 'La classification du film est requise').not().isEmpty(),
             check('release', 'La date de sortie est requise').not().isEmpty(),
             check('showtimes', 'Veuillez indiquer des séances pour ce film').isArray(),
-            // check('poster', 'Une affiche du film est attendue').not().isEmpty(),
-            // check('snap', 'Une image tirée du film est attendue').not().isEmpty(),
+            check('poster', 'Une affiche du film est attendue').not().isEmpty(),
+            check('snap', 'Une image tirée du film est attendue').not().isEmpty(),
             check('synopsis', 'Le synopsis du film est requis').not().isEmpty(),
         ],
-        // multer,
+        multer,
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -49,7 +49,7 @@ router.post(
                 showtimes,
                 synopsis,
             } = req.body;
-            // const [poster, snap] = req.file;
+            const [poster, snap] = req.files;
 
             film = new Film({
                 title,
@@ -60,8 +60,8 @@ router.post(
                 release,
                 showtimes,
                 synopsis,
-                // posterUrl: `${req.protocol}://${req.get('host')}/images/${poster.filename}`,
-                // snapUrl: `${req.protocol}://${req.get('host')}/images/${snap.filename}`,
+                posterUrl: `${req.protocol}://${req.get('host')}/images/${poster.filename}`,
+                snapUrl: `${req.protocol}://${req.get('host')}/images/${snap.filename}`,
             });
 
             await film.save();
