@@ -25,49 +25,40 @@ const upload = multer({ dest: 'images/' });
 //     check('synopsis', 'Le synopsis du film est requis').not().isEmpty(),
 // ],
 
-router.post('/', auth, upload.single('image'), async (req, res) => {
-    // const errors = validationResult(req);
-    // if (!errors.isEmpty()) {
-    //     return res.status(500).json({ errors: errors.array() });
-    // }
-    try {
-        const reqObj = JSON.parse(req.body.film);
-        console.log(req.file);
-        console.dir(JSON.parse(req.body.film));
-        // let film = await Film.findOne({ title: reqObj.title });
-        // if (film) {
-        //     return res.status(500).send('Ce film est déjà dans la base de donnée');
+router.post(
+    '/',
+    auth,
+    upload.fields([
+        { name: 'poster', maxCount: 1 },
+        { name: 'snap', maxCount: 1 },
+    ]),
+    async (req, res) => {
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return res.status(500).json({ errors: errors.array() });
         // }
+        try {
+            const reqObj = JSON.parse(req.body.film);
+            console.log(req.files);
+            console.dir(JSON.parse(req.body.film));
+            let film = await Film.findOne({ title: reqObj.title });
+            if (film) {
+                return res.status(500).send('Ce film est déjà dans la base de donnée');
+            }
 
-        // const { title, director, duration, genre, classification, release, showtimes, synopsis } = reqObj;
+            film = new Film({
+                ...reqObj,
+                poster: `${req.protocol}://${req.get('host')}/images/${req.files['poster'][0].filename}`,
+                snap: `${req.protocol}://${req.get('host')}/images/${req.files['snap'][0].filename}`,
+            });
 
-        // const [poster, snap] = req.file;
-        const poster = req.file;
-
-        film = new Film({
-            ...reqObj,
-            poster: `${req.protocol}://${req.get('host')}/images/${req.file.filename}`,
-        });
-
-        // film = new Film({
-        //     title,
-        //     director,
-        //     duration,
-        //     genre,
-        //     classification,
-        //     release,
-        //     showtimes,
-        //     synopsis,
-        //     posterUrl: `${req.protocol}://${req.get('host')}/images/${poster.filename}`,
-        //     // snapUrl: `${req.protocol}://${req.get('host')}/images/${snap.filename}`,
-        // });
-
-        await film.save();
-        return res.status(201).json(film);
-    } catch (error) {
-        return res.status(500).json({ error: error.message });
+            await film.save();
+            return res.status(201).json(film);
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
     }
-});
+);
 
 // @route           GET api/film/:id
 // @description     Get one film

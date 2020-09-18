@@ -6,13 +6,14 @@ import axios from 'axios';
 class Film {
     title;
     director;
+    actors;
     duration;
     genre;
     classification;
     release;
     showtimes;
     poster;
-    // snap;
+    snap;
     synopsis;
 }
 
@@ -23,13 +24,14 @@ const AddMovie = () => {
     const [formData, setFormData] = useState({
         title: '',
         director: '',
+        actors: '',
         duration: '',
         genre: 'Comédie',
         classification: 'Tous publics',
         release: '',
         showtimes: [],
         poster: '',
-        // snap: '',
+        snap: '',
         synopsis: '',
     });
 
@@ -40,13 +42,14 @@ const AddMovie = () => {
     const {
         title,
         director,
+        actors,
         duration,
         genre,
         classification,
         release,
         showtimes,
         poster,
-        // snap,
+        snap,
         synopsis,
     } = formData;
 
@@ -103,14 +106,13 @@ const AddMovie = () => {
 
     const onPosterChange = e => {
         const newPoster = e.target.files[0];
-        // const newPoster = e.target.value;
         setFormData({ ...formData, poster: newPoster });
     };
 
-    // const onSnapChange = e => {
-    //     const newSnap = e.target.files[0];
-    //     setFormData({ ...formData, snap: newSnap });
-    // };
+    const onSnapChange = e => {
+        const newSnap = e.target.files[0];
+        setFormData({ ...formData, snap: newSnap });
+    };
 
     const onSubmit = e => {
         e.preventDefault();
@@ -128,25 +130,30 @@ const AddMovie = () => {
             const newFilm = new Film();
             newFilm.title = title;
             newFilm.director = director;
+            newFilm.actors = actors;
             newFilm.duration = duration;
             newFilm.genre = genre;
             newFilm.classification = classification;
             newFilm.release = release;
             newFilm.showtimes = showtimes;
             newFilm.poster = '';
-            // newFilm.snap,
+            newFilm.snap = '';
             newFilm.synopsis = synopsis;
 
-            const createNewFilmWithFile = async (film, image) => {
+            const createNewFilmWithFile = async (film, poster, snap) => {
                 const formData = new FormData();
                 formData.append('film', JSON.stringify(film));
-                formData.append('image', image, film.title);
+                formData.append('poster', poster, film.title);
+                formData.append('snap', snap, film.title);
                 const res = await axios.post('/api/films', formData, config);
-                console.log(res.data);
+                if (res.status === 201) {
+                    document.location.reload();
+                    window.scroll(0, 0);
+                }
                 return res.data;
             };
 
-            createNewFilmWithFile(newFilm, poster);
+            createNewFilmWithFile(newFilm, poster, snap);
 
             // const newFilm = {
             //     title,
@@ -164,14 +171,7 @@ const AddMovie = () => {
             // Object.entries(newFilm).forEach(film => {
             //     formData.append(`${film[0]}`, film[1]);
             // });
-
-            // const body = JSON.stringify(newFilm);
-
-            // await axios.post('/api/films', formData, config);
         } catch (error) {
-            // if (error.response.data) {
-            //     return console.log(error.response.data);
-            // }
             console.log(error);
         }
     };
@@ -202,6 +202,16 @@ const AddMovie = () => {
                 <div className={classes.field}>
                     <input
                         type='text'
+                        placeholder='Acteurs et actrices, séparés par une virgule *'
+                        value={actors}
+                        name='actors'
+                        required
+                        onChange={e => onChange(e)}
+                    ></input>
+                </div>
+                <div className={classes.field}>
+                    <input
+                        type='text'
                         placeholder='Durée *'
                         value={duration}
                         name='duration'
@@ -224,7 +234,7 @@ const AddMovie = () => {
                         <option value='Historique'>Historique</option>
                         <option value='Thriller'>Thriller</option>
                         <option value='Horreur'>Horreur</option>
-                        <option value='Romantique'>Romantique</option>
+                        <option value='Romance'>Romance</option>
                         <option value='Science-Fiction'>Science-Fiction</option>
                         <option value='Guerre'>Guerre</option>
                         <option value='Action'>Action</option>
@@ -310,7 +320,7 @@ const AddMovie = () => {
                         onChange={e => onPosterChange(e)}
                     ></input>
                 </div>
-                {/* <div className={classes.field}>
+                <div className={classes.field}>
                     <label htmlFor='snap'>Image extraite du film *</label>
                     <input
                         type='file'
@@ -320,7 +330,7 @@ const AddMovie = () => {
                         required
                         onChange={e => onSnapChange(e)}
                     ></input>
-                </div> */}
+                </div>
 
                 <input type='submit' className={classes.submit} value='Continuer'></input>
             </form>

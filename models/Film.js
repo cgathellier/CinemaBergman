@@ -9,6 +9,10 @@ const FilmSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
+    actors: {
+        type: String,
+        required: true,
+    },
     duration: {
         type: String,
         required: true,
@@ -33,10 +37,10 @@ const FilmSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-    // snap: {
-    //     type: String,
-    //     required: true,
-    // },
+    snap: {
+        type: String,
+        required: true,
+    },
     synopsis: {
         type: String,
         required: true,
