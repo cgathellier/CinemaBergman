@@ -16,7 +16,7 @@ const LayoutHome = props => {
         <Fragment>
             <div className={classes.Container}>
                 <Carousel filmsList={props.filmsList} />
-                {/* <FilmsList filmsList={props.filmsList} onClickPoster={handlePosterClick} /> */}
+                <FilmsList filmsList={props.filmsList} onClickPoster={handlePosterClick} />
             </div>
         </Fragment>
     );

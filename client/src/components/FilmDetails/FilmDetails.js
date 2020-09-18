@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import classes from './FilmDetails.module.css';
 
-const FilmDetails = () => {
+const FilmDetails = props => {
     const [filmData, setFilmData] = useState([]);
 
     useEffect(() => {
@@ -16,13 +16,10 @@ const FilmDetails = () => {
         getData();
     }, []);
 
-    const snapPath = require('../../../../images/' + filmData.title + '.jpeg');
-    const posterPath = require('../../../../images/' + filmData.title + '.jpeg');
-
     return (
         <Fragment>
             <div className={classes.Container}>
-                <img src={snapPath} alt={filmData.title} className={classes.Instant} />
+                <img src={filmData.snap} alt={filmData.title} className={classes.Instant} />
                 <div className={classes.grad}>
                     <div>
                         <p className={classes.Title}>{filmData.title}</p>
@@ -45,7 +42,7 @@ const FilmDetails = () => {
                     <div>
                         <div className={classes.Presentation}>
                             <div className={classes.imgContainer}>
-                                <img src={posterPath} alt={filmData.title} className={classes.Poster} />
+                                <img src={filmData.poster} alt={filmData.title} className={classes.Poster} />
                             </div>
                             <div className={classes.Infos}>
                                 <p>

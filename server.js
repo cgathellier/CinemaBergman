@@ -1,6 +1,6 @@
 const express = require('express');
 const connectDB = require('./config/db');
-
+const path = require('path');
 const app = express();
 
 connectDB();
@@ -19,7 +19,7 @@ app.use(express.json({ extended: false }));
 
 app.get('/', (req, res) => res.send('Server is running'));
 
-app.use(express.static(__dirname + 'images'));
+app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/films', require('./routes/api/films'));

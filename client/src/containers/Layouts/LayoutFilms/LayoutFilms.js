@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import classes from './LayoutFilms.module.css';
 import FilmsList from '../../../components/FilmsList/FilmsList';
-import FilmDetails from '../../../components/FilmDetails/FilmDetails';
 
 const LayoutFilms = props => {
     const [posterClicked, setPosterClicked] = useState([]);
@@ -23,10 +22,6 @@ const LayoutFilms = props => {
                     path='/films'
                     exact
                     render={() => <FilmsList filmsList={props.filmsList} onClickPoster={handleClickPoster} />}
-                />
-                <Route
-                    path='/films/:title'
-                    render={props => <FilmDetails filmInfos={posterClicked} {...props} />}
                 />
             </div>
         </Fragment>
