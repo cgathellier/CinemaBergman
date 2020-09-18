@@ -6,24 +6,39 @@ import Slide from './Slide/Slide';
 import Dots from './Dots/Dots';
 
 const Carousel = props => {
+    const [filmsList, setFilmsList] = useState();
     const [slideIndex, setSlideIndex] = useState(0);
-    const [filmsList, setFilmsList] = useState([]);
 
-    useEffect(() => {
-        setFilmsList(props.filmsList);
-        setIntervalFunction();
-        return () => clearIntervalFunction();
-    }, [slideIndex]);
+    // useEffect(() => {
+    //     const setState = async () => {
+    //         await setFilmsList(props.filmsList);
+    //         console.log(props);
+    //     };
+    //     setState();
+    // });
+
+    // useEffect(() => {
+    //     setIntervalFunction();
+    //     return () => clearIntervalFunction();
+    // }, [slideIndex]);
 
     let interval;
-
     let filmDisplayed;
-    let currentSlide = null;
+    let currentSlide;
     let dots;
+
     if (props.filmsList) {
+        // console.log(filmsList);
         filmDisplayed = props.filmsList[slideIndex];
+        console.log(filmDisplayed);
         if (filmDisplayed) {
-            currentSlide = <Slide title={filmDisplayed.title} />;
+            currentSlide = (
+                <Slide
+                    title={filmDisplayed.title}
+                    filmDisplayed={filmDisplayed}
+                    filmSnap={filmDisplayed.snap}
+                />
+            );
             dots = props.filmsList.map((film, index) => {
                 return (
                     <Dots
@@ -75,6 +90,7 @@ const Carousel = props => {
         <div className={classes.Container}>
             <Arrows direction='left' handleClick={() => previousFilm()} />
             <Arrows direction='right' handleClick={() => nextFilm()} />
+            {/* <Slide title={filmsList[slideIndex].title} filmDisplayed={filmsList[slideIndex]} />; */}
             {currentSlide}
             <div className={classes.dotsContainer}>{dots}</div>
         </div>

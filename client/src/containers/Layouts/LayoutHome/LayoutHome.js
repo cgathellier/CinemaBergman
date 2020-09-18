@@ -1,9 +1,13 @@
-import React, { Fragment } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import Carousel from '../../../components/Carousel/Carousel';
 import FilmsList from '../../../components/FilmsList/FilmsList';
 import classes from './LayoutHome.module.css';
 
 const LayoutHome = props => {
+    useEffect(() => {
+        console.log(props.filmsList);
+    }, [props.filmsList]);
+
     const handlePosterClick = filmInfos => {
         props.onClickPoster(filmInfos);
     };
@@ -12,7 +16,7 @@ const LayoutHome = props => {
         <Fragment>
             <div className={classes.Container}>
                 <Carousel filmsList={props.filmsList} />
-                <FilmsList filmsList={props.filmsList} onClickPoster={handlePosterClick} />
+                {/* <FilmsList filmsList={props.filmsList} onClickPoster={handlePosterClick} /> */}
             </div>
         </Fragment>
     );

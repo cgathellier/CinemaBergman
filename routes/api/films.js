@@ -1,9 +1,10 @@
 const express = require('express');
 const router = express.Router();
+const path = require('path');
+const { check, validationResult, body } = require('express-validator');
 const Film = require('../../models/Film');
 const auth = require('../../middleware/auth');
 // const multer = require('../../middleware/auth');
-const { check, validationResult, body } = require('express-validator');
 
 const multer = require('multer');
 const upload = multer({ dest: 'images/' });
@@ -60,6 +61,19 @@ router.post(
     }
 );
 
+// @route           GET api/film
+// @description     Get all films
+// @access          Public
+
+router.get('/', async (req, res) => {
+    try {
+        let films = await Film.find();
+        return res.status(200).json(films);
+    } catch (error) {
+        return res.status(401).json({ error: error.message });
+    }
+});
+
 // @route           GET api/film/:id
 // @description     Get one film
 // @access          Public
@@ -73,16 +87,16 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// @route           GET api/film
-// @description     Get all films
-// @access          Public
+// @route           GET api/film/images/:filename
+// @description     Get image from static folder
+// @access
 
-router.get('/', async (req, res) => {
+router.get('/images/:filename', async (req, res) => {
     try {
-        let films = await Film.find();
-        return res.status(200).json(films);
+        filename = req.params.filename;
+        return res.sendFile(`${__dirname}/images/${filename}.jpeg`));
     } catch (error) {
-        return res.status(401).json({ error: error.message });
+        return res.status(404).json({ error: error.message });
     }
 });
 

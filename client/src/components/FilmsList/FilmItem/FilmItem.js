@@ -1,9 +1,12 @@
 import React from 'react';
 import classes from './FilmItem.module.css';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-const filmItem = ({ filmInfos, onClickPoster }) => {
-    const imgPath = require('../../../../../images/posters/' + filmInfos.title + '.jpeg');
+const filmItem = async ({ filmInfos, onClickPoster }) => {
+    // const posterPath = require('../../../../../images/' + filmInfos.poster + '.jpeg');
+    const posterPath = await axios.get(`/api/films/${filmInfos._id}`);
+    const poster = posterPath.data.poster;
 
     const handleClickPoster = () => {
         onClickPoster(filmInfos);
@@ -14,7 +17,7 @@ const filmItem = ({ filmInfos, onClickPoster }) => {
             <div className={classes.imgContainer}>
                 <Link to={'/films/' + filmInfos._id}>
                     <img
-                        src={imgPath}
+                        src={posterPath}
                         alt={filmInfos.title}
                         className={classes.Poster}
                         onClick={handleClickPoster}

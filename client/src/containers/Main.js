@@ -3,13 +3,13 @@ import { Route, Router } from 'react-router-dom';
 import axios from 'axios';
 
 import LayoutHome from './Layouts/LayoutHome/LayoutHome';
-import LayoutFilms from './Layouts/LayoutFilms/LayoutFilms';
-import LayoutBooking from './Layouts/LayoutBooking/LayoutBooking';
-import LayoutRegAuth from './Layouts/LayoutRegAuth/LayoutRegAuth';
+// import LayoutFilms from './Layouts/LayoutFilms/LayoutFilms';
+// import LayoutBooking from './Layouts/LayoutBooking/LayoutBooking';
+// import LayoutRegAuth from './Layouts/LayoutRegAuth/LayoutRegAuth';
 import Toolbar from '../components/Toolbar/Toolbar';
 import history from '../history';
-import AdminPanel from './Layouts/AdminPanel/AdminPanel';
-import FilmDetails from '../components/FilmDetails/FilmDetails';
+// import AdminPanel from './Layouts/AdminPanel/AdminPanel';
+// import FilmDetails from '../components/FilmDetails/FilmDetails';
 
 const Main = () => {
     const [filmsList, setFilmList] = useState([]);
@@ -18,8 +18,8 @@ const Main = () => {
     useEffect(() => {
         window.scroll(0, 0);
         const getData = async () => {
-            const res = await axios.get('/api/films');
-            setFilmList(res.data);
+            const res = await axios.get('http://localhost:5000/api/films');
+            await setFilmList(res.data);
         };
         getData();
     }, []);
@@ -37,7 +37,7 @@ const Main = () => {
                     exact
                     render={() => <LayoutHome filmsList={filmsList} onClickPoster={handlePosterClick} />}
                 />
-                <Route
+                {/* <Route
                     path='/films'
                     render={props => (
                         <LayoutFilms filmsList={filmsList} posterClicked={posterClicked} {...props} />
@@ -51,7 +51,7 @@ const Main = () => {
                 <Route path='/reservation' component={LayoutBooking} />
                 <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
                 <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
-                <Route path='/admin' render={() => <AdminPanel />} />
+                <Route path='/admin' render={() => <AdminPanel />} /> */}
             </Router>
         </Fragment>
     );

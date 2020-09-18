@@ -16,8 +16,8 @@ const FilmDetails = () => {
         getData();
     }, []);
 
-    const snapPath = require('../../../../images/snaps/' + filmData.title + '.jpeg');
-    const posterPath = require('../../../../images/posters/' + filmData.title + '.jpeg');
+    const snapPath = require('../../../../images/' + filmData.title + '.jpeg');
+    const posterPath = require('../../../../images/' + filmData.title + '.jpeg');
 
     return (
         <Fragment>
