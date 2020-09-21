@@ -17,6 +17,7 @@ class Film {
     poster;
     snap;
     synopsis;
+    coucou;
 }
 
 const ModifyMovie = () => {
