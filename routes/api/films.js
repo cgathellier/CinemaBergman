@@ -40,8 +40,8 @@ router.post(
         // }
         try {
             const reqObj = JSON.parse(req.body.film);
-            console.log(req.files);
-            console.dir(JSON.parse(req.body.film));
+            console.log(reqObj);
+            // console.dir(JSON.parse(req.body.film));
             let film = await Film.findOne({ title: reqObj.title });
             if (film) {
                 return res.status(500).send('Ce film est déjà dans la base de donnée');

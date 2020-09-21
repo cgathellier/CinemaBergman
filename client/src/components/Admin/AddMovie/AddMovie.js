@@ -106,6 +106,7 @@ const AddMovie = () => {
 
     const onPosterChange = e => {
         const newPoster = e.target.files[0];
+        console.log(e.target.files);
         setFormData({ ...formData, poster: newPoster });
     };
 
@@ -154,23 +155,6 @@ const AddMovie = () => {
             };
 
             createNewFilmWithFile(newFilm, poster, snap);
-
-            // const newFilm = {
-            //     title,
-            //     director,
-            //     duration,
-            //     genre,
-            //     classification,
-            //     release,
-            //     showtimes,
-            //     poster,
-            //     // snap,
-            //     synopsis,
-            // };
-
-            // Object.entries(newFilm).forEach(film => {
-            //     formData.append(`${film[0]}`, film[1]);
-            // });
         } catch (error) {
             console.log(error);
         }

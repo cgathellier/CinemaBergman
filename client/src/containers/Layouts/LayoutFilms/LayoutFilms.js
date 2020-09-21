@@ -21,7 +21,13 @@ const LayoutFilms = props => {
                 <Route
                     path='/films'
                     exact
-                    render={() => <FilmsList filmsList={props.filmsList} onClickPoster={handleClickPoster} />}
+                    render={() => (
+                        <FilmsList
+                            filmsList={props.filmsList}
+                            onClickPoster={handleClickPoster}
+                            path='/films/'
+                        />
+                    )}
                 />
             </div>
         </Fragment>

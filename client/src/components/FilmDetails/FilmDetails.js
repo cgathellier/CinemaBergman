@@ -11,7 +11,6 @@ const FilmDetails = props => {
         const getData = async () => {
             const res = await axios.get(`/api/films/${id}`);
             setFilmData(res.data);
-            console.log(res.data);
         };
         getData();
     }, []);

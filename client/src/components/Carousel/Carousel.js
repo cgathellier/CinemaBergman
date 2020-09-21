@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Arrows from './Arrows/Arrows';
 
 import classes from './Carousel.module.css';
@@ -15,7 +15,6 @@ const Carousel = props => {
 
     if (props.filmsList) {
         filmDisplayed = props.filmsList[slideIndex];
-        console.log(filmDisplayed);
         if (filmDisplayed) {
             currentSlide = (
                 <Slide

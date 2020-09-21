@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import classes from './Slide.module.css';
-import axios from 'axios';
 
 const Slide = props => {
     return (

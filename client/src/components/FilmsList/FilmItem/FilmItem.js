@@ -1,9 +1,8 @@
 import React from 'react';
 import classes from './FilmItem.module.css';
 import { Link } from 'react-router-dom';
-import axios from 'axios';
 
-const filmItem = ({ filmInfos, onClickPoster }) => {
+const filmItem = ({ filmInfos, onClickPoster, path }) => {
     const handleClickPoster = () => {
         onClickPoster(filmInfos);
     };
@@ -11,7 +10,7 @@ const filmItem = ({ filmInfos, onClickPoster }) => {
     return (
         <div className={classes.FilmItem}>
             <div className={classes.imgContainer}>
-                <Link to={'/films/' + filmInfos._id}>
+                <Link to={path + filmInfos._id}>
                     <img
                         src={filmInfos.poster}
                         alt={filmInfos.title}
