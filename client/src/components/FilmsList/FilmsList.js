@@ -11,14 +11,7 @@ const FilmsList = props => {
     if (props.filmsList) {
         let filmsList = props.filmsList;
         filmItems = filmsList.map((film, index) => {
-            return (
-                <FilmItem
-                    filmInfos={film}
-                    key={film.title + index}
-                    // onClickPoster={handleClickPoster} path
-                    {...props}
-                />
-            );
+            return <FilmItem filmInfos={film} key={film.title + index} {...props} />;
         });
     }
 
