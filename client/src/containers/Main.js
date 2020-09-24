@@ -13,7 +13,6 @@ import FilmDetails from '../components/FilmDetails/FilmDetails';
 
 const Main = () => {
     const [filmsList, setFilmList] = useState([]);
-    const [posterClicked, setPosterClicked] = useState(null);
 
     useEffect(() => {
         window.scroll(0, 0);
@@ -24,30 +23,14 @@ const Main = () => {
         getData();
     }, []);
 
-    const handlePosterClick = film => {
-        setPosterClicked(film);
-    };
-
     return (
         <Fragment>
             <Router history={history}>
                 <Toolbar />
-                <Route
-                    path='/'
-                    exact
-                    render={() => <LayoutHome filmsList={filmsList} onClickPoster={handlePosterClick} />}
-                />
-                <Route
-                    path='/films'
-                    render={props => (
-                        <LayoutFilms filmsList={filmsList} posterClicked={posterClicked} {...props} />
-                    )}
-                />
+                <Route path='/' exact render={() => <LayoutHome filmsList={filmsList} />} />
+                <Route path='/films' render={props => <LayoutFilms filmsList={filmsList} {...props} />} />
 
-                <Route
-                    path='/films/:id'
-                    render={props => <FilmDetails filmInfos={posterClicked} {...props} />}
-                />
+                <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
                 <Route path='/reservation' component={LayoutBooking} />
                 <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
                 <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />

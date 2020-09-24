@@ -2,21 +2,12 @@ import React from 'react';
 import classes from './FilmItem.module.css';
 import { Link } from 'react-router-dom';
 
-const filmItem = ({ filmInfos, onClickPoster, path }) => {
-    const handleClickPoster = () => {
-        onClickPoster(filmInfos);
-    };
-
+const filmItem = ({ filmInfos, path }) => {
     return (
         <div className={classes.FilmItem}>
             <div className={classes.imgContainer}>
                 <Link to={path + filmInfos._id}>
-                    <img
-                        src={filmInfos.poster}
-                        alt={filmInfos.title}
-                        className={classes.Poster}
-                        onClick={handleClickPoster}
-                    />
+                    <img src={filmInfos.poster} alt={filmInfos.title} className={classes.Poster} />
                 </Link>
                 <div className={classes.genre} title={filmInfos.genre}>
                     {filmInfos.genre}

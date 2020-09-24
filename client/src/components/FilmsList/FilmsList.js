@@ -3,10 +3,6 @@ import FilmItem from './FilmItem/FilmItem';
 import classes from './FilmsList.module.css';
 
 const FilmsList = props => {
-    const handleClickPoster = filmInfos => {
-        props.onClickPoster(filmInfos);
-    };
-
     let filmItems;
     if (props.filmsList) {
         let filmsList = props.filmsList;

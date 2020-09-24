@@ -2,7 +2,7 @@ import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
 import classes from './FilmDetails.module.css';
 
-const FilmDetails = props => {
+const FilmDetails = () => {
     const [filmData, setFilmData] = useState([]);
 
     useEffect(() => {

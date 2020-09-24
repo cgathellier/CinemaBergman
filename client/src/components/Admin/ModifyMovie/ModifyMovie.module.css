@@ -70,6 +70,11 @@
     border-radius: 8px;
 }
 
+.submitContainer {
+    display: flex;
+    flex-wrap: nowrap;
+}
+
 .submit {
     width: 50%;
     height: 50px;
@@ -154,4 +159,21 @@
 .list {
     display: flex;
     flex-direction: column;
+}
+
+.delete {
+    width: 50%;
+    height: 50px;
+    margin: 20px 0px;
+    background-color: #ff0000;
+    border: none;
+    border-radius: 8px;
+    font-size: calc(0.3vw + 1rem);
+    font-weight: 700;
+    color: #ffffff;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transform: translateX(50%);
 }

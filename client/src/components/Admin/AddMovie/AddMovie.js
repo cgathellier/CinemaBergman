@@ -106,7 +106,6 @@ const AddMovie = () => {
 
     const onPosterChange = e => {
         const newPoster = e.target.files[0];
-        console.log(e.target.files);
         setFormData({ ...formData, poster: newPoster });
     };
 

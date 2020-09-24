@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
+import history from '../../../history';
 import FilmsList from '../../FilmsList/FilmsList';
 import classes from './ModifyMovie.module.css';
 
@@ -16,16 +17,15 @@ class Film {
     poster;
     snap;
     synopsis;
-    coucou;
 }
 
 const ModifyMovie = () => {
     const [filmsList, setFilmsList] = useState([]);
-    const [posterClicked, setPosterClicked] = useState([]);
     const [Day, setDay] = useState('');
     const [Hour, setHour] = useState('');
     const [showtimesArray, setShowtimesArray] = useState([]);
-    const [formData, setFormData] = useState({
+    const [filmInfos, setFilmInfos] = useState({
+        _id: '',
         title: '',
         director: '',
         actors: '',
@@ -52,7 +52,7 @@ const ModifyMovie = () => {
         poster,
         snap,
         synopsis,
-    } = posterClicked;
+    } = filmInfos;
 
     let showtimesElt = showtimesArray.map((showtime, index) => {
         const { Day, Hour } = showtime;
@@ -83,19 +83,15 @@ const ModifyMovie = () => {
         const getData = async () => {
             const url = window.location.href;
             const key = '/modifymovie/';
-            const filmID = url.includes(key) ? url.split(key)[1] : null;
-            if (filmID) {
-                const res = await axios.get(`/api/films/${filmID}`)
-                await 
+            if (url.includes(key)) {
+                const filmID = url.split(key)[1];
+                const res = await axios.get(`/api/films/${filmID}`);
+                await setFilmInfos(res.data);
+                await setShowtimesArray(res.data.showtimes);
             }
         };
-        getData()
+        getData();
     }, [window.location.href]);
-
-    const handleClickPoster = async filmInfos => {
-        await setPosterClicked(filmInfos);
-        await console.log(filmInfos._id);
-    };
 
     const onClickCross = e => {
         let targetDay = e.target.getAttribute('day');
@@ -105,11 +101,11 @@ const ModifyMovie = () => {
                 item => item[Object.keys(item)[0]] !== targetDay && item[Object.keys(item)[1]] !== targetHour
             )
         );
-        setFormData({ ...formData, showtimes: showtimesArray });
+        setFilmInfos({ ...filmInfos, showtimes: showtimesArray });
     };
 
     const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
+        setFilmInfos({ ...filmInfos, [e.target.name]: e.target.value });
     };
 
     const onDayChange = e => {
@@ -126,20 +122,19 @@ const ModifyMovie = () => {
         }
         const horaire = { Day, Hour };
         setShowtimesArray(showtimesArray => [...showtimesArray, horaire]);
-        setFormData({ ...formData, showtimes: showtimesArray });
+        setFilmInfos({ ...filmInfos, showtimes: showtimesArray });
         setDay('');
         setHour('');
     };
 
     const onPosterChange = e => {
         const newPoster = e.target.files[0];
-        console.log(e.target.files);
-        setFormData({ ...formData, poster: newPoster });
+        setFilmInfos({ ...filmInfos, poster: newPoster });
     };
 
     const onSnapChange = e => {
         const newSnap = e.target.files[0];
-        setFormData({ ...formData, snap: newSnap });
+        setFilmInfos({ ...filmInfos, snap: newSnap });
     };
 
     const onSubmit = e => {
@@ -148,7 +143,7 @@ const ModifyMovie = () => {
         try {
             const token = localStorage.getItem('token');
 
-            const config = {
+            let config = {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                     'x-auth-token': token,
@@ -156,6 +151,7 @@ const ModifyMovie = () => {
             };
 
             const newFilm = new Film();
+            newFilm._id = _id;
             newFilm.title = title;
             newFilm.director = director;
             newFilm.actors = actors;
@@ -168,12 +164,36 @@ const ModifyMovie = () => {
             newFilm.snap = '';
             newFilm.synopsis = synopsis;
 
-            const createNewFilmWithFile = async (film, poster, snap) => {
-                const formData = new FormData();
-                formData.append('film', JSON.stringify(film));
-                formData.append('poster', poster, film.title);
-                formData.append('snap', snap, film.title);
-                const res = await axios.post('/api/films', formData, config);
+            const modifyFilmWithFile = async (film, poster, snap) => {
+                let formData;
+                if (typeof poster === 'string' && typeof snap === 'string') {
+                    film.poster = poster;
+                    film.snap = snap;
+                    formData = film;
+                    config = {
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'x-auth-token': token,
+                        },
+                    };
+                } else if (typeof poster === 'string' && typeof snap === 'object') {
+                    film.poster = poster;
+                    formData = new FormData();
+                    formData.append('film', JSON.stringify(film));
+                    formData.append('snap', snap, film.title);
+                } else if (typeof poster === 'object' && typeof snap === 'string') {
+                    film.snap = snap;
+                    formData = new FormData();
+                    formData.append('film', JSON.stringify(film));
+                    formData.append('poster', poster, film.title);
+                } else {
+                    formData = new FormData();
+                    formData.append('film', JSON.stringify(film));
+                    formData.append('poster', poster, film.title);
+                    formData.append('snap', snap, film.title);
+                }
+
+                const res = await axios.put(`/api/films/${film._id}`, formData, config);
                 if (res.status === 201) {
                     document.location.reload();
                     window.scroll(0, 0);
@@ -181,10 +201,28 @@ const ModifyMovie = () => {
                 return res.data;
             };
 
-            createNewFilmWithFile(newFilm, poster, snap);
+            modifyFilmWithFile(newFilm, poster, snap);
         } catch (error) {
             console.log(error);
         }
+    };
+
+    const onDelete = async e => {
+        e.preventDefault();
+
+        let token = localStorage.getItem('token');
+        let config = {
+            headers: {
+                'x-auth-token': token,
+            },
+        };
+        const deleteFilm = async () => {
+            const res = await axios.delete(`/api/films/${_id}`, config);
+            return res.data;
+        };
+        await deleteFilm();
+        await history.replace('/admin/modifymovie');
+        await document.location.reload();
     };
 
     return (
@@ -192,13 +230,7 @@ const ModifyMovie = () => {
             <Route
                 path='/admin/modifymovie'
                 exact
-                render={() => (
-                    <FilmsList
-                        filmsList={filmsList}
-                        onClickPoster={handleClickPoster}
-                        path='/admin/modifymovie/'
-                    />
-                )}
+                render={() => <FilmsList filmsList={filmsList} path='/admin/modifymovie/' />}
             />
             <Route path='/admin/modifymovie/:id'>
                 <div>
@@ -288,9 +320,9 @@ const ModifyMovie = () => {
                             <input
                                 type='date'
                                 id='release'
-                                value={release}
+                                // value={release}
                                 name='release'
-                                required
+                                // required
                                 onChange={e => onChange(e)}
                             ></input>
                         </div>
@@ -340,7 +372,6 @@ const ModifyMovie = () => {
                                 accept='.jpeg,.jpg,.png'
                                 id='poster'
                                 name='image'
-                                required
                                 onChange={e => onPosterChange(e)}
                             ></input>
                         </div>
@@ -351,13 +382,21 @@ const ModifyMovie = () => {
                                 accept='.jpeg,.jpg,.png'
                                 id='snap'
                                 name='image'
-                                required
                                 onChange={e => onSnapChange(e)}
                             ></input>
                         </div>
 
-                        <input type='submit' className={classes.submit} value='Continuer'></input>
+                        <input
+                            type='submit'
+                            className={classes.submit}
+                            value='Enregistrer les modifications'
+                        ></input>
                     </form>
+                    <div>
+                        <div className={classes.delete} onClick={e => onDelete(e)}>
+                            Supprimer
+                        </div>
+                    </div>
                 </div>
             </Route>
         </div>
