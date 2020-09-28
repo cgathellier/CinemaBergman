@@ -4,13 +4,16 @@ import classes from './FilmDetails.module.css';
 
 const FilmDetails = () => {
     const [filmData, setFilmData] = useState([]);
+    const [posts, setPosts] = useState([]);
 
     useEffect(() => {
         const filmUrl = window.location.href;
         const id = filmUrl.split('/films/')[1];
         const getData = async () => {
             const res = await axios.get(`/api/films/${id}`);
-            setFilmData(res.data);
+            await setFilmData(res.data);
+            const getPosts = await axios.get(`/api/posts/${id}`);
+            setPosts(getPosts.data);
         };
         getData();
     }, []);
@@ -66,6 +69,9 @@ const FilmDetails = () => {
             </div>
             <div>
                 <div>Séances</div>
+            </div>
+            <div>
+                <div>Posts</div>
             </div>
         </Fragment>
     );

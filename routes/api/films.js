@@ -160,8 +160,8 @@ router.put(
     }
 );
 
-// @route           PUT api/film/:id
-// @description     Modify a film
+// @route           DELETE api/film/:id
+// @description     Delete a film
 // @access          Admin
 
 router.delete('/:id', auth, async (req, res) => {

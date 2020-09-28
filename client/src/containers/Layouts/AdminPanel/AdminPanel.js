@@ -12,7 +12,7 @@ const AdminPanel = () => {
                     Ajouter un film
                 </NavLink>
                 <NavLink to='/admin/modifymovie' className={classes.item}>
-                    Modifier un film
+                    Modifier ou supprimer un film
                 </NavLink>
             </nav>
 
