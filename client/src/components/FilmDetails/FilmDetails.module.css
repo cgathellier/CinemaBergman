@@ -151,13 +151,18 @@
     width: fit-content;
 }
 
-/* .Stars i:first-of-type {
-} */
-
 .Synopsis {
     width: 50%;
     line-height: 150%;
     height: fit-content;
+}
+
+.postsContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }
 
 @media (max-width: 500px) {

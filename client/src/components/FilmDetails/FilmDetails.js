@@ -1,5 +1,6 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
+import Post from '../Post/Post';
 import classes from './FilmDetails.module.css';
 
 const FilmDetails = () => {
@@ -18,7 +19,11 @@ const FilmDetails = () => {
         getData();
     }, []);
 
-    // let postsElt = posts.sort((a, b) => a.date - b.date);
+    let postsElt = posts
+        .sort((a, b) => a.date - b.date)
+        .map((post, index) => {
+            return <Post post={post} />;
+        });
 
     return (
         <Fragment>
@@ -72,9 +77,7 @@ const FilmDetails = () => {
             <div>
                 <div>Séances</div>
             </div>
-            <div>
-                <div>Posts</div>
-            </div>
+            <div className={classes.postsContainer}>{postsElt}</div>
         </Fragment>
     );
 };

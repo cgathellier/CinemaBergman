@@ -30,13 +30,12 @@ router.post(
         }
         try {
             const user = await User.findOne({ _id: req.user.id }).select('-password');
-            const date = Date.now();
             let post = new Post({
                 film: req.params.id,
                 user: req.user.id,
                 name: user.name,
                 message: req.body.message,
-                date: date,
+                date: Date.now(),
             });
             await post.save();
             return res.status(201).json(post);
