@@ -18,6 +18,8 @@ const FilmDetails = () => {
         getData();
     }, []);
 
+    // let postsElt = posts.sort((a, b) => a.date - b.date);
+
     return (
         <Fragment>
             <div className={classes.Container}>

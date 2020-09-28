@@ -5,12 +5,15 @@ const PostSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
     },
+    film: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'films',
+    },
     name: {
         type: String,
     },
     date: {
         type: Date,
-        default: Date.now,
     },
     message: {
         type: String,

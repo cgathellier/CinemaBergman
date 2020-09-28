@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const { check, validationResult, body } = require('express-validator');
+// const path = require('path');
+// const { check, validationResult, body } = require('express-validator');
 const Film = require('../../models/Film');
 const auth = require('../../middleware/auth');
 const fs = require('fs');
