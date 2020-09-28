@@ -7,22 +7,34 @@ const FilmDetails = () => {
     const [filmData, setFilmData] = useState([]);
     const [posts, setPosts] = useState([]);
 
+    const filmUrl = window.location.href;
+    const filmId = filmUrl.split('/films/')[1];
+    const getData = async () => {
+        const res = await axios.get(`/api/films/${filmId}`);
+        await setFilmData(res.data);
+        const getPosts = await axios.get(`/api/posts/${filmId}`);
+        setPosts(getPosts.data);
+    };
+
     useEffect(() => {
-        const filmUrl = window.location.href;
-        const id = filmUrl.split('/films/')[1];
-        const getData = async () => {
-            const res = await axios.get(`/api/films/${id}`);
-            await setFilmData(res.data);
-            const getPosts = await axios.get(`/api/posts/${id}`);
-            setPosts(getPosts.data);
-        };
         getData();
     }, []);
+
+    const handleClick = async postId => {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'x-auth-token': token,
+            },
+        };
+        await axios.delete(`/api/posts/${postId}`, config);
+        getData();
+    };
 
     let postsElt = posts
         .sort((a, b) => a.date - b.date)
         .map((post, index) => {
-            return <Post post={post} />;
+            return <Post key={index} post={post} onClick={handleClick} />;
         });
 
     return (

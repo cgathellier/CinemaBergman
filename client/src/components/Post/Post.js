@@ -3,8 +3,11 @@ import classes from './Post.module.css';
 import Moment from 'react-moment';
 
 const Post = props => {
-    const { name, date, message } = props.post;
+    const { name, date, message, _id } = props.post;
 
+    const handleClick = () => {
+        props.onClick(_id);
+    };
     return (
         <div className={classes.container}>
             <div className={classes.header}>
@@ -14,7 +17,9 @@ const Post = props => {
                 </div>
             </div>
             <div className={classes.message}>{message}</div>
-            <div className={classes.delete}>Supprimer</div>
+            <div className={classes.delete} onClick={handleClick}>
+                Supprimer
+            </div>
         </div>
     );
 };

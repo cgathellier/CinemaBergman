@@ -45,4 +45,19 @@ router.post(
     }
 );
 
+// @route           DELETE api/posts/:id
+// @description     Delete a post
+// @access          Private/admin
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        let post = await Post.findOne({ _id: req.params.id });
+        if (post.user == req.user.id || req.user.isAdmin === true) {
+            await Post.deleteOne({ _id: req.params.id });
+            return res.status(202).json('Le commentaire a été supprimé');
+        }
+    } catch (error) {
+        return res.status(401).json({ error: error.message });
+    }
+});
+
 module.exports = router;
