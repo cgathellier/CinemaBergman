@@ -48,6 +48,8 @@ router.post(
                 return res.status(400).send('Identifiants incorrects');
             }
 
+            const { id, isAdmin, name } = user;
+
             const match = await bcrypt.compare(password, user.password);
 
             if (!match) {
@@ -56,14 +58,14 @@ router.post(
 
             const payload = {
                 user: {
-                    id: user.id,
-                    isAdmin: user.isAdmin,
+                    id,
+                    isAdmin,
                 },
             };
 
             jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 86400 }, (error, token) => {
                 if (error) throw error;
-                res.json({ token });
+                res.json({ token, isAdmin, name });
             });
         } catch (error) {
             console.error(error.message);

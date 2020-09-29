@@ -11,8 +11,13 @@ import history from '../history';
 import AdminPanel from './Layouts/AdminPanel/AdminPanel';
 import FilmDetails from '../components/FilmDetails/FilmDetails';
 
+const NameContext = React.createContext();
+const IsAdminContext = React.createContext();
+
 const Main = () => {
     const [filmsList, setFilmList] = useState([]);
+    const [isAdmin, setIsAdmin] = useState(false);
+    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         window.scroll(0, 0);
@@ -23,21 +28,47 @@ const Main = () => {
         getData();
     }, []);
 
+    const getUsername = username => {
+        setUsername(username);
+    };
+
+    const getIsAdmin = isAdmin => {
+        setIsAdmin(isAdmin);
+    };
+
     return (
         <Fragment>
             <Router history={history}>
-                <Toolbar />
+                <NameContext.Provider value={username}>
+                    <IsAdminContext.Provider value={isAdmin}>
+                        <Toolbar />
+                    </IsAdminContext.Provider>
+                </NameContext.Provider>
                 <Route path='/' exact render={() => <LayoutHome filmsList={filmsList} />} />
                 <Route path='/films' render={props => <LayoutFilms filmsList={filmsList} {...props} />} />
 
                 <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
                 <Route path='/reservation' component={LayoutBooking} />
-                <Route path='/register' render={() => <LayoutRegAuth regOrAuth='register' />} />
-                <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
+                <Route
+                    path='/register'
+                    render={() => (
+                        <LayoutRegAuth
+                            regOrAuth='register'
+                            getUsername={getUsername}
+                            getIsAdmin={getIsAdmin}
+                        />
+                    )}
+                />
+                <Route
+                    path='/login'
+                    render={() => (
+                        <LayoutRegAuth regOrAuth='login' getUsername={getUsername} getIsAdmin={getIsAdmin} />
+                    )}
+                />
                 <Route path='/admin' render={() => <AdminPanel />} />
             </Router>
         </Fragment>
     );
 };
 
-export default Main;
+export { Main, NameContext, IsAdminContext };

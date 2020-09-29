@@ -42,16 +42,18 @@ router.post(
 
             await user.save();
 
+            const { id, isAdmin } = user;
+
             const payload = {
                 user: {
-                    id: user.id,
-                    isAdmin: user.isAdmin,
+                    id,
+                    isAdmin,
                 },
             };
 
             jwt.sign(payload, config.get('jwtSecret'), { expiresIn: 86400 }, (error, token) => {
                 if (error) throw error;
-                res.json({ token });
+                res.json({ token, isAdmin, name });
             });
         } catch (error) {
             console.error(error.message);

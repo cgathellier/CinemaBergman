@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 
-const Register = () => {
+const Register = props => {
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -39,7 +39,10 @@ const Register = () => {
 
                 const body = JSON.stringify(newUser);
 
-                await axios.post('/api/users', body, config);
+                const res = await axios.post('/api/users', body, config);
+                localStorage.setItem('token', res.data.token);
+                props.getUsername(res.data.name);
+                props.getIsAdmin(res.data.isAdmin);
                 history.push('/');
             } catch (error) {
                 console.error(error.response.data);

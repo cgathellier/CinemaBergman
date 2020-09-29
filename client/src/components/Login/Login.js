@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 
-function Login(props) {
+const Login = props => {
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -35,8 +35,8 @@ function Login(props) {
 
             const res = await axios.post('/api/auth', body, config);
             localStorage.setItem('token', res.data.token);
-
-            console.log(res.data);
+            props.getUsername(res.data.name);
+            props.getIsAdmin(res.data.isAdmin);
             history.push('/');
         } catch (error) {
             console.error(error.response.data);
@@ -88,6 +88,6 @@ function Login(props) {
             </div>
         </div>
     );
-}
+};
 
 export default Login;
