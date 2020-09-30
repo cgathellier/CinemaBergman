@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import classes from './Post.module.css';
 import Moment from 'react-moment';
+import { IsAdminContext } from '../../containers/Main';
 
 const Post = props => {
     const { name, date, message, _id } = props.post;
+
+    const isAdmin = useContext(IsAdminContext);
+    const deleteBtn = isAdmin ? (
+        <div className={classes.delete} onClick={handleClick}>
+            Supprimer
+        </div>
+    ) : (
+        ''
+    );
 
     const handleClick = () => {
         props.onClick(_id);
@@ -17,9 +27,7 @@ const Post = props => {
                 </div>
             </div>
             <div className={classes.message}>{message}</div>
-            <div className={classes.delete} onClick={handleClick}>
-                Supprimer
-            </div>
+            {deleteBtn}
         </div>
     );
 };

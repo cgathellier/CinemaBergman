@@ -10,15 +10,30 @@ const bcrypt = require('bcrypt');
 // @route           GET api/auth
 // @description     Test route
 // @access          Public
+// router.get('/', auth, async (req, res) => {
+//     try {
+//         const user = await User.findById(req.user.id).select('-password');
+
+//         if (!user) {
+//             return res.status(404).send('Identifiants incorrects');
+//         }
+
+//         res.status(200).json(user);
+//     } catch (error) {
+//         console.error(error.message);
+//         res.status(500).send('Server error');
+//     }
+// });
+
+// @route           GET api/auth
+// @description     Test route
+// @access          Public
 router.get('/', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
+        const { name, isAdmin } = user;
 
-        if (!user) {
-            return res.status(404).send('Identifiants incorrects');
-        }
-
-        res.status(200).json(user);
+        res.status(200).json({ name, isAdmin });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');

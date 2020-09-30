@@ -40,6 +40,9 @@ router.post(
         //     return res.status(500).json({ errors: errors.array() });
         // }
         try {
+            if (req.isAdmin === false) {
+                return res.status(401).send('Not autorized');
+            }
             const reqObj = JSON.parse(req.body.film);
             console.log(req.files);
             let film = await Film.findOne({ title: reqObj.title });
@@ -113,6 +116,9 @@ router.put(
     ]),
     async (req, res) => {
         try {
+            if (req.isAdmin === false) {
+                return res.status(401).send('Not autorized');
+            }
             const oldFilm = await Film.findOne({ _id: req.params.id });
             const reqObj = req.body.film ? JSON.parse(req.body.film) : req.body;
             let film;

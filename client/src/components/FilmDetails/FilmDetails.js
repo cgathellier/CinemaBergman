@@ -1,5 +1,7 @@
 import axios from 'axios';
-import React, { Fragment, useEffect, useState } from 'react';
+import React, { Fragment, useContext, useEffect, useState } from 'react';
+import { NavLink } from 'react-router-dom';
+import { NameContext } from '../../containers/Main';
 import Post from '../Post/Post';
 import classes from './FilmDetails.module.css';
 
@@ -10,11 +12,24 @@ const FilmDetails = () => {
     const filmUrl = window.location.href;
     const filmId = filmUrl.split('/films/')[1];
     const getData = async () => {
-        const res = await axios.get(`/api/films/${filmId}`);
-        await setFilmData(res.data);
+        const getFilms = await axios.get(`/api/films/${filmId}`);
+        await setFilmData(getFilms.data);
         const getPosts = await axios.get(`/api/posts/${filmId}`);
         setPosts(getPosts.data);
     };
+
+    const name = useContext(NameContext);
+    const postForm = name ? (
+        <form>
+            <label htmlFor='newPost'>Ajouter un commentaire</label>
+            <input type='textarea' />
+        </form>
+    ) : (
+        <div>
+            Veuillez vous connecter pour poster un commentaire
+            <NavLink to='/login'>Connexion</NavLink>
+        </div>
+    );
 
     useEffect(() => {
         getData();
@@ -90,6 +105,7 @@ const FilmDetails = () => {
                 <div>Séances</div>
             </div>
             <div className={classes.postsContainer}>{postsElt}</div>
+            <div>{postForm}</div>
         </Fragment>
     );
 };

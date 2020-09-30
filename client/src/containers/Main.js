@@ -21,12 +21,30 @@ const Main = () => {
 
     useEffect(() => {
         window.scroll(0, 0);
-        const getData = async () => {
-            const res = await axios.get('http://localhost:5000/api/films');
-            await setFilmList(res.data);
-        };
         getData();
+        logUser();
     }, []);
+
+    const getData = async () => {
+        const res = await axios.get('/api/films');
+        await setFilmList(res.data);
+    };
+
+    const logUser = async () => {
+        const token = localStorage.getItem('token');
+        if (token) {
+            const config = {
+                headers: {
+                    'x-auth-token': token,
+                },
+            };
+            const res = await axios.get('/api/auth', config);
+            setIsAdmin(res.data.isAdmin);
+            setUsername(res.data.name);
+            if (res.status === 200) {
+            }
+        }
+    };
 
     const getUsername = username => {
         setUsername(username);
@@ -42,30 +60,37 @@ const Main = () => {
                 <NameContext.Provider value={username}>
                     <IsAdminContext.Provider value={isAdmin}>
                         <Toolbar />
+                        <Route path='/' exact render={() => <LayoutHome filmsList={filmsList} />} />
+                        <Route
+                            path='/films'
+                            render={props => <LayoutFilms filmsList={filmsList} {...props} />}
+                        />
+
+                        <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
+                        <Route path='/reservation' component={LayoutBooking} />
+                        <Route
+                            path='/register'
+                            render={() => (
+                                <LayoutRegAuth
+                                    regOrAuth='register'
+                                    getUsername={getUsername}
+                                    getIsAdmin={getIsAdmin}
+                                />
+                            )}
+                        />
+                        <Route
+                            path='/login'
+                            render={() => (
+                                <LayoutRegAuth
+                                    regOrAuth='login'
+                                    getUsername={getUsername}
+                                    getIsAdmin={getIsAdmin}
+                                />
+                            )}
+                        />
+                        <Route path='/admin' render={() => <AdminPanel />} />
                     </IsAdminContext.Provider>
                 </NameContext.Provider>
-                <Route path='/' exact render={() => <LayoutHome filmsList={filmsList} />} />
-                <Route path='/films' render={props => <LayoutFilms filmsList={filmsList} {...props} />} />
-
-                <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
-                <Route path='/reservation' component={LayoutBooking} />
-                <Route
-                    path='/register'
-                    render={() => (
-                        <LayoutRegAuth
-                            regOrAuth='register'
-                            getUsername={getUsername}
-                            getIsAdmin={getIsAdmin}
-                        />
-                    )}
-                />
-                <Route
-                    path='/login'
-                    render={() => (
-                        <LayoutRegAuth regOrAuth='login' getUsername={getUsername} getIsAdmin={getIsAdmin} />
-                    )}
-                />
-                <Route path='/admin' render={() => <AdminPanel />} />
             </Router>
         </Fragment>
     );

@@ -26,7 +26,11 @@ router.post(
         const { name, email, password } = req.body;
 
         try {
-            let user = await User.findOne({ email });
+            let user = await User.findOne({ isAdmin: true });
+            if (user) {
+                return res.status(401).send('Not authorized');
+            }
+            user = await User.findOne({ email });
             if (user) {
                 return res.status(400).send('User already exists');
             }
