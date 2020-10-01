@@ -22,7 +22,13 @@ router.get('/:id', async (req, res) => {
 // @access          Private
 router.post(
     '/:id',
-    [auth, [check('message', 'Un message est attendu').not().isEmpty()]],
+    [
+        auth,
+        [
+            check('text', 'Un texte est attendu').not().isEmpty(),
+            check('title', 'Un titre est attendu').not().isEmpty(),
+        ],
+    ],
     async (req, res) => {
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
@@ -34,7 +40,8 @@ router.post(
                 film: req.params.id,
                 user: req.user.id,
                 name: user.name,
-                message: req.body.message,
+                text: req.body.text,
+                title: req.body.title,
                 date: Date.now(),
             });
             await post.save();
