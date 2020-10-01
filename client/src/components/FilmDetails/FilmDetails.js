@@ -4,7 +4,33 @@ import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { NameContext } from '../../containers/Main';
 import Post from '../Post/Post';
+import Nav from '../Showtime/Nav';
 import classes from './FilmDetails.module.css';
+
+const JOURS = {
+    0: 'DIM.',
+    1: 'LUN.',
+    2: 'MAR.',
+    3: 'MER.',
+    4: 'JEU.',
+    5: 'VEN.',
+    6: 'SAM.',
+};
+
+const MOIS = {
+    0: 'JAN.',
+    1: 'FEV.',
+    2: 'MARS',
+    3: 'AVR.',
+    4: 'MAI',
+    5: 'JUIN',
+    6: 'JUI.',
+    7: 'AOUT',
+    8: 'SEP.',
+    9: 'OCT.',
+    10: 'NOV.',
+    11: 'DEC.',
+};
 
 const FilmDetails = () => {
     const [filmData, setFilmData] = useState([]);
@@ -13,7 +39,9 @@ const FilmDetails = () => {
         title: '',
         text: '',
     });
+    const [nav, setNav] = useState([]);
 
+    const name = useContext(NameContext);
     const filmUrl = window.location.href;
     const filmId = filmUrl.split('/films/')[1];
     const getData = async () => {
@@ -23,10 +51,23 @@ const FilmDetails = () => {
         setPosts(getPosts.data);
     };
 
-    const name = useContext(NameContext);
+    const setNavDates = () => {
+        for (let i = 0; i < 7; i++) {
+            const currentDate = new Date();
+            const nextDate = currentDate.getDate() + i;
+            currentDate.setDate(nextDate);
+            setNav(nav => [...nav, currentDate]);
+            console.log(nav);
+        }
+    };
 
     useEffect(() => {
         getData();
+        setNavDates();
+        // const date = new Date();
+        // const nextDay = date.getDate() - 1;
+        // date.setDate(nextDay);
+        // console.log(date);
     }, []);
 
     const handleClick = async postId => {
@@ -104,6 +145,13 @@ const FilmDetails = () => {
         </div>
     );
 
+    const showtimeNav = nav.map(navDate => {
+        const day = navDate.getDay();
+        const date = navDate.getDate();
+        const month = navDate.getMonth();
+        return <Nav day={JOURS[day]} date={date} month={MOIS[month]} />;
+    });
+
     return (
         <Fragment>
             <div className={classes.Container}>
@@ -139,7 +187,7 @@ const FilmDetails = () => {
                                 <p>
                                     Réalisé par <span>{filmData.director}</span>
                                 </p>
-                                <p>Avec (Acteurs)</p>
+                                <p>Avec {filmData.actors}</p>
                             </div>
                         </div>
                         <div className={classes.Stars}>
@@ -153,8 +201,9 @@ const FilmDetails = () => {
                     </div>
                 </div>
             </div>
-            <div>
-                <div>Séances</div>
+            <div className={classes.showTimesCtn}>
+                <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
+                <div>Showtimes</div>
             </div>
             <div className={classes.postsContainer}>{postsElt}</div>
             <div className={classes.formContainer}>{postForm}</div>

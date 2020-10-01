@@ -13,7 +13,7 @@ const Post = props => {
     const nameContext = useContext(NameContext);
     const isAdmin = useContext(IsAdminContext);
     const deleteBtn =
-        isAdmin || nameContext == name ? (
+        isAdmin || nameContext === name ? (
             <div className={classes.delete} onClick={handleClick}>
                 Supprimer
             </div>

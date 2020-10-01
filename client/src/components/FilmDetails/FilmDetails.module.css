@@ -157,6 +157,12 @@
     height: fit-content;
 }
 
+.showtimesNavCtn {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
 .postsContainer {
     width: 100%;
     display: flex;
