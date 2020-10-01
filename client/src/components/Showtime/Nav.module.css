@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
 .container {
     display: flex;
     flex-direction: column;
@@ -7,12 +9,34 @@
     height: 100px;
     cursor: pointer;
     border-bottom: solid 3px #ffffff;
+    font-family: 'Roboto', sans-serif;
 }
 
 .container:hover {
-    border-bottom: solid 3px #cccccc;
+    border-bottom: solid 3px #dadada;
 }
 
-.container:focus {
-    border-bottom: solid 2px #fbd25a;
+.selectedContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100px;
+    height: 100px;
+    cursor: pointer;
+    border-bottom: solid 3px #fbd25a;
+    font-family: 'Roboto', sans-serif;
+}
+
+.day {
+    font-size: 0.7em;
+}
+
+.date {
+    font-size: 1.6em;
+}
+
+.month {
+    font-size: 0.6em;
+    color: #8a8a8a;
 }

@@ -5,6 +5,7 @@ import { NavLink } from 'react-router-dom';
 import { NameContext } from '../../containers/Main';
 import Post from '../Post/Post';
 import Nav from '../Showtime/Nav';
+import Showtime from '../Showtime/Showtime';
 import classes from './FilmDetails.module.css';
 
 const JOURS = {
@@ -40,6 +41,8 @@ const FilmDetails = () => {
         text: '',
     });
     const [nav, setNav] = useState([]);
+    const [selectedNav, setSelectedNav] = useState(0);
+    const [showtimes, setShowtimes] = useState([]);
 
     const name = useContext(NameContext);
     const filmUrl = window.location.href;
@@ -57,18 +60,39 @@ const FilmDetails = () => {
             const nextDate = currentDate.getDate() + i;
             currentDate.setDate(nextDate);
             setNav(nav => [...nav, currentDate]);
-            console.log(nav);
         }
     };
 
     useEffect(() => {
         getData();
         setNavDates();
-        // const date = new Date();
-        // const nextDay = date.getDate() - 1;
-        // date.setDate(nextDay);
-        // console.log(date);
     }, []);
+
+    useEffect(() => {
+        const getST = async () => {
+            const getFilms = await axios.get(`/api/films/${filmId}`);
+            let ST = await getFilms.data.showtimes;
+            if (nav.length > 0) {
+                const dateSelected = nav[selectedNav];
+                const navDate = new Date(dateSelected).getDate();
+                const navMonth = new Date(dateSelected).getMonth();
+                const showtimesList = [];
+                for (let i = 0; i < ST.length; i++) {
+                    const showDate = new Date(ST[i].Day).getDate();
+                    const showMonth = new Date(ST[i].Day).getMonth();
+                    if (showDate === navDate && showMonth === navMonth) {
+                        showtimesList.push(ST[i].Hour);
+                    }
+                }
+                setShowtimes(showtimesList);
+            }
+        };
+        getST();
+    }, [nav, selectedNav]);
+
+    const showtimesElt = showtimes.map((hour, index) => {
+        return <Showtime hour={hour} key={index} />;
+    });
 
     const handleClick = async postId => {
         const token = localStorage.getItem('token');
@@ -111,6 +135,10 @@ const FilmDetails = () => {
         }
     };
 
+    const handleNavClick = index => {
+        setSelectedNav(index);
+    };
+
     let postsElt = posts
         .sort((a, b) => a.date - b.date)
         .map((post, index) => {
@@ -145,11 +173,21 @@ const FilmDetails = () => {
         </div>
     );
 
-    const showtimeNav = nav.map(navDate => {
+    const showtimeNav = nav.map((navDate, index) => {
         const day = navDate.getDay();
         const date = navDate.getDate();
         const month = navDate.getMonth();
-        return <Nav day={JOURS[day]} date={date} month={MOIS[month]} />;
+        return (
+            <Nav
+                day={JOURS[day]}
+                date={date < 10 ? '0' + date : date}
+                month={MOIS[month]}
+                index={index}
+                selected={index === selectedNav ? 'true' : 'false'}
+                handleClick={e => handleNavClick(e)}
+                key={navDate}
+            />
+        );
     });
 
     return (
@@ -202,8 +240,9 @@ const FilmDetails = () => {
                 </div>
             </div>
             <div className={classes.showTimesCtn}>
+                <div className={classes.showTimes}>Séances</div>
                 <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
-                <div>Showtimes</div>
+                <div className={classes.showtimesEltCtn}>{showtimesElt}</div>
             </div>
             <div className={classes.postsContainer}>{postsElt}</div>
             <div className={classes.formContainer}>{postForm}</div>
