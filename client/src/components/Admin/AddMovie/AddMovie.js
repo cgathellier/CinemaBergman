@@ -11,7 +11,7 @@ class Film {
     genre;
     classification;
     release;
-    showtimes;
+    // showtimes;
     poster;
     snap;
     synopsis;
@@ -147,7 +147,8 @@ const AddMovie = () => {
                 formData.append('snap', snap, film.title);
                 const res = await axios.post('/api/films', formData, config);
                 if (res.status === 201) {
-                    document.location.reload();
+                    console.log(res.data._id);
+                    // document.location.reload();
                     window.scroll(0, 0);
                 }
                 return res.data;

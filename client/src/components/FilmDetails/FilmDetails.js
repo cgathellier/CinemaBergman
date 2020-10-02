@@ -201,9 +201,9 @@ const FilmDetails = () => {
                             {filmData.genre} ({filmData.duration})
                             <span className={classes.PublicBtn}>{filmData.classification}</span>
                         </p>
-                        <div className={classes.SeancesBtn}>
+                        <a className={classes.SeancesBtn} href='#showtimes'>
                             <i className='far fa-clock'></i> Séances
-                        </div>
+                        </a>
                     </div>
                     <div className={classes.Toolbar}>
                         <span className={classes.Note}>
@@ -239,7 +239,7 @@ const FilmDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className={classes.showTimesCtn}>
+            <div className={classes.showTimesCtn} id='showtimes'>
                 <div className={classes.showTimes}>Séances</div>
                 <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
                 <div className={classes.showtimesEltCtn}>{showtimesElt}</div>
