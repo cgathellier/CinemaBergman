@@ -1,5 +1,4 @@
 import axios from 'axios';
-import { locale } from 'moment';
 import React, { Fragment, useContext, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { NameContext } from '../../containers/Main';
@@ -43,10 +42,12 @@ const FilmDetails = () => {
     const [nav, setNav] = useState([]);
     const [selectedNav, setSelectedNav] = useState(0);
     const [showtimes, setShowtimes] = useState([]);
+    const [stDisplayed, setStDisplayed] = useState([]);
 
     const name = useContext(NameContext);
     const filmUrl = window.location.href;
     const filmId = filmUrl.split('/films/')[1];
+
     const getData = async () => {
         const getFilms = await axios.get(`/api/films/${filmId}`);
         await setFilmData(getFilms.data);
@@ -63,36 +64,51 @@ const FilmDetails = () => {
         }
     };
 
+    const getST = async () => {
+        const res = await axios.get(`/api/showtimes/${filmId}`);
+        setShowtimes(res.data);
+    };
+
     useEffect(() => {
         getData();
         setNavDates();
+        getST();
     }, []);
 
     useEffect(() => {
-        const getST = async () => {
-            const getFilms = await axios.get(`/api/films/${filmId}`);
-            let ST = await getFilms.data.showtimes;
-            if (nav.length > 0) {
-                const dateSelected = nav[selectedNav];
-                const navDate = new Date(dateSelected).getDate();
-                const navMonth = new Date(dateSelected).getMonth();
-                const showtimesList = [];
-                for (let i = 0; i < ST.length; i++) {
-                    const showDate = new Date(ST[i].Day).getDate();
-                    const showMonth = new Date(ST[i].Day).getMonth();
-                    if (showDate === navDate && showMonth === navMonth) {
-                        showtimesList.push(ST[i].Hour);
-                    }
-                }
-                setShowtimes(showtimesList);
+        if (!nav.length > 0) {
+            return;
+        }
+        const dateSelected = nav[selectedNav];
+        const navDate = new Date(dateSelected).getDate();
+        const navMonth = new Date(dateSelected).getMonth();
+        const filterFunction = st => {
+            const showDate = new Date(st.day).getDate();
+            const showMonth = new Date(st.day).getMonth();
+            if (showDate === navDate && showMonth === navMonth) {
+                return st;
             }
         };
-        getST();
+        const filteredST = showtimes.filter(filterFunction);
+        setStDisplayed(filteredST);
     }, [nav, selectedNav]);
 
-    const showtimesElt = showtimes.map((hour, index) => {
-        return <Showtime key={index}>{hour}</Showtime>;
-    });
+    const showtimesElt = stDisplayed
+        .sort((a, b) => {
+            const first = a.day + 'T' + a.hour + ':00';
+            const second = b.day + 'T' + b.hour + ':00';
+            const firstTime = new Date(first).getTime();
+            const secondTime = new Date(second).getTime();
+            return firstTime - secondTime;
+        })
+        .map((st, index) => {
+            const { hour, _id } = st;
+            return (
+                <Showtime key={index} id={_id}>
+                    {hour}
+                </Showtime>
+            );
+        });
 
     const handleClick = async postId => {
         const token = localStorage.getItem('token');

@@ -193,6 +193,10 @@
     margin-top: 20px;
 }
 
+.showtimesEltCtn a:not(:last-of-type) {
+    margin-right: 20px;
+}
+
 .postsContainer {
     width: 100%;
     display: flex;

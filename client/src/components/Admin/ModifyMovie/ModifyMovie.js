@@ -63,7 +63,7 @@ const ModifyMovie = () => {
         }
     };
 
-    let showtimesElt = showtimes.map((st, index) => {
+    const showtimesElt = showtimes.map((st, index) => {
         const { day, hour, _id } = st;
         return (
             <Showtime key={index} id={_id} onClickCross={e => onClickCross(e)}>

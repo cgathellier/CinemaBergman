@@ -46,11 +46,11 @@ const Toolbar = () => {
                         <i className={['fas fa-film', classes.Icons].join(' ')}></i>Films
                     </div>
                 </NavLink>
-                <NavLink to='/billets' activeClassName={classes.active}>
+                {/* <NavLink to='/booking' activeClassName={classes.active}>
                     <div>
                         <i className={['fas fa-receipt', classes.Icons].join(' ')}></i>Vos billets
                     </div>
-                </NavLink>
+                </NavLink> */}
                 {adminNav}
             </div>
         </div>

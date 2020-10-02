@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { NavLink } from 'react-router-dom';
 import classes from './Showtime.module.css';
 
 const Showtime = props => {
@@ -14,7 +15,9 @@ const Showtime = props => {
             </div>
         </div>
     ) : (
-        <div className={classes.container}>{props.children}</div>
+        <NavLink to={`/booking/${props.id}`}>
+            <div className={classes.container}>{props.children}</div>
+        </NavLink>
     );
     return <Fragment>{content}</Fragment>;
 };

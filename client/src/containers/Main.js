@@ -67,7 +67,7 @@ const Main = () => {
                         />
 
                         <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
-                        <Route path='/reservation' component={LayoutBooking} />
+                        <Route path='/booking' component={LayoutBooking} />
                         <Route
                             path='/register'
                             render={() => (
