@@ -113,6 +113,11 @@
     flex-wrap: wrap;
 }
 
+.st_list div:not(:last-of-type) {
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
 .st_elt {
     width: fit-content;
     padding: 5px;
@@ -122,27 +127,6 @@
     border-radius: 8px;
     box-shadow: 0px 5px 5px rgb(59, 63, 68, 0.3);
     position: relative;
-}
-
-.crossContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(50%, -50%);
-    color: #db0000;
-}
-
-.cross {
-    font-size: calc(0.1vw + 1rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px #db0000;
-    background-color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
 }
 
 .field select {

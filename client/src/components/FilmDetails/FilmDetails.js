@@ -91,7 +91,7 @@ const FilmDetails = () => {
     }, [nav, selectedNav]);
 
     const showtimesElt = showtimes.map((hour, index) => {
-        return <Showtime hour={hour} key={index} />;
+        return <Showtime key={index}>{hour}</Showtime>;
     });
 
     const handleClick = async postId => {

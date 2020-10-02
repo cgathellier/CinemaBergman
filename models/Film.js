@@ -29,10 +29,6 @@ const FilmSchema = new mongoose.Schema({
         type: Date,
         required: true,
     },
-    showtimes: {
-        type: Array,
-        required: true,
-    },
     poster: {
         type: String,
         required: true,

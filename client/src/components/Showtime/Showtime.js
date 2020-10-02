@@ -1,8 +1,22 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import classes from './Showtime.module.css';
 
 const Showtime = props => {
-    return <div className={classes.container}>{props.hour}</div>;
+    const onClickCross = () => {
+        props.onClickCross(props.id);
+    };
+
+    const content = props.onClickCross ? (
+        <div className={classes.container}>
+            {props.children}
+            <div className={classes.crossContainer} onClick={() => onClickCross()}>
+                <i className={['far fa-times-circle', classes.cross].join(' ')}></i>
+            </div>
+        </div>
+    ) : (
+        <div className={classes.container}>{props.children}</div>
+    );
+    return <Fragment>{content}</Fragment>;
 };
 
 export default Showtime;

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import history from '../../../history';
 import FilmsList from '../../FilmsList/FilmsList';
+import Showtime from '../../Showtime/Showtime';
 import classes from './ModifyMovie.module.css';
 
 class Film {
@@ -13,7 +14,6 @@ class Film {
     genre;
     classification;
     release;
-    showtimes;
     poster;
     snap;
     synopsis;
@@ -21,9 +21,9 @@ class Film {
 
 const ModifyMovie = () => {
     const [filmsList, setFilmsList] = useState([]);
-    const [Day, setDay] = useState('');
-    const [Hour, setHour] = useState('');
-    const [showtimesArray, setShowtimesArray] = useState([]);
+    const [day, setDay] = useState('');
+    const [hour, setHour] = useState('');
+    const [showtimes, setShowtimes] = useState([]);
     const [filmInfos, setFilmInfos] = useState({
         _id: '',
         title: '',
@@ -33,7 +33,6 @@ const ModifyMovie = () => {
         genre: 'Comédie',
         classification: 'Tous publics',
         release: '',
-        showtimes: [],
         poster: '',
         snap: '',
         synopsis: '',
@@ -48,26 +47,29 @@ const ModifyMovie = () => {
         genre,
         classification,
         release,
-        showtimes,
         poster,
         snap,
         synopsis,
     } = filmInfos;
 
-    let showtimesElt = showtimesArray.map((showtime, index) => {
-        const { Day, Hour } = showtime;
+    const url = window.location.href;
+    const key = '/modifymovie/';
+
+    const getShowtimes = async () => {
+        if (url.includes(key)) {
+            const filmID = url.split(key)[1];
+            const res = await axios.get(`/api/showtimes/${filmID}`);
+            await setShowtimes(res.data);
+        }
+    };
+
+    let showtimesElt = showtimes.map((st, index) => {
+        const { day, hour, _id } = st;
         return (
-            <div key={index} className={classes.st_elt}>
-                {Day}, {Hour}
-                <div className={classes.crossContainer}>
-                    <i
-                        className={['fas fa-times', classes.cross].join(' ')}
-                        onClick={e => onClickCross(e)}
-                        day={Day}
-                        hour={Hour}
-                    ></i>
-                </div>
-            </div>
+            <Showtime key={index} id={_id} onClickCross={e => onClickCross(e)}>
+                <div>{day}</div>
+                <div>{hour}</div>
+            </Showtime>
         );
     });
 
@@ -77,31 +79,29 @@ const ModifyMovie = () => {
             await setFilmsList(res.data);
         };
         getData();
+        getShowtimes();
     }, []);
 
     useEffect(() => {
         const getData = async () => {
-            const url = window.location.href;
-            const key = '/modifymovie/';
             if (url.includes(key)) {
                 const filmID = url.split(key)[1];
                 const res = await axios.get(`/api/films/${filmID}`);
                 await setFilmInfos(res.data);
-                await setShowtimesArray(res.data.showtimes);
             }
         };
         getData();
     }, [window.location.href]);
 
-    const onClickCross = e => {
-        let targetDay = e.target.getAttribute('day');
-        let targetHour = e.target.getAttribute('hour');
-        setShowtimesArray(
-            showtimesArray.filter(
-                item => item[Object.keys(item)[0]] !== targetDay && item[Object.keys(item)[1]] !== targetHour
-            )
-        );
-        setFilmInfos({ ...filmInfos, showtimes: showtimesArray });
+    const onClickCross = async id => {
+        const token = localStorage.getItem('token');
+        const config = {
+            headers: {
+                'x-auth-token': token,
+            },
+        };
+        await axios.delete(`/api/showtimes/${id}`, config);
+        getShowtimes();
     };
 
     const onChange = e => {
@@ -116,15 +116,35 @@ const ModifyMovie = () => {
         setHour(e.target.value);
     };
 
-    const addShowtime = () => {
-        if (!Day || !Hour) {
+    const addShowtime = async () => {
+        if (!day || !hour) {
             return alert('Les champs pour ajouter une séance ne sont pas tous remplis');
         }
-        const horaire = { Day, Hour };
-        setShowtimesArray(showtimesArray => [...showtimesArray, horaire]);
-        setFilmInfos({ ...filmInfos, showtimes: showtimesArray });
-        setDay('');
-        setHour('');
+
+        if (url.includes(key)) {
+            const filmID = url.split(key)[1];
+
+            const token = localStorage.getItem('token');
+
+            const config = {
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-auth-token': token,
+                },
+            };
+
+            const newShowtime = {
+                day,
+                hour,
+                film: filmID,
+            };
+            const res = await axios.post(`/api/showtimes/${filmID}`, newShowtime, config);
+            if (res.status === 201) {
+                setDay('');
+                setHour('');
+                getShowtimes();
+            }
+        }
     };
 
     const onPosterChange = e => {
@@ -159,7 +179,6 @@ const ModifyMovie = () => {
             newFilm.genre = genre;
             newFilm.classification = classification;
             newFilm.release = release;
-            newFilm.showtimes = showtimes;
             newFilm.poster = '';
             newFilm.snap = '';
             newFilm.synopsis = synopsis;
@@ -234,6 +253,35 @@ const ModifyMovie = () => {
             />
             <Route path='/admin/modifymovie/:id'>
                 <div>
+                    <form className={classes.field}>
+                        <p className={classes.addShowtimes}>Ajouter une séance *</p>
+                        <div className={classes.showtimesInputs}>
+                            <div>
+                                <label htmlFor='date'>Date *</label>
+                                <input
+                                    type='date'
+                                    id='date'
+                                    value={day}
+                                    name='showtimes'
+                                    onChange={e => onDayChange(e)}
+                                ></input>
+                            </div>
+                            <div>
+                                <label htmlFor='hour'>Heure *</label>
+                                <input
+                                    type='time'
+                                    id='hour'
+                                    value={hour}
+                                    name='showtimes'
+                                    onChange={e => onHourChange(e)}
+                                ></input>
+                            </div>
+                        </div>
+                        <div className={classes.submitSchedule} onClick={() => addShowtime()}>
+                            Ajouter la séance
+                        </div>
+                        <div className={classes.st_list}>{showtimesElt}</div>
+                    </form>
                     <form className={classes.Form} onSubmit={e => onSubmit(e)}>
                         <div className={classes.field}>
                             <input
@@ -335,35 +383,6 @@ const ModifyMovie = () => {
                                 required
                                 onChange={e => onChange(e)}
                             ></input>
-                        </div>
-                        <div className={classes.field}>
-                            <p className={classes.addShowtimes}>Ajouter une séance *</p>
-                            <div className={classes.showtimesInputs}>
-                                <div>
-                                    <label htmlFor='date'>Date *</label>
-                                    <input
-                                        type='date'
-                                        id='date'
-                                        value={Day}
-                                        name='showtimes'
-                                        onChange={e => onDayChange(e)}
-                                    ></input>
-                                </div>
-                                <div>
-                                    <label htmlFor='hour'>Heure *</label>
-                                    <input
-                                        type='time'
-                                        id='hour'
-                                        value={Hour}
-                                        name='showtimes'
-                                        onChange={e => onHourChange(e)}
-                                    ></input>
-                                </div>
-                            </div>
-                            <div className={classes.submitSchedule} onClick={() => addShowtime()}>
-                                Ajouter la séance
-                            </div>
-                            <div className={classes.st_list}>{showtimesElt}</div>
                         </div>
                         <div className={classes.field}>
                             <label htmlFor='poster'>Affiche du film *</label>
