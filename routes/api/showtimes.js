@@ -68,6 +68,11 @@ router.delete('/:id', auth, async (req, res) => {
             await Showtime.deleteOne({ _id: req.params.id });
             return res.status(202).json('La séance a été supprimée');
         }
+        showtime = await Showtime.find({ film: req.params.id });
+        if (showtime && req.user.isAdmin === true) {
+            await Showtime.deleteMany({ film: req.params.id });
+            return res.status(202).json(`Toutes les séances du film ${req.params.id} ont été supprimées`);
+        }
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

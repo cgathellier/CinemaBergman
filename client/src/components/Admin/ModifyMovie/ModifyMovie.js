@@ -236,6 +236,8 @@ const ModifyMovie = () => {
             },
         };
         const deleteFilm = async () => {
+            const deleteST = await axios.delete(`/api/showtimes/${_id}`, config);
+            console.log(deleteST.data);
             const res = await axios.delete(`/api/films/${_id}`, config);
             return res.data;
         };
