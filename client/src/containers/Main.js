@@ -39,9 +39,11 @@ const Main = () => {
                 },
             };
             const res = await axios.get('/api/auth', config);
-            setIsAdmin(res.data.isAdmin);
-            setUsername(res.data.name);
             if (res.status === 200) {
+                setIsAdmin(res.data.isAdmin);
+                setUsername(res.data.name);
+            } else if (res.status === 401) {
+                localStorage.removeItem('token');
             }
         }
     };

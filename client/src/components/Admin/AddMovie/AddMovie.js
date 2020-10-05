@@ -90,9 +90,6 @@ const AddMovie = () => {
                 const res = await axios.post('/api/films', formData, config);
                 if (res.status === 201) {
                     history.push(`/admin/modifymovie/${res.data._id}`);
-
-                    // document.location.reload();
-                    // window.scroll(0, 0);
                 }
                 return res.data;
             };
@@ -230,7 +227,11 @@ const AddMovie = () => {
                     ></input>
                 </div>
 
-                <input type='submit' className={classes.submit} value='Continuer'></input>
+                <input
+                    type='submit'
+                    className={classes.submit}
+                    value='Poursuivre et ajouter des séances'
+                ></input>
             </form>
         </div>
     );

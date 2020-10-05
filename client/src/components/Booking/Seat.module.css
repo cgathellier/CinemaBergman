@@ -1,0 +1,21 @@
+.seat {
+    background-color: #444451;
+    height: 16px;
+    width: 20px;
+    margin: 5px 4px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+.seat.selected {
+    background-color: #6feaf6;
+}
+
+.seat.occupied {
+    background-color: #fff;
+}
+
+.seat:not(.occupied):hover {
+    cursor: pointer;
+    transform: scale(1.2);
+}

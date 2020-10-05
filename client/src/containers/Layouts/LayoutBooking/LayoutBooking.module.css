@@ -1,0 +1,51 @@
+.layoutContainer {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    margin-top: 140px;
+    perspective: 1000px;
+    width: 100vw;
+    height: calc(100vh - 140px);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #242333;
+}
+
+.screenContainer {
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    perspective: 1000px;
+    margin-bottom: 20px;
+}
+
+.screen {
+    background-color: #fff;
+    height: 70px;
+    width: 100%;
+    margin: 15px 0;
+    transform: rotateX(-45deg);
+    box-shadow: 0 3px 10px rgba(255, 255, 255, 0.7);
+}
+
+.validation {
+    width: 150px;
+    height: 50px;
+    margin-top: 50px;
+    background-color: #fbd25a;
+    border: none;
+    border-radius: 8px;
+    font-size: calc(0.1vw + 1rem);
+    font-weight: 700;
+    color: #2e2e2e;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
