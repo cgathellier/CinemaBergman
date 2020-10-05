@@ -18,12 +18,12 @@ router.post(
         }
         try {
             const seats = req.body.selectedSeats;
-            seats.forEach(async seat => {
-                const findSeat = await Booking.findOne({ selectedSeats: seat });
+            for (let i = 0; i < seats.length; i++) {
+                const findSeat = await Booking.findOne({ selectedSeats: seats[i] });
                 if (findSeat) {
-                    throw new Error(`Le siège ${seat} a déjà été réservé`);
+                    throw new Error(`Le siège ${seats[i]} a déjà été réservé`);
                 }
-            });
+            }
 
             const showtime = await Showtime.findOne({ _id: req.params.id });
             const bookingSeats = new Booking({
