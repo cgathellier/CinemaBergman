@@ -8,9 +8,17 @@ const Row = props => {
     };
     const seats = [];
     const selectedSeats = props.selected;
+    const booked = props.booked;
     for (let i = 0; i < props.cols; i++) {
         const seatID = props.name + (i + 1);
-        const status = selectedSeats.indexOf(seatID) !== -1 ? 'selected' : '';
+        let status;
+        if (selectedSeats.indexOf(seatID) !== -1) {
+            status = 'selected';
+        } else if (booked.indexOf(seatID) !== -1) {
+            status = 'booked';
+        } else {
+            status = '';
+        }
         const seat = <Seat status={status} key={i} seatID={seatID} handleClick={handleClick} />;
         seats.push(seat);
     }

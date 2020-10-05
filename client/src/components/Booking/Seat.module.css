@@ -11,7 +11,7 @@
     background-color: #6feaf6;
 }
 
-.seat.occupied {
+.seat.booked {
     background-color: #fff;
 }
 
