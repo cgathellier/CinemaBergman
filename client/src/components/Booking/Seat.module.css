@@ -15,7 +15,7 @@
     background-color: #fff;
 }
 
-.seat:not(.occupied):hover {
+.seat:not(.booked):hover {
     cursor: pointer;
     transform: scale(1.2);
 }

@@ -22,7 +22,9 @@ const LayoutBooking = () => {
     }, []);
 
     const handleClick = seatID => {
-        if (selectedSeats.indexOf(seatID) !== -1) {
+        if (bookedSeats.indexOf(seatID) !== -1) {
+            return;
+        } else if (selectedSeats.indexOf(seatID) !== -1) {
             const selectedFilter = selectedSeats.filter(seat => seat !== seatID);
             return setSelectedSeats(selectedFilter);
         }
