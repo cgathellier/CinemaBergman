@@ -4,8 +4,8 @@
     background-color: white;
     height: 100%;
     width: 100%;
-    margin-left: 300px;
     padding: 50px 100px;
+    margin-top: 100px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -43,35 +43,9 @@
     border-bottom: 2px solid #fbd25a;
 }
 
-.addShowtimes {
-    margin: 0px;
-    margin-bottom: 20px;
-    font-size: calc(0.1vw + 1rem);
-    font-weight: 500;
-    font-family: 'Roboto', sans-serif;
-}
-
-.showtimesInputs {
-    display: flex;
-}
-
-.showtimesInputs div {
-    flex: 1;
-}
-
-.showtimesInputs div:first-of-type {
-    margin-right: 30px;
-}
-
-.showtimesInputs label {
-    background-color: #ff9742;
-    width: fit-content;
-    padding: 10px 20px;
-    border-radius: 8px;
-}
-
 .submit {
-    width: 50%;
+    width: fit-content;
+    padding: 0px 10px;
     height: 50px;
     margin: 20px 0px;
     background-color: #fbd25a;
@@ -81,62 +55,6 @@
     font-weight: 700;
     color: #2e2e2e;
     align-self: center;
-    cursor: pointer;
-}
-
-.submitSchedule {
-    width: fit-content;
-    height: 50px;
-    margin: 20px 0px;
-    padding: 0px 20px;
-    background-color: #fbd25a;
-    border: none;
-    border-radius: 8px;
-    font-size: calc(0.1vw + 1rem);
-    font-weight: 700;
-    color: #2e2e2e;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-}
-
-.st_list {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    justify-content: flex-start;
-    flex-wrap: wrap;
-}
-
-.st_elt {
-    width: fit-content;
-    padding: 5px;
-    height: 30px;
-    margin-right: 20px;
-    border: solid 1px #3b3f44;
-    border-radius: 8px;
-    box-shadow: 0px 5px 5px rgb(59, 63, 68, 0.3);
-    position: relative;
-}
-
-.crossContainer {
-    position: absolute;
-    top: 0;
-    right: 0;
-    transform: translate(50%, -50%);
-    color: #db0000;
-}
-
-.cross {
-    font-size: calc(0.1vw + 1rem);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border: solid 1px #db0000;
-    background-color: white;
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
     cursor: pointer;
 }
 
@@ -154,4 +72,25 @@
 .list {
     display: flex;
     flex-direction: column;
+}
+
+@media (max-width: 575px) {
+    .container {
+        padding: 10px 20px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        padding: 30px 70px;
+    }
+}
+
+@media (min-width: 768px) {
+    .container {
+        padding: 50px 100px;
+    }
+}
+
+@media (min-width: 1200px) {
 }

@@ -5,6 +5,8 @@ import AddMovie from '../../../components/Admin/AddMovie/AddMovie';
 import ModifyMovie from '../../../components/Admin/ModifyMovie/ModifyMovie';
 
 const AdminPanel = () => {
+    const path = window.location.href.split('/admin/')[1];
+    const form = path === 'addmovie' ? <AddMovie /> : <ModifyMovie />;
     return (
         <div className={classes.container}>
             <nav className={classes.menu}>
@@ -15,9 +17,11 @@ const AdminPanel = () => {
                     Modifier ou supprimer un film
                 </NavLink>
             </nav>
-
-            <Route exact path='/admin/addmovie' component={AddMovie} />
-            <Route path='/admin/modifymovie' component={ModifyMovie} />
+            <div className={classes.formContainer}>
+                {form}
+                {/* <Route exact path='/admin/addmovie' component={AddMovie} />
+                <Route path='/admin/modifymovie' component={ModifyMovie} /> */}
+            </div>
         </div>
     );
 };

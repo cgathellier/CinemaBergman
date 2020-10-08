@@ -413,7 +413,7 @@ const ModifyMovie = () => {
                             value='Enregistrer les modifications'
                         ></input>
                     </form>
-                    <div>
+                    <div className={classes.deleteCtn}>
                         <div className={classes.delete} onClick={e => onDelete(e)}>
                             Supprimer
                         </div>

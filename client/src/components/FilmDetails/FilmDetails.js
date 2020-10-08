@@ -310,13 +310,17 @@ const FilmDetails = () => {
                     </div>
                 </div>
             </div>
-            <div className={classes.showtimesCtn} id='showtimes'>
-                <div className={classes.showtimes}>Séances</div>
-                <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
-                <div className={classes.showtimesEltCtn}>{showtimesElt}</div>
+            <div className={classes.StPostsCtn}>
+                <div className={classes.showtimesCtn} id='showtimes'>
+                    <div className={classes.showtimes}>Séances</div>
+                    <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
+                    <div className={classes.showtimesEltCtn}>{showtimesElt}</div>
+                </div>
+                <div className={classes.postsContainer}>
+                    <div className={classes.postsElt}>{postsElt}</div>
+                    <div className={classes.formContainer}>{postForm}</div>
+                </div>
             </div>
-            <div className={classes.postsContainer}>{postsElt}</div>
-            <div className={classes.formContainer}>{postForm}</div>
         </Fragment>
     );
 };

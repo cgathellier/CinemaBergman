@@ -128,8 +128,6 @@
 }
 
 .imgContainer {
-    /* width: fit-content;
-    height: fit-content; */
     margin: 20px 0px;
     margin-right: 10px;
 }
@@ -162,11 +160,21 @@
     height: fit-content;
 }
 
+.StPostsCtn {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #f2f3f5;
+}
+
 .showtimesCtn {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* margin-top: 20px; */
+    background-color: white;
+    width: 70%;
+    min-height: 360px;
 }
 
 .showtimes {
@@ -205,13 +213,26 @@
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    margin-top: 40px;
+}
+
+.postsElt {
+    width: 70%;
+    padding: 20px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 .formContainer {
-    width: 100%;
+    width: 70%;
     display: flex;
     justify-content: center;
-    margin: 30px 0px 100px 0px;
+    /* margin: 30px 0px 100px 0px; */
+    margin-bottom: 100px;
+    padding-top: 30px;
+    background-color: white;
 }
 
 .getLogged {
@@ -341,12 +362,21 @@
         margin-top: 10px;
     }
 
+    .showtimesCtn {
+        width: 100%;
+    }
+
     .showtimes {
         font-size: 2em;
     }
 
+    .postsElt {
+        width: 100%;
+    }
+
     .formContainer {
         padding: 0px 20px;
+        width: 100%;
     }
 }
 
@@ -384,8 +414,21 @@
         margin-top: 10px;
     }
 
+    .showtimesCtn {
+        width: 100%;
+    }
+
     .showtimes {
         font-size: 2em;
+    }
+
+    .postsElt {
+        width: 100%;
+    }
+
+    .formContainer {
+        padding: 0px 20px;
+        width: 100%;
     }
 }
 
@@ -413,6 +456,18 @@
     .imgContainer img {
         width: 100px;
         border-radius: 7px;
+    }
+
+    .showtimesCtn {
+        width: 70%;
+    }
+
+    .postsElt {
+        width: 70%;
+    }
+
+    .formContainer {
+        width: 70%;
     }
 }
 
@@ -464,7 +519,7 @@
 
 @media (min-width: 1200px) {
     .Container {
-        height: calc(100vh - 140px);
+        min-height: calc(100vh - 140px);
     }
 
     .Title {

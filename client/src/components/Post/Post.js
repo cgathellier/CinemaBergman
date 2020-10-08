@@ -4,7 +4,7 @@ import Moment from 'react-moment';
 import { IsAdminContext, NameContext } from '../../containers/Main';
 
 const Post = props => {
-    const { name, date, text, _id } = props.post;
+    const { name, date, text, _id, title } = props.post;
 
     const handleClick = () => {
         props.onClick(_id);
@@ -23,13 +23,15 @@ const Post = props => {
 
     return (
         <div className={classes.container}>
+            <div className={classes.title}>{title}</div>
+            <div className={classes.text}>{text}</div>
             <div className={classes.header}>
-                <div>Posté par {name}</div>
+                <div>{name}</div>
                 <div>
-                    Le <Moment format='DD/MM/YYYY'>{date}</Moment> à <Moment format='HH:mm'>{date}</Moment>
+                    <Moment format='DD/MM/YYYY'>{date}</Moment> à{' '}
+                    <Moment format='HH:mm'>{date}</Moment>
                 </div>
             </div>
-            <div className={classes.text}>{text}</div>
             {deleteBtn}
         </div>
     );
