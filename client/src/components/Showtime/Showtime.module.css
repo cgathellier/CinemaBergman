@@ -17,7 +17,6 @@
 
 .container:hover {
     box-shadow: 0px 1px 10px #dadada;
-    /* transform: scale(1.01); */
 }
 
 .crossContainer {
@@ -39,4 +38,23 @@
     width: 20px;
     height: 20px;
     cursor: pointer;
+}
+
+@media (max-width: 575px) {
+    .container {
+        width: fit-content;
+        height: fit-content;
+        padding: 10px 20px;
+    }
+}
+
+@media (min-width: 576px) {
+    .container {
+        width: fit-content;
+        height: fit-content;
+        padding: 15px 30px;
+    }
+}
+
+@media (min-width: 1200px) {
 }

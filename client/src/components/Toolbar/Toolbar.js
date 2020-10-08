@@ -16,8 +16,19 @@ const Toolbar = () => {
         ''
     );
 
+    const handleLogout = () => {
+        localStorage.removeItem('token');
+        document.location.reload();
+        window.scroll(0, 0);
+    };
+
     const usernameDisplay = name ? (
-        <div>{name}</div>
+        <Fragment>
+            <div>{name}</div>
+            <div className={classes.logoutBtn} onClick={handleLogout}>
+                Se déconnecter
+            </div>
+        </Fragment>
     ) : (
         <Fragment>
             <NavLink to='/register'>Créer un compte</NavLink>
@@ -46,11 +57,6 @@ const Toolbar = () => {
                         <i className={['fas fa-film', classes.Icons].join(' ')}></i>Films
                     </div>
                 </NavLink>
-                {/* <NavLink to='/booking' activeClassName={classes.active}>
-                    <div>
-                        <i className={['fas fa-receipt', classes.Icons].join(' ')}></i>Vos billets
-                    </div>
-                </NavLink> */}
                 {adminNav}
             </div>
         </div>

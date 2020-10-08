@@ -1,12 +1,16 @@
 .FilmItem {
-    width: 25%;
+    width: 25vw;
     max-width: 234px;
     border-radius: 5px;
     position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 20px 10px;
+    justify-content: center;
+    /* padding: 20px 10px; */
+    margin: 0px 10px;
+    margin-top: 10px;
+    margin-bottom: 20px;
 }
 
 .imgContainer {
@@ -25,7 +29,7 @@
     transform: scale(1.05);
 }
 
-.imgContainer .genre {
+.genre {
     border-radius: inherit;
     border-bottom-right-radius: 0px;
     border-top-left-radius: 0px;
@@ -38,42 +42,50 @@
     background-color: #32a1f2;
     color: white;
     font-size: calc(0.1vw + 1rem);
-    text-overflow: fade;
-}
-
-.FilmItem .seances {
-    border-radius: inherit;
-    position: absolute;
-    left: 50%;
-    transform: translateX(-50%);
-    bottom: 5%;
-    background-color: #fbd25a;
-    padding: 5px;
-    width: 80%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    opacity: 0;
-    transition: opacity ease-in-out 200ms;
-    cursor: pointer;
-}
-
-.FilmItem:hover .seances {
-    opacity: 1;
-}
-
-.seances i {
-    margin-right: 5px;
 }
 
 .title {
-    margin-top: 10px;
+    /* margin-top: 10px; */
+    height: fit-content;
+    width: 100%;
     font-size: 1.1rem;
     text-align: center;
+    white-space: nowrap;
+    overflow-x: hidden;
+    text-overflow: ellipsis;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 575px) {
     .FilmItem {
-        width: 150px;
+        /* width: 40%; */
+        flex-basis: 40%;
     }
+
+    .genre {
+        display: none;
+    }
+}
+
+@media (min-width: 576px) {
+    .FilmItem {
+        width: 29%;
+    }
+    .genre {
+        display: flex;
+    }
+}
+
+@media (min-width: 768px) {
+    .FilmItem {
+        width: 22%;
+    }
+}
+
+@media (min-width: 992px) {
+    .FilmItem {
+        width: 17%;
+    }
+}
+
+@media (min-width: 1200px) {
 }

@@ -19,3 +19,26 @@
     cursor: pointer;
     transform: scale(1.2);
 }
+
+.seat.free:hover {
+    cursor: default;
+    transform: none;
+}
+
+.seat.selectedLegend {
+    background-color: #6feaf6;
+}
+
+.seat.selectedLegend:hover {
+    cursor: default;
+    transform: none;
+}
+
+.seat.bookedLegend {
+    background-color: #fff;
+}
+
+.seat.bookedLegend:hover {
+    cursor: default;
+    transform: none;
+}

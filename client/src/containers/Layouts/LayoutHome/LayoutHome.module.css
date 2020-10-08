@@ -1,10 +1,6 @@
-* {box-sizing: border-box;}
-
 .Container {
-    margin-top: 140px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    box-sizing: border-box;
 }

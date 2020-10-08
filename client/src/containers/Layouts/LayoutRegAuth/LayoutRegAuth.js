@@ -19,9 +19,14 @@ const LayoutRegAuth = props => {
     return (
         <div className={classes.container}>
             <div className={classes.illustration}>
-                <img src={imgCinema} alt='Grande salle du Cinema Bergman' className={classes.imgCinema} />
+                <img
+                    src={imgCinema}
+                    alt='Grande salle du Cinema Bergman'
+                    className={classes.imgCinema}
+                />
             </div>
-            {form}
+            <div className={classes.form}>{form}</div>
+            {/* {form} */}
         </div>
     );
 };

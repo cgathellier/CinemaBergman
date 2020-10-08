@@ -43,7 +43,9 @@ const FilmDetails = () => {
     const [selectedNav, setSelectedNav] = useState(0);
     const [showtimes, setShowtimes] = useState([]);
     const [stDisplayed, setStDisplayed] = useState([]);
+    const [display, setDisplay] = useState([]);
 
+    // let showtimesElt;
     const name = useContext(NameContext);
     const filmUrl = window.location.href;
     const filmId = filmUrl.split('/films/')[1];
@@ -69,6 +71,26 @@ const FilmDetails = () => {
         setShowtimes(res.data);
     };
 
+    // const displayST = () => {
+    //     const showtimesElt = stDisplayed
+    //         .sort((a, b) => {
+    //             const first = a.day + 'T' + a.hour + ':00';
+    //             const second = b.day + 'T' + b.hour + ':00';
+    //             const firstTime = new Date(first).getTime();
+    //             const secondTime = new Date(second).getTime();
+    //             return firstTime - secondTime;
+    //         })
+    //         .map((st, index) => {
+    //             const { hour, _id } = st;
+    //             return (
+    //                 <Showtime key={index} id={_id}>
+    //                     {hour}
+    //                 </Showtime>
+    //             );
+    //         });
+    //     setDisplay(showtimesElt);
+    // };
+
     useEffect(() => {
         getData();
         setNavDates();
@@ -92,6 +114,10 @@ const FilmDetails = () => {
         const filteredST = showtimes.filter(filterFunction);
         setStDisplayed(filteredST);
     }, [nav, selectedNav]);
+
+    // useEffect(() => {
+    //     displayST();
+    // }, [stDisplayed, nav, selectedNav]);
 
     const showtimesElt = stDisplayed
         .sort((a, b) => {
@@ -183,10 +209,35 @@ const FilmDetails = () => {
             <input type='submit' className={classes.submit} value='Ajouter un commentaire' />
         </form>
     ) : (
-        <div>
-            Veuillez vous connecter pour poster un commentaire
-            <NavLink to='/login'>Connexion</NavLink>
-        </div>
+        <form className={classes.form} onSubmit={e => handleSubmit(e)}>
+            <input
+                type='text'
+                className={classes.postTitle}
+                placeholder='Titre du commentaire'
+                name='title'
+                onChange={e => handleChange(e)}
+                value={postContent.title}
+                maxLength={40}
+            />
+            <textarea
+                type='textarea'
+                className={classes.textarea}
+                placeholder='Commentaire'
+                name='text'
+                onChange={e => handleChange(e)}
+                value={postContent.text}
+            ></textarea>
+            <input type='submit' className={classes.submit} value='Ajouter un commentaire' />
+            <div className={classes.getLogged}>
+                Veuillez vous connecter pour poster un commentaire
+                <NavLink to='/login'>
+                    <div>Se connecter</div>
+                </NavLink>
+                <NavLink to='/register'>
+                    <div>Créer un compte</div>
+                </NavLink>
+            </div>
+        </form>
     );
 
     const showtimeNav = nav.map((navDate, index) => {
@@ -221,18 +272,22 @@ const FilmDetails = () => {
                             <i className='far fa-clock'></i> Séances
                         </a>
                     </div>
-                    <div className={classes.Toolbar}>
+                    {/* <div className={classes.Toolbar}>
                         <span className={classes.Note}>
                             <i className='fas fa-heart'></i>Noter
                         </span>
                         <span className={classes.AddList}>
                             <div className={classes.PlusSign}>+</div>Ajouter à la liste
                         </span>
-                    </div>
+                    </div> */}
                     <div>
                         <div className={classes.Presentation}>
                             <div className={classes.imgContainer}>
-                                <img src={filmData.poster} alt={filmData.title} className={classes.Poster} />
+                                <img
+                                    src={filmData.poster}
+                                    alt={filmData.title}
+                                    className={classes.Poster}
+                                />
                             </div>
                             <div className={classes.Infos}>
                                 <p>
@@ -244,19 +299,19 @@ const FilmDetails = () => {
                                 <p>Avec {filmData.actors}</p>
                             </div>
                         </div>
-                        <div className={classes.Stars}>
+                        {/* <div className={classes.Stars}>
                             <i className='far fa-star'></i>
                             <i className='far fa-star'></i>
                             <i className='far fa-star'></i>
                             <i className='far fa-star'></i>
                             <i className='far fa-star'></i>
-                        </div>
+                        </div> */}
                         <div className={classes.Synopsis}>{filmData.synopsis}</div>
                     </div>
                 </div>
             </div>
-            <div className={classes.showTimesCtn} id='showtimes'>
-                <div className={classes.showTimes}>Séances</div>
+            <div className={classes.showtimesCtn} id='showtimes'>
+                <div className={classes.showtimes}>Séances</div>
                 <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
                 <div className={classes.showtimesEltCtn}>{showtimesElt}</div>
             </div>

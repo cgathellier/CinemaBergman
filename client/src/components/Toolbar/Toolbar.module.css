@@ -7,9 +7,8 @@
 }
 
 .Toolbar {
-    width: 100%;
+    width: 100vw;
     height: 140px;
-    margin-bottom: 30px;
     position: fixed;
     top: 0;
     z-index: 300;
@@ -35,6 +34,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
     margin-right: 30px;
@@ -57,6 +57,10 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+.logoutBtn {
+    cursor: pointer;
 }
 
 .Menu {
@@ -99,8 +103,56 @@ div {
     transform: scale(1.1);
 }
 
-@media (max-width: 500px) {
+@media (max-width: 575px) {
+    .Toolbar {
+        height: 100px;
+    }
+    .Presentation {
+        padding: 10px 20px;
+        margin-bottom: 5px;
+    }
     .toForms {
         display: none;
+    }
+    .Menu div {
+        font-size: 0.7rem;
+        font-weight: 400;
+    }
+}
+
+@media (min-width: 576px) {
+    .Toolbar {
+        height: 110px;
+    }
+    .Presentation {
+        padding: 10px 20px;
+        margin-bottom: 15px;
+    }
+    .toForms {
+        display: none;
+    }
+    .Menu div {
+        font-size: 0.7rem;
+        font-weight: 400;
+    }
+}
+
+@media (min-width: 992px) {
+    .Toolbar {
+        height: 140px;
+    }
+    .Presentation {
+        padding: 10px 20px;
+        margin-bottom: 35px;
+    }
+    .Menu div {
+        font-size: 1rem;
+        font-weight: 400;
+    }
+}
+
+@media (min-width: 1200px) {
+    .toForms {
+        display: flex;
     }
 }

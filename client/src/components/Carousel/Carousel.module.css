@@ -19,13 +19,36 @@
     right: 80px;
 }
 
-@media (max-width: 549px) {
+@media (max-width: 575px) {
     .dotsContainer {
         right: 40px;
     }
+
+    .Container {
+        height: 250px;
+    }
 }
-@media (max-width: 849px) {
+
+@media (max-width: 767px) {
     .dotsContainer {
         right: 60px;
+    }
+}
+
+@media (max-width: 991px) {
+    .bodyCtn {
+        width: 100%;
+    }
+}
+
+@media (max-width: 1199px) {
+    .bodyCtn {
+        width: 100%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .bodyCtn {
+        width: 100%;
     }
 }

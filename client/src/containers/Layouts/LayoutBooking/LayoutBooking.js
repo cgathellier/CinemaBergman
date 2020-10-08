@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Row from '../../../components/Booking/Row';
 import classes from './LayoutBooking.module.css';
 import axios from 'axios';
+import Seat from '../../../components/Booking/Seat';
 
 const LayoutBooking = () => {
     const [selectedSeats, setSelectedSeats] = useState([]);
@@ -14,7 +15,6 @@ const LayoutBooking = () => {
             const res = await axios.get(`/api/bookings/${showtimeID}`);
             for (let i = 0; i < res.data.length; i++) {
                 const bookedArray = res.data[i].selectedSeats;
-                console.log(bookedArray);
                 bookedArray.forEach(seat => setBookedSeats(bookedSeats => [...bookedSeats, seat]));
             }
         };
@@ -45,6 +45,10 @@ const LayoutBooking = () => {
         axios.post(`/api/bookings/${showtimeID}`, body, config);
     };
 
+    const handleClickLegend = () => {
+        return;
+    };
+
     const colsNames = ['A', 'B', 'C', 'D', 'E', 'F'];
 
     const rows = colsNames.map(letter => {
@@ -63,6 +67,14 @@ const LayoutBooking = () => {
     return (
         <div className={classes.layoutContainer}>
             <div className={classes.container}>
+                <div className={classes.legend}>
+                    <Seat status='free' seatID='' handleClick={handleClickLegend} />
+                    <span>Places libres</span>
+                    <Seat status='selectedLegend' seatID='' handleClick={handleClickLegend} />
+                    <span>Mes places</span>
+                    <Seat status='bookedLegend' seatID='' handleClick={handleClickLegend} />
+                    <span>Places occupées</span>
+                </div>
                 <div className={classes.screenContainer}>
                     <div className={classes.screen}></div>
                 </div>

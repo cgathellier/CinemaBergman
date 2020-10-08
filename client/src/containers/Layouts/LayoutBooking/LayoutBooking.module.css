@@ -5,7 +5,6 @@
 }
 
 .container {
-    margin-top: 140px;
     perspective: 1000px;
     width: 100vw;
     height: calc(100vh - 140px);
@@ -14,6 +13,20 @@
     align-items: center;
     justify-content: center;
     background-color: #242333;
+}
+
+.legend {
+    color: white;
+    display: flex;
+    align-items: center;
+}
+
+.legend span {
+    margin-left: 5px;
+}
+
+.legend span:not(:last-of-type) {
+    margin-right: 20px;
 }
 
 .screenContainer {
