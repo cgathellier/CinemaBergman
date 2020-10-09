@@ -69,9 +69,10 @@
 
 .Menu {
     width: 100%;
-    height: 30px;
+    height: 50px;
     display: flex;
     justify-content: space-evenly;
+    align-items: flex-end;
 }
 
 .Menu div {
@@ -82,6 +83,8 @@
     cursor: pointer;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
+    width: 100px;
+    border-bottom: solid 5px white;
 }
 
 .Icons {
@@ -97,19 +100,7 @@ a:visited {
     color: black;
 }
 
-.Menu div {
-    width: 100px;
-}
-
-.Menu div:hover {
-    border-bottom: solid 5px #dadada;
-}
-
 .active div {
-    border-bottom: solid 5px #fbd25a;
-}
-
-.active div:hover {
     border-bottom: solid 5px #fbd25a;
 }
 
@@ -136,7 +127,6 @@ a:visited {
     }
     .Presentation {
         padding: 10px 20px;
-        margin-bottom: 15px;
     }
     .toForms {
         display: none;
@@ -153,7 +143,6 @@ a:visited {
     }
     .Presentation {
         padding: 10px 20px;
-        margin-bottom: 35px;
     }
     .Menu div {
         font-size: 1rem;

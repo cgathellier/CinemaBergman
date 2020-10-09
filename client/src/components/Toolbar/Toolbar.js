@@ -7,7 +7,7 @@ const Toolbar = () => {
     const isAdmin = useContext(IsAdminContext);
     const name = useContext(NameContext);
     const adminNav = isAdmin ? (
-        <NavLink to='/admin/addmovie' activeClassName={classes.active}>
+        <NavLink to='/admin' activeClassName={classes.active}>
             <div>
                 <i className={['fas fa-user-lock', classes.Icons].join(' ')}></i>Admin
             </div>

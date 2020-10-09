@@ -10,17 +10,19 @@ const AdminPanel = () => {
     return (
         <div className={classes.container}>
             <nav className={classes.menu}>
-                <NavLink to='/admin/addmovie' className={classes.item}>
-                    Ajouter un film
+                <NavLink to='/admin/addmovie' activeClassName={classes.active}>
+                    <div>
+                        Ajouter un film
+                    </div>
                 </NavLink>
-                <NavLink to='/admin/modifymovie' className={classes.item}>
-                    Modifier ou supprimer un film
+                <NavLink to='/admin/modifymovie' activeClassName={classes.active}>
+                    <div>
+                        Modifier ou supprimer un film
+                    </div>
                 </NavLink>
             </nav>
             <div className={classes.formContainer}>
                 {form}
-                {/* <Route exact path='/admin/addmovie' component={AddMovie} />
-                <Route path='/admin/modifymovie' component={ModifyMovie} /> */}
             </div>
         </div>
     );

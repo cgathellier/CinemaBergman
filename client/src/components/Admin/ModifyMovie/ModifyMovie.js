@@ -213,7 +213,7 @@ const ModifyMovie = () => {
                 }
 
                 const res = await axios.put(`/api/films/${film._id}`, formData, config);
-                if (res.status === 201) {
+                if (res.status === 200) {
                     document.location.reload();
                     window.scroll(0, 0);
                 }
