@@ -1,6 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const Film = require('../../models/Film');
+const Post = require('../../models/Post');
+const Showtime = require('../../models/Showtime');
+const Booking = require('../../models/Booking');
 const auth = require('../../middleware/auth');
 const fs = require('fs');
 const multer = require('multer');
@@ -165,6 +168,10 @@ router.delete('/:id', auth, async (req, res) => {
                 console.log(`image ${path} a été supprimée`);
             });
         });
+        await Post.deleteMany({film: req.params.id});
+        await Showtime.deleteMany({film: req.params.id});
+        await Booking.deleteMany({filmID: req.params.id});
+        
         film = await Film.deleteOne({ _id: req.params.id });
         return res.status(202).json(`${film} a été supprimé de la base de donnée`);
     } catch (error) {
