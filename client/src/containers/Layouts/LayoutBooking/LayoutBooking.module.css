@@ -1,13 +1,18 @@
 .layoutContainer {
-    width: 100%;
     display: flex;
     justify-content: center;
+    width: 100vw;
+    /* height: 100%; */
+    height: calc(100vh - 140px);
+    margin-top: 140px;
+    position: absolute;
+    overflow-x: hidden;
 }
 
 .container {
     perspective: 1000px;
-    width: 100vw;
-    height: calc(100vh - 140px);
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,15 +23,19 @@
 .legend {
     color: white;
     display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    height: 100px;
+}
+
+.legend div {
+    display: flex;
     align-items: center;
 }
 
 .legend span {
     margin-left: 5px;
-}
-
-.legend span:not(:last-of-type) {
-    margin-right: 20px;
 }
 
 .screenContainer {
@@ -61,4 +70,32 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+@media (max-width: 575px) {
+    .layoutContainer {
+        margin-top: 100px;
+        height: calc(100vh - 100px);
+    }
+}
+
+@media (min-width: 576px) {
+    .layoutContainer {
+        margin-top: 110px;
+        height: calc(100vh - 110px);
+    }
+}
+
+@media (min-width: 992px) {
+    .layoutContainer {
+        margin-top: 140px;
+        height: calc(100vh - 140px);
+    }
+}
+
+@media (min-width: 1200px) {
+    .layoutContainer {
+        margin-top: 140px;
+        height: calc(100vh - 140px);
+    }
 }

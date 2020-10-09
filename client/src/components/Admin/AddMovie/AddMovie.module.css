@@ -93,4 +93,7 @@
 }
 
 @media (min-width: 1200px) {
+    .container {
+        padding: 50px 200px;
+    }
 }

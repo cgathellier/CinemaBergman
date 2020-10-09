@@ -83,6 +83,6 @@
 
 @media (min-width: 1200px) {
     .FilmItem {
-        width: 25%;
+        width: calc(100% / 5);
     }
 }

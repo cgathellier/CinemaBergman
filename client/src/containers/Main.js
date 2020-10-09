@@ -57,6 +57,9 @@ const Main = () => {
         setIsAdmin(isAdmin);
     };
 
+    // const url = window.location.href.includes('/admin')
+    // let bodyCtnStyle = url ? {width: '100vw'} : '';
+
     return (
         <Fragment>
             <Router history={history}>
@@ -81,8 +84,8 @@ const Main = () => {
                                     path='/films/:id'
                                     render={props => <FilmDetails {...props} />}
                                 />
-                                <Route path='/admin' render={() => <AdminPanel />} />
                             </div>
+                                <Route path='/admin' render={() => <AdminPanel />} />
                             <Route path='/booking' component={LayoutBooking} />
                             <Route
                                 path='/register'

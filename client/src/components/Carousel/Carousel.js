@@ -72,10 +72,10 @@ const Carousel = props => {
 
     return (
         <div className={classes.Container}>
-            <Arrows direction='left' handleClick={() => previousFilm()} />
-            <Arrows direction='right' handleClick={() => nextFilm()} />
+            {/* <Arrows direction='left' handleClick={() => previousFilm()} />
+            <Arrows direction='right' handleClick={() => nextFilm()} /> */}
             {currentSlide}
-            <div className={classes.dotsContainer}>{dots}</div>
+            {/* <div className={classes.dotsContainer}>{dots}</div> */}
         </div>
     );
 };

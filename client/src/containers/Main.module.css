@@ -13,13 +13,13 @@
     height: fit-content;
     background-color: white;
     padding-top: 140px;
+    margin: 0px;
+    overflow-x: hidden;
 }
 
 @media (max-width: 575px) {
     .bodyCtn {
         width: 100vw;
-        margin: 0px;
-        overflow-x: hidden;
         padding-top: 100px;
     }
 }
@@ -27,8 +27,6 @@
 @media (min-width: 576px) {
     .bodyCtn {
         width: 100vw;
-        margin: 0px;
-        overflow-x: hidden;
         padding-top: 110px;
     }
 }
@@ -36,8 +34,6 @@
 @media (min-width: 768px) {
     .bodyCtn {
         width: 80vw;
-        margin: 0px;
-        overflow-x: hidden;
         padding-top: 110px;
     }
 }
@@ -45,17 +41,13 @@
 @media (min-width: 992px) {
     .bodyCtn {
         width: 65vw;
-        margin: 0px;
-        overflow-x: hidden;
         padding-top: 140px;
     }
 }
 
 @media (min-width: 1200px) {
     .bodyCtn {
-        width: 50vw;
-        margin: 0px;
-        overflow-x: hidden;
+        width: 80vw;
         padding-top: 140px;
     }
 }

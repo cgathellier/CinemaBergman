@@ -40,12 +40,11 @@ const FilmDetails = () => {
         text: '',
     });
     const [nav, setNav] = useState([]);
-    const [selectedNav, setSelectedNav] = useState(0);
+    const [selectedNav, setSelectedNav] = useState();
     const [showtimes, setShowtimes] = useState([]);
     const [stDisplayed, setStDisplayed] = useState([]);
-    const [display, setDisplay] = useState([]);
 
-    // let showtimesElt;
+
     const name = useContext(NameContext);
     const filmUrl = window.location.href;
     const filmId = filmUrl.split('/films/')[1];
@@ -71,30 +70,14 @@ const FilmDetails = () => {
         setShowtimes(res.data);
     };
 
-    // const displayST = () => {
-    //     const showtimesElt = stDisplayed
-    //         .sort((a, b) => {
-    //             const first = a.day + 'T' + a.hour + ':00';
-    //             const second = b.day + 'T' + b.hour + ':00';
-    //             const firstTime = new Date(first).getTime();
-    //             const secondTime = new Date(second).getTime();
-    //             return firstTime - secondTime;
-    //         })
-    //         .map((st, index) => {
-    //             const { hour, _id } = st;
-    //             return (
-    //                 <Showtime key={index} id={_id}>
-    //                     {hour}
-    //                 </Showtime>
-    //             );
-    //         });
-    //     setDisplay(showtimesElt);
-    // };
-
     useEffect(() => {
-        getData();
-        setNavDates();
-        getST();
+        const execution = async () => {
+            await getData();
+            await setNavDates();
+            await getST();
+            setSelectedNav(0);
+        }
+        execution()
     }, []);
 
     useEffect(() => {
@@ -112,15 +95,7 @@ const FilmDetails = () => {
             }
         };
         const filteredST = showtimes.filter(filterFunction);
-        setStDisplayed(filteredST);
-    }, [nav, selectedNav]);
-
-    // useEffect(() => {
-    //     displayST();
-    // }, [stDisplayed, nav, selectedNav]);
-
-    const showtimesElt = stDisplayed
-        .sort((a, b) => {
+        const array = filteredST.sort((a, b) => {
             const first = a.day + 'T' + a.hour + ':00';
             const second = b.day + 'T' + b.hour + ':00';
             const firstTime = new Date(first).getTime();
@@ -135,6 +110,8 @@ const FilmDetails = () => {
                 </Showtime>
             );
         });
+        setStDisplayed(array);
+    }, [nav, selectedNav]);
 
     const handleClick = async postId => {
         const token = localStorage.getItem('token');
@@ -314,7 +291,7 @@ const FilmDetails = () => {
                 <div className={classes.showtimesCtn} id='showtimes'>
                     <div className={classes.showtimes}>Séances</div>
                     <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
-                    <div className={classes.showtimesEltCtn}>{showtimesElt}</div>
+                    <div className={classes.showtimesEltCtn}>{stDisplayed}</div>
                 </div>
                 <div className={classes.postsContainer}>
                     <div className={classes.postsElt}>{postsElt}</div>

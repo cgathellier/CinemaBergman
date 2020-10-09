@@ -68,12 +68,21 @@ const LayoutBooking = () => {
         <div className={classes.layoutContainer}>
             <div className={classes.container}>
                 <div className={classes.legend}>
+                    <div>
+
                     <Seat status='free' seatID='' handleClick={handleClickLegend} />
                     <span>Places libres</span>
+                    </div>
+                    <div>
+
                     <Seat status='selectedLegend' seatID='' handleClick={handleClickLegend} />
                     <span>Mes places</span>
+                    </div>
+                    <div>
+
                     <Seat status='bookedLegend' seatID='' handleClick={handleClickLegend} />
                     <span>Places occupées</span>
+                    </div>
                 </div>
                 <div className={classes.screenContainer}>
                     <div className={classes.screen}></div>
