@@ -1,0 +1,4 @@
+{
+    "mongoURI": "mongodb+srv://User1:User1@cinemadb.fymil.mongodb.net/Cinema?retryWrites=true&w=majority",
+    "jwtSecret": "mysecrettoken"
+}

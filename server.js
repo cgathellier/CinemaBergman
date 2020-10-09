@@ -17,7 +17,6 @@ app.use((req, res, next) => {
 
 app.use(express.json({ extended: false }));
 
-app.get('/', (req, res) => res.send('Server is running'));
 
 app.use('/images', express.static(path.join(__dirname, 'images')));
 app.use('/api/users', require('./routes/api/users'));
@@ -26,6 +25,13 @@ app.use('/api/films', require('./routes/api/films'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/showtimes', require('./routes/api/showtimes'));
 app.use('/api/bookings', require('./routes/api/bookings'));
+
+if(process.env.NODE_ENV === 'production') {
+    app.use(express.static('client/build'));
+    app.get('*', (req, res) => {
+        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    })
+}
 
 const PORT = process.env.PORT || 5000;
 
