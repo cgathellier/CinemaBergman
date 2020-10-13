@@ -18,7 +18,9 @@ app.use((req, res, next) => {
 app.use(express.json({ extended: false }));
 
 
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/images', express.static(`https://cinema-bergman-images.s3.eu-west-3.amazonaws.com/`));
+
 app.use('/api/users', require('./routes/api/users'));
 app.use('/api/auth', require('./routes/api/auth'));
 app.use('/api/films', require('./routes/api/films'));
