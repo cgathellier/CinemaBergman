@@ -77,7 +77,7 @@ router.get('/:id', async (req, res) => {
 router.get('/images/:filename', async (req, res) => {
     try {
         filename = req.params.filename;
-        return res.sendFile(`${__dirname}/images/${filename}.jpeg`);
+        return res.sendFile(`http://s3.amazonaws.com/cinema-bergman-images/${filename}.jpeg`);
     } catch (error) {
         return res.status(404).json({ error: error.message });
     }

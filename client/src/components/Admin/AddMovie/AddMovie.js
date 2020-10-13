@@ -89,6 +89,7 @@ const AddMovie = () => {
                 formData.append('snap', snap, film.title);
                 const res = await axios.post('/api/films', formData, config);
                 if (res.status === 201) {
+                    window.scroll(0, 0);
                     history.push(`/admin/modifymovie/${res.data._id}`);
                 }
                 return res.data;
