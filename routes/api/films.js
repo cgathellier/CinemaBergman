@@ -15,10 +15,10 @@ const upload = multer({ dest: 'images/' });
 router.post(
     '/',
     auth,
-    upload.fields([
-        { name: 'poster', maxCount: 1 },
-        { name: 'snap', maxCount: 1 },
-    ]),
+    // upload.fields([
+    //     { name: 'poster', maxCount: 1 },
+    //     { name: 'snap', maxCount: 1 },
+    // ]),
     async (req, res) => {
         try {
             if (req.isAdmin === false) {
@@ -32,8 +32,8 @@ router.post(
 
             film = new Film({
                 ...reqObj,
-                poster: `${req.protocol}://${req.get('host')}/images/${req.files['poster'][0].filename}`,
-                snap: `${req.protocol}://${req.get('host')}/images/${req.files['snap'][0].filename}`,
+                // poster: `${req.protocol}://${req.get('host')}/images/${req.files['poster'][0].filename}`,
+                // snap: `${req.protocol}://${req.get('host')}/images/${req.files['snap'][0].filename}`,
             });
 
             await film.save();
