@@ -25,7 +25,7 @@ router.get('/:name/:type', (req, res) => {
     return res.status(200).json(url)
     // s3.getSignedUrl('putObject', s3Params, (err, data) => {
     //     if(err){
-    //         console.log(err);
+    //         res.send(err);
     //         return res.end();
     //     }
     //     const returnData = {

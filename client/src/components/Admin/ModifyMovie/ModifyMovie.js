@@ -199,17 +199,17 @@ const ModifyMovie = () => {
                     film.poster = poster;
                     formData = new FormData();
                     formData.append('film', JSON.stringify(film));
-                    formData.append('snap', snap, film.title);
+                    formData.append('snap', snap);
                 } else if (typeof poster === 'object' && typeof snap === 'string') {
                     film.snap = snap;
                     formData = new FormData();
                     formData.append('film', JSON.stringify(film));
-                    formData.append('poster', poster, film.title);
+                    formData.append('poster', poster);
                 } else {
                     formData = new FormData();
                     formData.append('film', JSON.stringify(film));
-                    formData.append('poster', poster, film.title);
-                    formData.append('snap', snap, film.title);
+                    formData.append('poster', poster);
+                    formData.append('snap', snap);
                 }
 
                 const res = await axios.put(`/api/films/${film._id}`, formData, config);

@@ -6,8 +6,30 @@ const Showtime = require('../../models/Showtime');
 const Booking = require('../../models/Booking');
 const auth = require('../../middleware/auth');
 const fs = require('fs');
+const {v4: uuidv4} = require('uuid');
+
+const AWS = require('aws-sdk');
+const s3 = new AWS.S3({
+    accessKeyId: 'AKIAIA4ISICJ6LJZ2GHA',
+    secretAccessKey: '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'
+});
+const S3_BUCKET = 'cinema-bergman-images'
+
+
+const MIME_TYPES = {
+    'image/jpg': 'jpg',
+    'image/jpeg': 'jpg',
+    'image/png': 'png',
+};
+
 const multer = require('multer');
-const upload = multer({ dest: 'images/' });
+const storage = multer.memoryStorage({
+    dest: (req, file, callback) => {
+        callback(null, '')
+    },
+})
+const upload = multer({ storage });
+
 
 // @route           POST api/film
 // @description     Create a new film
@@ -15,10 +37,10 @@ const upload = multer({ dest: 'images/' });
 router.post(
     '/',
     auth,
-    // upload.fields([
-    //     { name: 'poster', maxCount: 1 },
-    //     { name: 'snap', maxCount: 1 },
-    // ]),
+    upload.fields([
+        { name: 'poster', maxCount: 1 },
+        { name: 'snap', maxCount: 1 },
+    ]),
     async (req, res) => {
         try {
             if (req.isAdmin === false) {
@@ -30,10 +52,41 @@ router.post(
                 return res.status(500).send('Ce film est déjà dans la base de donnée');
             }
 
-            film = new Film({
+            const posterName = `${uuidv4()}.${MIME_TYPES[req.files['poster'][0].mimetype]}`;
+            const snapName = `${uuidv4()}.${MIME_TYPES[req.files['snap'][0].mimetype]}`
+
+            const posterParams = {
+                Bucket: S3_BUCKET,
+                Key: posterName,
+                Body: req.files['poster'][0].buffer,
+                ACL: 'public-read'
+            }
+            
+            const snapParams = {
+                Bucket: S3_BUCKET,
+                Key: snapName,
+                Body: req.files['snap'][0].buffer,
+                ACL: 'public-read'
+            }
+
+            await s3.upload(posterParams, (error, data) => {
+                if (error) {
+                    res.status(500).send(error) 
+                };
+                return data;
+            });
+
+            await s3.upload(snapParams, (error, data) => {
+                if (error) {
+                    res.status(500).send(error) 
+                };
+                return data;
+            });
+
+            film = await new Film({
                 ...reqObj,
-                // poster: `${req.protocol}://${req.get('host')}/images/${req.files['poster'][0].filename}`,
-                // snap: `${req.protocol}://${req.get('host')}/images/${req.files['snap'][0].filename}`,
+                poster: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${posterName}`,
+                snap: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${snapName}`,
             });
 
             await film.save();
@@ -105,44 +158,95 @@ router.put(
             if (!req.files) {
                 film = { ...reqObj };
             } else if (reqObj.snap === '' && reqObj.poster !== '') {
-                const snapFilename = oldFilm.snap.split('/images/')[1];
-                fs.unlinkSync(`images/${snapFilename}`, () => {
-                    console.log(`image ${snapFilename} supprimée`);
-                });
+                const snapFilename = oldFilm.snap.split('.com/')[1];
+                let params = {
+                    Bucket: S3_BUCKET,
+                    Key: snapFilename,
+                }
+                await s3.deleteObject(params, error => error ? res.status(500).send(error) : console.log(`${snapFilename} a été supprimée`))
+
+                const newSnapName = `${uuidv4()}.${MIME_TYPES[req.files['snap'][0].mimetype]}`;
+                params = {
+                    Bucket: S3_BUCKET,
+                    Key: newSnapName,
+                    Body: req.files['snap'][0].buffer,
+                    ACL: 'public-read'
+                }
+                await s3.upload(params, error => error ? res.status(500).send(error) : console.log(`${newSnapName} a été ajoutée`))
                 film = {
                     ...reqObj,
-                    snap: `${req.protocol}://${req.get('host')}/images/${req.files['snap'][0].filename}`,
+                    snap: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${newSnapName}`,
                 };
             } else if (reqObj.poster === '' && reqObj.snap !== '') {
-                const posterFilename = oldFilm.poster.split('/images/')[1];
-                fs.unlinkSync(`images/${posterFilename}`, (err) => {
-                    if (err) {
-                        console.log(err)
-                    }
-                    console.log(`image ${posterFilename} supprimée`);
-                });
+                const posterFilename = oldFilm.poster.split('.com/')[1];
+                let params = {
+                    Bucket: S3_BUCKET,
+                    Key: posterFilename,
+                }
+                await s3.deleteObject(params, (error, data) => error ? res.status(500).send(error) : console.log(`${posterFilename} a été supprimée`))
+
+                const newPosterName = `${uuidv4()}.${MIME_TYPES[req.files['poster'][0].mimetype]}`;
+                params = {
+                    Bucket: S3_BUCKET,
+                    Key: newPosterName,
+                    Body: req.files['poster'][0].buffer,
+                    ACL: 'public-read'
+                }
+                await s3.upload(params, (error, data) => error ? res.status(500).send(error) : console.log(`${newPosterName} a été ajoutée`))
+                
                 film = {
                     ...reqObj,
-                    poster: `${req.protocol}://${req.get('host')}/images/${
-                        req.files['poster'][0].filename
-                    }`,
+                    poster: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${newPosterName}`
                 };
             } else {
-                const snapFilename = oldFilm.snap.split('/images/')[1];
-                const posterFilename = oldFilm.poster.split('/images/')[1];
-                const deleteFiles = (files) => {
+                const snapFilename = oldFilm.snap.split('.com/')[1];
+                const posterFilename = oldFilm.poster.split('.com/')[1];
+                const deleteFiles = files =>  {
                     for (let i = 0 ; i< files.length ; i++) {
-                        fs.unlink(`images/${files[i]}`, () => {
-                            console.log(`image ${files[i]} a été supprimée`);
-                        });
+                        const params = {
+                            Bucket: S3_BUCKET,
+                            Key: files[i],
+                        }
+                        s3.deleteObject(params, error => error ? res.status(500).send(error) : console.log(`${files[i]} a été supprimée`))
                     }
                 }
                 let filesnames = [posterFilename, snapFilename];
-                deleteFiles(filesnames)
+                await deleteFiles(filesnames)
+
+
+                const newPosterName = `${uuidv4()}.${MIME_TYPES[req.files['poster'][0].mimetype]}`;
+                const newSnapName = `${uuidv4()}.${MIME_TYPES[req.files['snap'][0].mimetype]}`;
+
+                const posterParams = {
+                    Bucket: S3_BUCKET,
+                    Key: newPosterName,
+                    Body: req.files['poster'][0].buffer,
+                    ACL: 'public-read'
+                }
+                const snapParams = {
+                    Bucket: S3_BUCKET,
+                    Key: newSnapName,
+                    Body: req.files['snap'][0].buffer,
+                    ACL: 'public-read'
+                }
+    
+                await s3.upload(posterParams, (error, data) => {
+                    if (error) {
+                        res.status(500).send(error) 
+                    };
+                    return data;
+                });
+                await s3.upload(snapParams, (error, data) => {
+                    if (error) {
+                        res.status(500).send(error) 
+                    };
+                    return data;
+                });
+
                 film = {
                     ...reqObj,
-                    poster: `${req.protocol}://${req.get('host')}/images/${req.files['poster'][0].filename}`,
-                    snap: `${req.protocol}://${req.get('host')}/images/${req.files['snap'][0].filename}`,
+                    poster: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${newPosterName}`,
+                    snap: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${newSnapName}`,
                 };
             }
             await Film.updateOne({ _id: req.params.id }, { ...film, _id: req.params.id });
@@ -160,11 +264,18 @@ router.put(
 router.delete('/:id', auth, async (req, res) => {
     try {
         let film = await Film.findOne({ _id: req.params.id });
-        const snapFilename = film.snap.split('/images/')[1];
-        const posterFilename = film.poster.split('/images/')[1];
+        const snapFilename = film.snap.split('.com/')[1];
+        const posterFilename = film.poster.split('.com/')[1];
         let filesnames = [posterFilename, snapFilename];
         await filesnames.forEach(path => {
-            fs.unlink(`images/${path}`, () => {
+            const params = {
+                Bucket: S3_BUCKET,
+                Key: path
+            }
+            s3.deleteObject(params, (error, data) => {
+                if(error) {
+                    res.status(500).send(error)
+                }
                 console.log(`image ${path} a été supprimée`);
             });
         });
@@ -173,7 +284,7 @@ router.delete('/:id', auth, async (req, res) => {
         await Booking.deleteMany({filmID: req.params.id});
         
         film = await Film.deleteOne({ _id: req.params.id });
-        return res.status(202).json(`${film} a été supprimé de la base de donnée`);
+        return res.status(200).json(`${film} a été supprimé de la base de donnée`);
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }

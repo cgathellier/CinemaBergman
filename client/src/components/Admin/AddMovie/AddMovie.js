@@ -82,46 +82,20 @@ const AddMovie = () => {
             newFilm.snap = '';
             newFilm.synopsis = synopsis;
 
-            // const uploadFile = async signedReq => {
-            //     const resUpload = await axios.put(signedReq)
-            //     return resUpload.status;
-            // }
-
-            const getSignedReq = async file => {
-                const name = file.name.split(' ').join('_');
-                console.log(file.type)
-                const resSigned = await axios.get(`/api/sign-s3/${name}/${file.type}`)
-                console.log(resSigned)
-                // newFilm[file] = resSigned.url;
-                // const resUpload = await axios.put(resSigned.signedRequest)
-                // uploadFile(resSigned.signedRequest)
-            }
-
-            const createNewFilmWithFile = async () => {
-                await getSignedReq(poster);
-                await getSignedReq(snap);
-                const body = JSON.stringify(newFilm)
-                const res = await axios.post('/api/films', body, config);
+            const createNewFilmWithFile = async (film, poster, snap) => {
+                const formData = new FormData();
+                formData.append('film', JSON.stringify(film));
+                formData.append('poster', poster);
+                formData.append('snap', snap);
+                const res = await axios.post('/api/films', formData, config);
+                if (res.status === 201) {
+                    window.scroll(0, 0);
+                    history.push(`/admin/modifymovie/${res.data._id}`);
+                }
                 return res.data;
-            }
+            };
 
-            createNewFilmWithFile()
-
-
-            // const createNewFilmWithFile = async (film, poster, snap) => {
-            //     const formData = new FormData();
-            //     formData.append('film', JSON.stringify(film));
-            //     formData.append('poster', poster, film.title);
-            //     formData.append('snap', snap, film.title);
-            //     const res = await axios.post('/api/films', formData, config);
-            //     if (res.status === 201) {
-            //         window.scroll(0, 0);
-            //         history.push(`/admin/modifymovie/${res.data._id}`);
-            //     }
-            //     return res.data;
-            // };
-
-            // createNewFilmWithFile(newFilm, poster, snap);
+            createNewFilmWithFile(newFilm, poster, snap);
         } catch (error) {
             console.log(error);
         }
