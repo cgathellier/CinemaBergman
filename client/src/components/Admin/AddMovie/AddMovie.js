@@ -100,9 +100,8 @@ const AddMovie = () => {
             const createNewFilmWithFile = async () => {
                 await getSignedReq(poster);
                 await getSignedReq(snap);
-                const formData = new FormData();
-                formData.append('film', JSON.stringify(newFilm));
-                const res = await axios.post('/api/films', formData, config);
+                const body = JSON.stringify(newFilm)
+                const res = await axios.post('/api/films', body, config);
                 return res.data;
             }
 
