@@ -13,7 +13,7 @@ const FilmsList = props => {
 
     return (
         <div className={classes.container}>
-            <div className={classes.presentation}>Actuellement au cinéma</div>
+            <div className={classes.presentation}>{props.presentation}</div>
             <div className={classes.FilmsList}>{filmItems}</div>
         </div>
     );

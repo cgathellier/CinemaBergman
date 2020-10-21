@@ -101,6 +101,7 @@ const FilmDetails = () => {
     }
 
     useEffect(() => {
+        window.scroll(0, 0);
         const execution = async () => {
             await getData();
             await setNavDates();
@@ -309,13 +310,6 @@ const FilmDetails = () => {
                                 <p>Avec {filmData.actors}</p>
                             </div>
                         </div>
-                        {/* <div className={classes.Stars}>
-                            <i className='far fa-star'></i>
-                            <i className='far fa-star'></i>
-                            <i className='far fa-star'></i>
-                            <i className='far fa-star'></i>
-                            <i className='far fa-star'></i>
-                        </div> */}
                         <div className={classes.Synopsis}>{filmData.synopsis}</div>
                     </div>
                 </div>

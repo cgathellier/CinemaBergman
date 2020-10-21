@@ -118,6 +118,7 @@ a:visited {
     .Menu div {
         font-size: 0.7rem;
         font-weight: 400;
+        width: 50px;
     }
 }
 
