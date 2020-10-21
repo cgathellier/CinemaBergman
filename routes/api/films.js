@@ -9,11 +9,16 @@ const fs = require('fs');
 const {v4: uuidv4} = require('uuid');
 
 const AWS = require('aws-sdk');
+// const s3 = new AWS.S3({
+//     accessKeyId: 'AKIAJUJCGZMJ3TGXOLFA',
+//     secretAccessKey: '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'
+// });
+// const S3_BUCKET = 'cinema-bergman-images'
 const s3 = new AWS.S3({
-    accessKeyId: 'AKIAIA4ISICJ6LJZ2GHA',
-    secretAccessKey: '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'
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
 });
-const S3_BUCKET = 'cinema-bergman-images'
+const S3_BUCKET = process.env.S3_BUCKET;
 
 
 const MIME_TYPES = {
@@ -71,14 +76,14 @@ router.post(
 
             await s3.upload(posterParams, (error, data) => {
                 if (error) {
-                    res.status(500).send(error) 
+                    throw error 
                 };
                 return data;
             });
 
             await s3.upload(snapParams, (error, data) => {
                 if (error) {
-                    res.status(500).send(error) 
+                    throw error 
                 };
                 return data;
             });
@@ -163,7 +168,12 @@ router.put(
                     Bucket: S3_BUCKET,
                     Key: snapFilename,
                 }
-                await s3.deleteObject(params, error => error ? res.status(500).send(error) : console.log(`${snapFilename} a été supprimée`))
+                await s3.deleteObject(params, error => {
+                    if(error) {
+                        throw error
+                    } 
+                    console.log(`${snapFilename} a été supprimée`)
+                })
 
                 const newSnapName = `${uuidv4()}.${MIME_TYPES[req.files['snap'][0].mimetype]}`;
                 params = {
@@ -172,7 +182,13 @@ router.put(
                     Body: req.files['snap'][0].buffer,
                     ACL: 'public-read'
                 }
-                await s3.upload(params, error => error ? res.status(500).send(error) : console.log(`${newSnapName} a été ajoutée`))
+                await s3.upload(params, error => {
+                    if(error) {
+                        throw error
+                    } 
+                    console.log(`${newSnapName} a été ajoutée`)
+                })
+
                 film = {
                     ...reqObj,
                     snap: `https://${S3_BUCKET}.s3.eu-west-3.amazonaws.com/${newSnapName}`,
@@ -183,7 +199,12 @@ router.put(
                     Bucket: S3_BUCKET,
                     Key: posterFilename,
                 }
-                await s3.deleteObject(params, (error, data) => error ? res.status(500).send(error) : console.log(`${posterFilename} a été supprimée`))
+                await s3.deleteObject(params, (error, data) => {
+                    if(error) {
+                        throw error
+                    }
+                    console.log(`${posterFilename} a été supprimée`)
+                })
 
                 const newPosterName = `${uuidv4()}.${MIME_TYPES[req.files['poster'][0].mimetype]}`;
                 params = {
@@ -192,7 +213,12 @@ router.put(
                     Body: req.files['poster'][0].buffer,
                     ACL: 'public-read'
                 }
-                await s3.upload(params, (error, data) => error ? res.status(500).send(error) : console.log(`${newPosterName} a été ajoutée`))
+                await s3.upload(params, (error, data) => {
+                    if(error) {
+                        throw error
+                    }
+                    console.log(`${newPosterName} a été ajoutée`)
+                })
                 
                 film = {
                     ...reqObj,
@@ -207,7 +233,13 @@ router.put(
                             Bucket: S3_BUCKET,
                             Key: files[i],
                         }
-                        s3.deleteObject(params, error => error ? res.status(500).send(error) : console.log(`${files[i]} a été supprimée`))
+                        s3.deleteObject(params, error => {
+                            if(error) {
+                                throw error
+                            }
+                            console.log(`${files[i]} a été supprimée`)
+                        }) 
+                    
                     }
                 }
                 let filesnames = [posterFilename, snapFilename];
@@ -232,13 +264,13 @@ router.put(
     
                 await s3.upload(posterParams, (error, data) => {
                     if (error) {
-                        res.status(500).send(error) 
+                        throw error 
                     };
                     return data;
                 });
                 await s3.upload(snapParams, (error, data) => {
                     if (error) {
-                        res.status(500).send(error) 
+                        throw error 
                     };
                     return data;
                 });
@@ -274,7 +306,7 @@ router.delete('/:id', auth, async (req, res) => {
             }
             s3.deleteObject(params, (error, data) => {
                 if(error) {
-                    res.status(500).send(error)
+                    throw error
                 }
                 console.log(`image ${path} a été supprimée`);
             });

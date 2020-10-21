@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 });
 app.set('views', './views');
 app.use(express.json({ extended: false }));
-app.use('/images', express.static(path.join(__dirname, 'images')));
+// app.use('/images', express.static(path.join(__dirname, 'images')));
 app.engine('html', require('ejs').renderFile)
 
 app.use('/api/users', require('./routes/api/users'));
