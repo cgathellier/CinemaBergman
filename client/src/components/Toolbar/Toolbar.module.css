@@ -76,6 +76,10 @@
     font-size: 1.5rem;
 }
 
+.letter.fas {
+    display: flex;
+}
+
 .logoutBtn {
     cursor: pointer;
 }
