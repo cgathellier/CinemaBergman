@@ -251,6 +251,7 @@ const FilmDetails = () => {
     });
 
     const releaseMonthNumber = filmData.release.getMonth();
+    console.log(releaseMonthNumber);
     const releaseMonth = MOIS_FULL[releaseMonthNumber];
 
     return (
@@ -289,9 +290,7 @@ const FilmDetails = () => {
                                 <p>
                                     Sortie : 
                                     <div>
-                                        <Moment format='DD'>{filmData.release}</Moment> 
-                                        {releaseMonth} 
-                                        <Moment format='YYYY'>{filmData.release}</Moment> 
+                                    {filmData.release}
                                     </div>
                                 </p>
                                 <p>
