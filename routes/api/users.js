@@ -27,7 +27,7 @@ router.post(
 
         try {
             let user = await User.findOne({ isAdmin: true });
-            if (user) {
+            if (req.body.isAdmin && user) {
                 return res.status(401).send('Not authorized');
             }
             user = await User.findOne({ email });
