@@ -290,7 +290,7 @@ const FilmDetails = () => {
                                     Sortie : 
                                     <span>
                                         <Moment format='DD'>{filmData.release}</Moment> 
-                                        releaseMonth
+                                        {releaseMonth}
                                         <Moment format='YYYY'>{filmData.release}</Moment> 
                                     </span>
                                 </p>
