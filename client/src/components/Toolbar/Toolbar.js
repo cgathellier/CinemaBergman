@@ -52,7 +52,7 @@ const Toolbar = () => {
                 </div>
             </div>
             <div className={classes.Menu}>
-                <NavLink to='/' activeClassName={classes.active}>
+                <NavLink to='/' exact activeClassName={classes.active}>
                     <div>
                         <i className={['fas fa-home', classes.Icons].join(' ')}></i>Accueil
                     </div>
