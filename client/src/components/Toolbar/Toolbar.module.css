@@ -54,6 +54,10 @@
     height: fit-content;
 }
 
+.User i {
+    display: flex;
+}
+
 .faUser {
     color: #6c7177;
     background-color: #333b47;
@@ -74,10 +78,6 @@
     align-items: center;
     font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
-}
-
-.letter.fas {
-    display: flex;
 }
 
 .logoutBtn {
