@@ -43,7 +43,7 @@ const Toolbar = () => {
         </div>
     ) : (
         <div className={classes.User}>
-            <i className={['fas fa-user', classes.faUser].join(' ')}></i>
+            <i className={[classes.faUser, 'fas fa-user'].join(' ')}></i>
         </div>
     )
 
