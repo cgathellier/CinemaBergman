@@ -74,6 +74,7 @@ const ModifyMovie = () => {
     });
 
     useEffect(() => {
+        window.scroll(0, 0);
         const getData = async () => {
             const res = await axios.get('/api/films');
             await setFilmsList(res.data);
@@ -83,6 +84,7 @@ const ModifyMovie = () => {
     }, []);
 
     useEffect(() => {
+        window.scroll(0, 0);
         const getData = async () => {
             if (url.includes(key)) {
                 const filmID = url.split(key)[1];

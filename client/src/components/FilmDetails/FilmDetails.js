@@ -195,6 +195,12 @@ const FilmDetails = () => {
             return <Post key={index} post={post} onClick={handleClick} />;
         });
 
+    const displayPosts = postsElt.length > 0 ? (
+        <div className={classes.postsElt}>
+            {postsElt}
+        </div>
+    ) : '';
+
     const postForm = name ? (
         <form className={classes.form} onSubmit={e => handleSubmit(e)}>
             <input
@@ -321,7 +327,8 @@ const FilmDetails = () => {
                     <div className={classes.showtimesEltCtn}>{stDisplayed}</div>
                 </div>
                 <div className={classes.postsContainer}>
-                    <div className={classes.postsElt}>{postsElt}</div>
+                    {displayPosts}
+                    {/* <div className={classes.postsElt}>{postsElt}</div> */}
                     <div className={classes.formContainer}>{postForm}</div>
                 </div>
             </div>

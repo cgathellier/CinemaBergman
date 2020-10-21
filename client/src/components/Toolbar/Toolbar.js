@@ -18,8 +18,8 @@ const Toolbar = () => {
 
     const handleLogout = () => {
         localStorage.removeItem('token');
-        document.location.reload();
         window.scroll(0, 0);
+        document.location.reload();
     };
 
     const usernameDisplay = name ? (
@@ -67,11 +67,11 @@ const Toolbar = () => {
                         <i className={['fas fa-film', classes.Icons].join(' ')}></i>Films
                     </div>
                 </NavLink>
-                <NavLink to='/reservations' activeClassName={classes.active}>
+                {/* <NavLink to='/reservations' activeClassName={classes.active}>
                     <div>
                         <i className={['fas fa-ticket-alt', classes.Icons].join(' ')}></i>Billets
                     </div>
-                </NavLink>
+                </NavLink> */}
                 {adminNav}
             </div>
         </div>

@@ -43,6 +43,10 @@ const AddMovie = () => {
         synopsis,
     } = formData;
 
+    useEffect(() => {
+        window.scroll(0, 0);
+    }, [])
+
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };

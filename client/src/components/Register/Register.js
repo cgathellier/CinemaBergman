@@ -66,7 +66,7 @@ const Register = props => {
                 <div className={classes.field}>
                     <input
                         type='text'
-                        placeholder='Nom *'
+                        placeholder="Nom d'utilisateur *"
                         value={name}
                         name='name'
                         required
