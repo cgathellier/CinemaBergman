@@ -288,14 +288,14 @@ const FilmDetails = () => {
                             <div className={classes.Infos}>
                                 <p>
                                     Sortie : 
-                                    <span>
+                                    <div>
                                         <Moment format='DD'>{filmData.release}</Moment> 
-                                        {releaseMonth}
+                                        {releaseMonth} 
                                         <Moment format='YYYY'>{filmData.release}</Moment> 
-                                    </span>
+                                    </div>
                                 </p>
                                 <p>
-                                    Réalisé par <span>{filmData.director}</span>
+                                    Réalisé par <div>{filmData.director}</div>
                                 </p>
                                 <p>Avec {filmData.actors}</p>
                             </div>
