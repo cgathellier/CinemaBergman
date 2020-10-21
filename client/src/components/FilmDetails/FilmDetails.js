@@ -328,7 +328,6 @@ const FilmDetails = () => {
                 </div>
                 <div className={classes.postsContainer}>
                     {displayPosts}
-                    {/* <div className={classes.postsElt}>{postsElt}</div> */}
                     <div className={classes.formContainer}>{postForm}</div>
                 </div>
             </div>
