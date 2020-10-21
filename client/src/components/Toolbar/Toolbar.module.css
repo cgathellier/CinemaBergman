@@ -32,6 +32,7 @@
 
 .RegAuthInterface {
     display: flex;
+    margin-right: 10px;
 }
 
 .toForms {
@@ -41,7 +42,7 @@
     align-items: flex-end;
     font-family: 'Roboto', sans-serif;
     font-weight: 100;
-    margin-right: 30px;
+    margin-right: 10px;
 }
 
 .User {
@@ -61,6 +62,17 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
+}
+
+.letter {
+    border: solid 3px #fbd25a;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Roboto', sans-serif;
 }
 
 .logoutBtn {

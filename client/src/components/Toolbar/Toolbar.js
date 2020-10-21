@@ -35,6 +35,17 @@ const Toolbar = () => {
             <NavLink to='/login'>Me connecter</NavLink>
         </Fragment>
     );
+    
+    const nameFirstLetter = name ? name.split('')[0] : '';
+    const userIcon = name ? (
+        <div className={classes.User}>
+            <div className={classes.letter}>{nameFirstLetter}</div>
+        </div>
+    ) : (
+        <div className={classes.User}>
+            <i className={['fas fa-user', classes.faUser].join(' ')}></i>
+        </div>
+    )
 
     return (
         <div className={classes.Toolbar}>
@@ -45,9 +56,7 @@ const Toolbar = () => {
                 <div className={classes.RegAuthInterface}>
                     <div className={classes.toForms}>{usernameDisplay}</div>
                     <NavLink to='/login'>
-                        <div className={classes.User}>
-                            <i className={['fas fa-user', classes.faUser].join(' ')}></i>
-                        </div>
+                        {userIcon}
                     </NavLink>
                 </div>
             </div>
