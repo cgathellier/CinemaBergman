@@ -5,7 +5,7 @@ const Booking = require('../../models/Booking');
 const Showtime = require('../../models/Showtime');
 const auth = require('../../middleware/auth');
 
-// @route           POST api/booking/:id
+// @route           POST api/bookings/:id
 // @description     Book seats (by showtime, film and user)
 // @access          Private
 router.post(
@@ -41,7 +41,7 @@ router.post(
     }
 );
 
-// @route           GET api/booking/:id
+// @route           GET api/bookings/:id
 // @description     Get booked seats
 // @access          Public
 router.get('/:id', async (req, res) => {
@@ -52,5 +52,20 @@ router.get('/:id', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 });
+
+// @route           DELETE api/bookings/:id
+// @description     Delete all bookings of a showtime (used when a showtime is deleted)
+// @access          Admin
+router.delete('/:id', auth, async (req, res) => {
+    try {
+        if (req.isAdmin === false) {
+            return res.status(401).send('Not autorized');
+        }
+        await Booking.deleteMany({showtimeID: req.params.id});
+        return res.status(202).json('Les réservations ont été supprimées'); 
+    } catch (error) {
+        return res.status(500).json({ error: error.message });
+    }
+})
 
 module.exports = router;

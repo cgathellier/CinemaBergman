@@ -80,8 +80,11 @@ const ModifyMovie = () => {
             await setFilmsList(res.data);
         };
         getData();
-        getShowtimes();
     }, []);
+
+    useEffect(() => {
+        getShowtimes();
+    }, [filmInfos])
 
     useEffect(() => {
         window.scroll(0, 0);
@@ -102,6 +105,7 @@ const ModifyMovie = () => {
                 'x-auth-token': token,
             },
         };
+        await axios.delete(`/api/bookings/${id}`, config);
         await axios.delete(`/api/showtimes/${id}`, config);
         getShowtimes();
     };

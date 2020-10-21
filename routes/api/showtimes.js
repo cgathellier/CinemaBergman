@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Showtime = require('../../models/Showtime');
+const Booking = require('../../models/Booking');
 const auth = require('../../middleware/auth');
 
 // @route           POST /api/showtimes/:filmID
@@ -47,7 +48,7 @@ router.post(
 );
 
 // @route           GET /api/showtimes/:filmID
-// @description     Get all showtimes of a particular film
+// @description     Get all showtimes of a film
 // @access          Public
 router.get('/:id', async (req, res) => {
     try {
@@ -58,8 +59,8 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// @route           DELETE /api/showtimes/:showtimeID
-// @description     Delete a showtime
+// @route           DELETE /api/showtimes/:showtimeID||:filmID
+// @description     Delete a showtime / Delete all showtimes from a movie being deleted
 // @access          Private
 router.delete('/:id', auth, async (req, res) => {
     try {
