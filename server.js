@@ -26,7 +26,6 @@ app.use('/api/films', require('./routes/api/films'));
 app.use('/api/posts', require('./routes/api/posts'));
 app.use('/api/showtimes', require('./routes/api/showtimes'));
 app.use('/api/bookings', require('./routes/api/bookings'));
-app.use('/api/sign-s3', require('./routes/api/sign-s3'));
 
 if(process.env.NODE_ENV === 'production') {
     app.use(express.static('client/build'));

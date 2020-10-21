@@ -6,6 +6,7 @@ import Post from '../Post/Post';
 import Nav from '../Showtime/Nav';
 import Showtime from '../Showtime/Showtime';
 import classes from './FilmDetails.module.css';
+import Moment from 'react-moment'
 
 const JOURS = {
     0: 'DIM.',
@@ -30,6 +31,21 @@ const MOIS = {
     9: 'OCT.',
     10: 'NOV.',
     11: 'DEC.',
+};
+
+const MOIS_FULL = {
+    0: 'janvier',
+    1: 'février',
+    2: 'mars',
+    3: 'avril',
+    4: 'mai',
+    5: 'juin',
+    6: 'juillet',
+    7: 'août',
+    8: 'septembre',
+    9: 'octobre',
+    10: 'novembre',
+    11: 'décembre',
 };
 
 const FilmDetails = () => {
@@ -234,6 +250,9 @@ const FilmDetails = () => {
         );
     });
 
+    const releaseMonthNumber = filmData.release.getMonth();
+    const releaseMonth = MOIS_FULL[releaseMonthNumber];
+
     return (
         <Fragment>
             <div className={classes.Container}>
@@ -268,7 +287,12 @@ const FilmDetails = () => {
                             </div>
                             <div className={classes.Infos}>
                                 <p>
-                                    Sortie : <span>{filmData.release}</span>
+                                    Sortie : 
+                                    <span>
+                                        <Moment format='DD'>{filmData.release}</Moment> 
+                                        releaseMonth
+                                        <Moment format='YYYY'>{filmData.release}</Moment> 
+                                    </span>
                                 </p>
                                 <p>
                                     Réalisé par <span>{filmData.director}</span>
