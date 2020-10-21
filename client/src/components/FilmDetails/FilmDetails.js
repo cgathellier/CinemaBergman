@@ -59,6 +59,7 @@ const FilmDetails = () => {
     const [selectedNav, setSelectedNav] = useState();
     const [showtimes, setShowtimes] = useState([]);
     const [stDisplayed, setStDisplayed] = useState([]);
+    const [releaseDate, setReleaseDate] = useState()
 
 
     const name = useContext(NameContext);
@@ -68,6 +69,7 @@ const FilmDetails = () => {
     const getData = async () => {
         const getFilms = await axios.get(`/api/films/${filmId}`);
         await setFilmData(getFilms.data);
+        await formatRelease(getFilms.data);
         const getPosts = await axios.get(`/api/posts/${filmId}`);
         setPosts(getPosts.data);
     };
@@ -85,6 +87,18 @@ const FilmDetails = () => {
         const res = await axios.get(`/api/showtimes/${filmId}`);
         setShowtimes(res.data);
     };
+
+    const formatRelease = (data) => {
+        const date = data.release;
+        const releaseMonthNumber = new Date(date).getMonth();
+        const releaseMonth = MOIS_FULL[releaseMonthNumber];
+        const display = <Fragment>
+            {' '}<Moment format='DD'>{date}</Moment>{' '}
+            {releaseMonth}{' '}
+            <Moment format='YYYY'>{date}</Moment>
+        </Fragment>
+        setReleaseDate(display)
+    }
 
     useEffect(() => {
         const execution = async () => {
@@ -250,10 +264,6 @@ const FilmDetails = () => {
         );
     });
 
-    const releaseMonthNumber = filmData.release.getMonth();
-    console.log(releaseMonthNumber);
-    const releaseMonth = MOIS_FULL[releaseMonthNumber];
-
     return (
         <Fragment>
             <div className={classes.Container}>
@@ -289,12 +299,12 @@ const FilmDetails = () => {
                             <div className={classes.Infos}>
                                 <p>
                                     Sortie : 
-                                    <div>
-                                    {filmData.release}
-                                    </div>
+                                    <span>
+                                        {releaseDate}
+                                    </span>
                                 </p>
                                 <p>
-                                    Réalisé par <div>{filmData.director}</div>
+                                    Réalisé par <span>{filmData.director}</span>
                                 </p>
                                 <p>Avec {filmData.actors}</p>
                             </div>
