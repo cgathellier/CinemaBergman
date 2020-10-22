@@ -56,7 +56,7 @@ router.get('/:id', async (req, res) => {
 // @route           GET /api/bookings/user/
 // @description     Get all bookings of a user
 // @access          Private
-router.get('/user/:id', auth, async (req, res) => {
+router.get('/user/', auth, async (req, res) => {
     try {
         const bookings = await Booking.find({ userID: req.user});
         res.status(200).json(bookings)
