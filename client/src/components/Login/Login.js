@@ -37,7 +37,8 @@ const Login = props => {
             localStorage.setItem('token', res.data.token);
             props.getUsername(res.data.name);
             props.getIsAdmin(res.data.isAdmin);
-            history.push('/');
+            document.location.reload();
+            history.goBack();
         } catch (error) {
             console.error(error.response.data);
         }

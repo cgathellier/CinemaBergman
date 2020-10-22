@@ -3,11 +3,10 @@ import { NameContext } from '../../Main';
 import classes from './LayoutTickets.module.css';
 import axios from 'axios';
 import Tickets from '../../../components/Tickets/Tickets';
-import Post from '../../../components/Post/Post';
+import { NavLink } from 'react-router-dom';
 
 const LayoutTickets = () => {
     const [bookings, setBookings] = useState([])
-    const [posts, setPosts] = useState([]);
     const name = useContext(NameContext);
 
     const getTickets = async () => {
@@ -24,16 +23,10 @@ const LayoutTickets = () => {
         }
     }
 
-    const getData = async () => {
-        const getPosts = await axios.get(`/api/posts/5f8fea1894af4200172eaad6`);
-        setPosts(getPosts.data);
-    };
-
     useEffect(() => {
         window.scroll(0, 0);
         const exec = async () => {
             await getTickets()
-            // await getData();
         }
         exec();
     }, [])
@@ -42,11 +35,21 @@ const LayoutTickets = () => {
         return <Tickets bookingData={booking} key={index} />
     })
 
-    const displayTickets = tickets.length > 0 ? (
-        <div>
+    const displayTickets = name ? (
+        <div className={classes.ticketsCtn}>
             {tickets}
         </div>
-    ) : '';
+    ) : (
+        <div className={classes.getLogged}>
+            Veuillez vous connecter pour accéder à vos réservations
+            <NavLink to='/login'>
+                <div>Se connecter</div>
+            </NavLink>
+            <NavLink to='/register'>
+                <div>Créer un compte</div>
+            </NavLink>
+        </div>
+    );
 
     return (
         <div className={classes.container}>

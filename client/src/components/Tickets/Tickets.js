@@ -52,7 +52,7 @@ const Tickets = (props) => {
 
     const getFilmData = async () => {
         const res = await axios.get(`/api/films/${props.bookingData.filmID}`);
-        const img = <img src={res.data.poster} alt={res.data.title} className={classes.img}/>;
+        const img = <img src={res.data.poster} alt={res.data.title}/>;
         const titleElt = <div className={classes.title}>{res.data.title}</div>
         setPoster(img);
         setTitle(titleElt);
