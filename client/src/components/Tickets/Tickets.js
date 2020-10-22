@@ -28,13 +28,13 @@ const JOURS = {
     6: 'samedi'
 }
 
-const Tickets = (props) => {
+const Tickets = async (props) => {
     const [showtimeData, setShowtimeData] = useState();
     const [filmData, setFilmData] = useState();
     const [seats, setSeats] = useState()
 
     const getStData = async () => {
-        const res = await axios.get(`/api/showtimes/showtime/${props.bookingData.showtimeID}`)
+        const res = await axios.get(`/api/showtimes/showtime/${props.bookingData.showtimeID}`);
         setShowtimeData(res.data)
     }
 
@@ -44,24 +44,30 @@ const Tickets = (props) => {
     }
 
     const getSeats = () => {
-        const list = props.bookingData.selectedSeats.join(', ')
-        setSeats(list)
+        const list = props.bookingData.selectedSeats.join(', ');
+        console.log(list)
+        setSeats(list);
     }
 
     useEffect(() => {
-        getSeats();
-        getStData();
-        getFilmData();
+        const getData = async () => {
+            await getSeats();
+            await getStData();
+            await getFilmData();
+        }
+        getData();
     }, [])
 
     let day;
     let month;
 
     useEffect(() => {
-        const dayIndex = new Date(showtimeData.day).getDay();
-        const monthIndex = new Date(showtimeData.day).getMonth();
-        day = JOURS[dayIndex];
-        month = MOIS[monthIndex];
+        if (showtimeData) {
+            const dayIndex = new Date(showtimeData.day).getDay();
+            const monthIndex = new Date(showtimeData.day).getMonth();
+            day = JOURS[dayIndex];
+            month = MOIS[monthIndex];
+        }
     }, [showtimeData])
 
 

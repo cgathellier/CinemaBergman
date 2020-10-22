@@ -51,7 +51,7 @@ router.get('/user/:id', auth, async (req, res) => {
     try {
         console.log(req.user)
         const bookings = await Booking.find({ userID: req.params.id});
-        res.status(200).json(bookings);
+        return res.status(200).json(bookings);
     } catch (error) {
         return res.status(500).send(error);
     }
