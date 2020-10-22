@@ -58,7 +58,7 @@ router.get('/:id', async (req, res) => {
 // @access          Private
 router.get('/user/', auth, async (req, res) => {
     try {
-        const bookings = await Booking.find({ userID: req.user});
+        const bookings = await Booking.find({ userID: req.user.id});
         res.status(200).json(bookings)
     } catch (error) {
         return res.status(500).send(error)
