@@ -21,7 +21,7 @@ router.post(
         try {
             const seats = req.body.selectedSeats;
             for (let i = 0; i < seats.length; i++) {
-                const findSeat = await Booking.findOne({ selectedSeats: seats[i] });
+                const findSeat = await Booking.findOne({ selectedSeats: seats[i], showtimeID: req.params.id });
                 if (findSeat) {
                     throw new Error(`Le siège ${seats[i]} a déjà été réservé`);
                 }
@@ -50,11 +50,10 @@ router.post(
 router.get('/user/:id', auth, async (req, res) => {
     try {
         console.log(req.user)
-        // const query = {user_id: new ObjectId(req.user.id)}
         const bookings = await Booking.find({ userID: req.params.id});
-        res.status(200).json(bookings)
+        res.status(200).json(bookings);
     } catch (error) {
-        return res.status(500).send(error)
+        return res.status(500).send(error);
     }
 })
 

@@ -16,9 +16,7 @@ const LayoutTickets = () => {
                     'x-auth-token': token
                 }
             }
-            const getUserId = await axios.get('/api/auth', config);
-            console.log(getUserId.data)
-    
+            const getUserId = await axios.get('/api/auth', config);    
             const res = await axios.get(`/api/bookings/user/${getUserId.data._id}`, config);
             setBookings(res.data)
         }
