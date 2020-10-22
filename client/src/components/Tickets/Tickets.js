@@ -28,45 +28,49 @@ const JOURS = {
     6: 'samedi'
 }
 
-const Tickets = async (props) => {
+const Tickets = (props) => {
     const [showtimeData, setShowtimeData] = useState();
-    const [filmData, setFilmData] = useState();
-    const [seats, setSeats] = useState()
+    const [poster, setPoster] = useState();
+    const [title, setTitle] = useState();
+    const [hour, setHour] = useState();
+    const [day, setDay] = useState();
+    const [date, setDate] = useState();
+    const [month, setMonth] = useState();
+    const [year, setYear] = useState();
+
+    const list = props.bookingData.selectedSeats.join(', ');
 
     const getStData = async () => {
         const res = await axios.get(`/api/showtimes/showtime/${props.bookingData.showtimeID}`);
+        const dateElt = <Moment format='DD'>{res.data.day}</Moment>;
+        const yearElt = <Moment format='YYYY'>{res.data.day}</Moment>;
+        setHour(res.data.hour);
+        setDate(dateElt);
+        setYear(yearElt);
         setShowtimeData(res.data)
     }
 
     const getFilmData = async () => {
         const res = await axios.get(`/api/films/${props.bookingData.filmID}`);
-        setFilmData(res.data)
+        const img = <img src={res.data.poster} alt={res.data.title} className={classes.img}/>;
+        const titleElt = <div className={classes.title}>{res.data.title}</div>
+        setPoster(img);
+        setTitle(titleElt);
     }
-
-    const getSeats = () => {
-        const list = props.bookingData.selectedSeats.join(', ');
-        console.log(list)
-        setSeats(list);
-    }
-
+    
     useEffect(() => {
-        const getData = async () => {
-            await getSeats();
-            await getStData();
-            await getFilmData();
-        }
-        getData();
+        getStData();
+        getFilmData();
     }, [])
-
-    let day;
-    let month;
-
+    
     useEffect(() => {
         if (showtimeData) {
             const dayIndex = new Date(showtimeData.day).getDay();
             const monthIndex = new Date(showtimeData.day).getMonth();
-            day = JOURS[dayIndex];
-            month = MOIS[monthIndex];
+            const dayName = JOURS[dayIndex]; 
+            const monthName = MOIS[monthIndex];
+            setDay(dayName);
+            setMonth(monthName);
         }
     }, [showtimeData])
 
@@ -74,17 +78,16 @@ const Tickets = async (props) => {
 
     return (
         <div className={classes.container}>
-            <img src={filmData.poster} alt={filmData.title}/>
+            <div className={classes.imgContainer}>
+                {poster}
+            </div>
             <div className={classes.infos}>
+                {title}
                 <div className={classes.date}>
-                    Séance du {day} 
-                    <Moment format='DD'>{showtimeData.day}</Moment>{' '}
-                    {month}{' '}
-                    <Moment format='YYYY'>{showtimeData.day}</Moment>{' '}
-                    à {showtimeData.hour}
+                    Séance du {day} {date} {month} {year} à {hour}
                 </div>
                 <div className={classes.seats}>
-                    Sièges : {seats}
+                    Sièges : {list}
                 </div>
             </div>
         </div>

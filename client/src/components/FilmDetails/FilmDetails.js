@@ -286,14 +286,6 @@ const FilmDetails = () => {
                             <i className='far fa-clock'></i> Séances
                         </a>
                     </div>
-                    {/* <div className={classes.Toolbar}>
-                        <span className={classes.Note}>
-                            <i className='fas fa-heart'></i>Noter
-                        </span>
-                        <span className={classes.AddList}>
-                            <div className={classes.PlusSign}>+</div>Ajouter à la liste
-                        </span>
-                    </div> */}
                     <div>
                         <div className={classes.Presentation}>
                             <div className={classes.imgContainer}>

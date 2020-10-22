@@ -1,4 +1,13 @@
 .container {
     width: 100%;
     height: fit-content;
+    padding: 40px 20px;
+}
+
+.title {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 40px;
+    font-size: 2rem;
 }

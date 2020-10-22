@@ -1,0 +1,21 @@
+.container {
+    width: 100%;
+    height: fit-content;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.imgContainer {
+    margin: 20px 0px;
+    margin-right: 10px;
+}
+
+.imgContainer img {
+    width: 80px;
+    border-radius: 7px;
+}
+
+.infos div {
+    margin: 10px 0px;
+}
