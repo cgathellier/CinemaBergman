@@ -60,7 +60,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // @route           GET /api/showtimes/showtime/:ID
-// @description     Get all showtimes of a film
+// @description     Get one showtime
 // @access          Public
 router.get('/showtime/:id', async (req, res) => {
     try {

@@ -3,7 +3,9 @@ const router = express.Router();
 const { check, validationResult } = require('express-validator');
 const Booking = require('../../models/Booking');
 const Showtime = require('../../models/Showtime');
+const User = require('../../models/User');
 const auth = require('../../middleware/auth');
+const ObjectId = require('mongoose').Types.ObjectId;
 
 // @route           POST api/bookings/:id
 // @description     Book seats (by showtime, film and user)
@@ -41,6 +43,21 @@ router.post(
     }
 );
 
+
+// @route           GET /api/bookings/user/:id
+// @description     Get all bookings of a user
+// @access          Private
+router.get('/user/:id', auth, async (req, res) => {
+    try {
+        console.log(req.user)
+        // const query = {user_id: new ObjectId(req.user.id)}
+        const bookings = await Booking.find({ userID: req.params.id});
+        res.status(200).json(bookings)
+    } catch (error) {
+        return res.status(500).send(error)
+    }
+})
+
 // @route           GET api/bookings/:id
 // @description     Get booked seats
 // @access          Public
@@ -52,18 +69,6 @@ router.get('/:id', async (req, res) => {
         return res.status(500).json({ error: error.message });
     }
 });
-
-// @route           GET /api/bookings/user/
-// @description     Get all bookings of a user
-// @access          Private
-router.get('/user/', auth, async (req, res) => {
-    try {
-        const bookings = await Booking.find({ userID: req.user.id});
-        res.status(200).json(bookings)
-    } catch (error) {
-        return res.status(500).send(error)
-    }
-})
 
 // @route           DELETE api/bookings/:id
 // @description     Delete all bookings of a showtime (used when a showtime is deleted)

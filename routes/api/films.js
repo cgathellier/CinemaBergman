@@ -9,11 +9,6 @@ const fs = require('fs');
 const {v4: uuidv4} = require('uuid');
 
 const AWS = require('aws-sdk');
-// const s3 = new AWS.S3({
-//     accessKeyId: 'AKIAJUJCGZMJ3TGXOLFA',
-//     secretAccessKey: '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'
-// });
-// const S3_BUCKET = 'cinema-bergman-images'
 const s3 = new AWS.S3({
     accessKeyId: process.env.AWS_ACCESS_KEY_ID,
     secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY

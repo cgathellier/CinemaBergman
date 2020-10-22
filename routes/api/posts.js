@@ -17,7 +17,7 @@ router.get('/:id', async (req, res) => {
     }
 });
 
-// @route           POST api/posts
+// @route           POST api/posts/:id
 // @description     Create a new post on a particular film
 // @access          Private
 router.post(

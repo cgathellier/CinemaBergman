@@ -10,18 +10,23 @@ const LayoutTickets = () => {
 
     const getTickets = async () => {
         const token = localStorage.getItem('token');
-        const config = {
-            'Content-Type': 'application/json',
-            'x-auth-token': token
+        if (token) {
+            const config = {
+                headers: {
+                    'x-auth-token': token
+                }
+            }
+            const getUserId = await axios.get('/api/auth', config);
+            console.log(getUserId.data)
+    
+            const res = await axios.get(`/api/bookings/user/${getUserId.data._id}`, config);
+            setBookings(res.data)
         }
-
-        const res = await axios.get('/api/bookings/user', config);
-        setBookings(res.data)
     }
 
-    const displayTickets = bookings.map(booking => {
-        return <Tickets bookingData={booking} />
-    })
+    // const displayTickets = bookings.map(booking => {
+    //     return <Tickets bookingData={booking} />
+    // })
 
     useEffect(() => {
         getTickets()
@@ -29,7 +34,7 @@ const LayoutTickets = () => {
 
     return (
         <div className={classes.container}>
-            
+            {/* {displayTickets} */}
         </div>
     )
 }

@@ -26,14 +26,15 @@ const bcrypt = require('bcrypt');
 // });
 
 // @route           GET api/auth
-// @description     Test route
+// @description     Get name and isAdmin
 // @access          Public
 router.get('/', auth, async (req, res) => {
     try {
         const user = await User.findById(req.user.id).select('-password');
-        const { name, isAdmin } = user;
+        console.log(user);
+        const { name, isAdmin, _id } = user;
 
-        res.status(200).json({ name, isAdmin });
+        res.status(200).json({ name, isAdmin, _id });
     } catch (error) {
         console.error(error.message);
         res.status(500).send('Server error');
