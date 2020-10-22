@@ -3,6 +3,7 @@ import Row from '../../../components/Booking/Row';
 import classes from './LayoutBooking.module.css';
 import axios from 'axios';
 import Seat from '../../../components/Booking/Seat';
+import history from '../../../history';
 
 const LayoutBooking = () => {
     const [selectedSeats, setSelectedSeats] = useState([]);
@@ -31,7 +32,7 @@ const LayoutBooking = () => {
         setSelectedSeats(selectedSeats => [...selectedSeats, seatID]);
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const token = localStorage.getItem('token');
         const config = {
             headers: {
@@ -42,7 +43,8 @@ const LayoutBooking = () => {
         const body = {
             selectedSeats: selectedSeats,
         };
-        axios.post(`/api/bookings/${showtimeID}`, body, config);
+        await axios.post(`/api/bookings/${showtimeID}`, body, config);
+        history.push('/');
     };
 
     const handleClickLegend = () => {

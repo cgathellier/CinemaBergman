@@ -2,13 +2,14 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Route, Router } from 'react-router-dom';
 import axios from 'axios';
 
+import Toolbar from '../components/Toolbar/Toolbar';
 import LayoutHome from './Layouts/LayoutHome/LayoutHome';
 import LayoutFilms from './Layouts/LayoutFilms/LayoutFilms';
 import LayoutBooking from './Layouts/LayoutBooking/LayoutBooking';
 import LayoutRegAuth from './Layouts/LayoutRegAuth/LayoutRegAuth';
-import Toolbar from '../components/Toolbar/Toolbar';
-import history from '../history';
 import AdminPanel from './Layouts/AdminPanel/AdminPanel';
+import LayoutTickets from './Layouts/LayoutTickets/LayoutTickets';
+import history from '../history';
 import FilmDetails from '../components/FilmDetails/FilmDetails';
 import classes from './Main.module.css';
 
@@ -86,6 +87,11 @@ const Main = () => {
                                 <Route
                                     path='/films/:id'
                                     render={props => <FilmDetails {...props} />}
+                                />
+
+                                <Route
+                                    path='/reservations'
+                                    render={() => <LayoutTickets />}
                                 />
                             </div>
                                 <Route path='/admin' render={() => <AdminPanel />} />

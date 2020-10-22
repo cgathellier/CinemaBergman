@@ -59,6 +59,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+// @route           GET /api/showtimes/showtime/:ID
+// @description     Get all showtimes of a film
+// @access          Public
+router.get('/showtime/:id', async (req, res) => {
+    try {
+        let showtime = await Showtime.findOne({ _id: req.params.id });
+        return res.status(200).json(showtime);
+    } catch (error) {
+        return res.status(404).json({ error: error.message });
+    }
+});
+
 // @route           DELETE /api/showtimes/:showtimeID||:filmID
 // @description     Delete a showtime / Delete all showtimes from a movie being deleted
 // @access          Private
