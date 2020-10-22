@@ -48,7 +48,7 @@ const LayoutBooking = () => {
             selectedSeats: selectedSeats,
         };
         await axios.post(`/api/bookings/${showtimeID}`, body, config);
-        history.push('/');
+        history.push('/reservations');
     };
 
     const handleClickLegend = () => {
@@ -99,7 +99,7 @@ const LayoutBooking = () => {
         </div>
     ) : (
         <div className={classes.getLogged}>
-            Veuillez vous connecter pour accéder à vos réservations
+            Veuillez vous connecter pour réserver vos places
             <NavLink to='/login'>
                 <div>Se connecter</div>
             </NavLink>
