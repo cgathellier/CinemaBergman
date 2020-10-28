@@ -21,7 +21,10 @@ router.post(
         try {
             const seats = req.body.selectedSeats;
             for (let i = 0; i < seats.length; i++) {
-                const findSeat = await Booking.findOne({ selectedSeats: seats[i], showtimeID: req.params.id });
+                const findSeat = await Booking.findOne({
+                    selectedSeats: seats[i],
+                    showtimeID: req.params.id,
+                });
                 if (findSeat) {
                     throw new Error(`Le siège ${seats[i]} a déjà été réservé`);
                 }
@@ -43,19 +46,18 @@ router.post(
     }
 );
 
-
 // @route           GET /api/bookings/user/:id
 // @description     Get all bookings of a user
 // @access          Private
 router.get('/user/:id', auth, async (req, res) => {
     try {
-        console.log(req.user)
-        const bookings = await Booking.find({ userID: req.params.id});
+        console.log(req.user);
+        const bookings = await Booking.find({ userID: req.params.id });
         return res.status(200).json(bookings);
     } catch (error) {
         return res.status(500).send(error);
     }
-})
+});
 
 // @route           GET api/bookings/:id
 // @description     Get booked seats
@@ -75,13 +77,13 @@ router.get('/:id', async (req, res) => {
 router.delete('/:id', auth, async (req, res) => {
     try {
         if (req.isAdmin === false) {
-            return res.status(401).send('Not autorized');
+            return res.status(401).send('Non autorisé');
         }
-        await Booking.deleteMany({showtimeID: req.params.id});
-        return res.status(202).json('Les réservations ont été supprimées'); 
+        await Booking.deleteMany({ showtimeID: req.params.id });
+        return res.status(202).json('Les réservations ont été supprimées');
     } catch (error) {
         return res.status(500).json({ error: error.message });
     }
-})
+});
 
 module.exports = router;

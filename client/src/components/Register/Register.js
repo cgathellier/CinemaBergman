@@ -3,6 +3,8 @@ import classes from './Register.module.css';
 import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
+import { connect } from 'react-redux';
+import { setAlert } from '../../actions/alert';
 
 const Register = props => {
     const [formData, setFormData] = useState({
@@ -22,7 +24,7 @@ const Register = props => {
         e.preventDefault();
 
         if (password !== password2) {
-            console.log('Les mots de passes ne correspondent pas');
+            props.setAlert('Les mots de passes ne correspondent pas', 'danger');
         } else {
             let newUser = {
                 name,
@@ -44,7 +46,7 @@ const Register = props => {
                 props.getUsername(res.data.name);
                 props.getIsAdmin(res.data.isAdmin);
                 document.location.reload();
-            history.goBack();
+                history.goBack();
             } catch (error) {
                 console.error(error.response.data);
             }
@@ -118,4 +120,4 @@ const Register = props => {
     );
 };
 
-export default Register;
+export default connect(null, { setAlert })(Register);

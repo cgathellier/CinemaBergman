@@ -8,24 +8,6 @@ const config = require('config');
 const bcrypt = require('bcrypt');
 
 // @route           GET api/auth
-// @description     Test route
-// @access          Public
-// router.get('/', auth, async (req, res) => {
-//     try {
-//         const user = await User.findById(req.user.id).select('-password');
-
-//         if (!user) {
-//             return res.status(404).send('Identifiants incorrects');
-//         }
-
-//         res.status(200).json(user);
-//     } catch (error) {
-//         console.error(error.message);
-//         res.status(500).send('Server error');
-//     }
-// });
-
-// @route           GET api/auth
 // @description     Get name and isAdmin
 // @access          Public
 router.get('/', auth, async (req, res) => {
@@ -46,8 +28,8 @@ router.get('/', auth, async (req, res) => {
 router.post(
     '/',
     [
-        check('email', 'Please enter a valid email').isEmail(),
-        check('password', 'Password is required').exists(),
+        check('email', 'Veuillez saisir une adresse mail valide').isEmail(),
+        check('password', 'Un mot de passe est requis').exists(),
     ],
     async (req, res) => {
         const errors = validationResult(req);
@@ -84,7 +66,7 @@ router.post(
             });
         } catch (error) {
             console.error(error.message);
-            res.status(500).send('Server error');
+            res.status(500).send('Erreur serveur');
         }
     }
 );

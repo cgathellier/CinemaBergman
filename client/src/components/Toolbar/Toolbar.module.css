@@ -41,7 +41,7 @@
     justify-content: center;
     align-items: flex-end;
     font-family: 'Roboto', sans-serif;
-    font-weight: 100;
+    font-weight: 400;
     margin-right: 10px;
 }
 
@@ -80,8 +80,13 @@
     font-size: 1.5rem;
 }
 
+.username {
+    color: white;
+}
+
 .logoutBtn {
     cursor: pointer;
+    color: white;
 }
 
 .Menu {
@@ -158,6 +163,10 @@ a:visited {
 @media (min-width: 992px) {
     .Toolbar {
         height: 140px;
+        background-image: url(https://i.ibb.co/H47ccDJ/toolbar-img.jpg);
+        background-position: 50%;
+        background-repeat: no-repeat;
+        box-shadow: none;
     }
     .Presentation {
         padding: 10px 20px;
@@ -165,6 +174,20 @@ a:visited {
     .Menu div {
         font-size: 1rem;
         font-weight: 400;
+        border-bottom: solid 5px transparent;
+    }
+    .Icons {
+        color: white;
+    }
+    a {
+        color: white;
+    }
+
+    a:visited {
+        color: white;
+    }
+    .active div {
+        border-bottom: solid 5px #fbd25a;
     }
 }
 

@@ -4,8 +4,6 @@ import Login from '../../../components/Login/Login';
 import classes from './LayoutRegAuth.module.css';
 
 const LayoutRegAuth = props => {
-    const imgCinema = require('../../../img/cinema.jpg');
-
     const getUsername = username => {
         props.getUsername(username);
     };
@@ -20,13 +18,12 @@ const LayoutRegAuth = props => {
         <div className={classes.container}>
             <div className={classes.illustration}>
                 <img
-                    src={imgCinema}
+                    src='https://i.ibb.co/jZSq9gq/cinema.jpg'
                     alt='Grande salle du Cinema Bergman'
                     className={classes.imgCinema}
                 />
             </div>
             <div className={classes.form}>{form}</div>
-            {/* {form} */}
         </div>
     );
 };
