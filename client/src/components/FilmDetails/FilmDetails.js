@@ -1,12 +1,13 @@
 import axios from 'axios';
-import React, { Fragment, useContext, useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import { NavLink } from 'react-router-dom';
-import { NameContext } from '../../containers/Main';
 import Post from '../Post/Post';
 import Nav from '../Showtime/Nav';
 import Showtime from '../Showtime/Showtime';
 import classes from './FilmDetails.module.css';
-import Moment from 'react-moment'
+import Moment from 'react-moment';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const JOURS = {
     0: 'DIM.',
@@ -48,7 +49,7 @@ const MOIS_FULL = {
     11: 'décembre',
 };
 
-const FilmDetails = () => {
+const FilmDetails = ({ name }) => {
     const [filmData, setFilmData] = useState([]);
     const [posts, setPosts] = useState([]);
     const [postContent, setPostContent] = useState({
@@ -59,10 +60,8 @@ const FilmDetails = () => {
     const [selectedNav, setSelectedNav] = useState();
     const [showtimes, setShowtimes] = useState([]);
     const [stDisplayed, setStDisplayed] = useState([]);
-    const [releaseDate, setReleaseDate] = useState()
+    const [releaseDate, setReleaseDate] = useState();
 
-
-    const name = useContext(NameContext);
     const filmUrl = window.location.href;
     const filmId = filmUrl.split('/films/')[1];
 
@@ -88,17 +87,19 @@ const FilmDetails = () => {
         setShowtimes(res.data);
     };
 
-    const formatRelease = (data) => {
+    const formatRelease = data => {
         const date = data.release;
         const releaseMonthNumber = new Date(date).getMonth();
         const releaseMonth = MOIS_FULL[releaseMonthNumber];
-        const display = <Fragment>
-            {' '}<Moment format='DD'>{date}</Moment>{' '}
-            {releaseMonth}{' '}
-            <Moment format='YYYY'>{date}</Moment>
-        </Fragment>
-        setReleaseDate(display)
-    }
+        const display = (
+            <Fragment>
+                {' '}
+                <Moment format='DD'>{date}</Moment> {releaseMonth}{' '}
+                <Moment format='YYYY'>{date}</Moment>
+            </Fragment>
+        );
+        setReleaseDate(display);
+    };
 
     useEffect(() => {
         window.scroll(0, 0);
@@ -107,8 +108,8 @@ const FilmDetails = () => {
             await setNavDates();
             await getST();
             setSelectedNav(0);
-        }
-        execution()
+        };
+        execution();
     }, []);
 
     useEffect(() => {
@@ -126,21 +127,22 @@ const FilmDetails = () => {
             }
         };
         const filteredST = showtimes.filter(filterFunction);
-        const array = filteredST.sort((a, b) => {
-            const first = a.day + 'T' + a.hour + ':00';
-            const second = b.day + 'T' + b.hour + ':00';
-            const firstTime = new Date(first).getTime();
-            const secondTime = new Date(second).getTime();
-            return firstTime - secondTime;
-        })
-        .map((st, index) => {
-            const { hour, _id } = st;
-            return (
-                <Showtime key={index} id={_id}>
-                    {hour}
-                </Showtime>
-            );
-        });
+        const array = filteredST
+            .sort((a, b) => {
+                const first = a.day + 'T' + a.hour + ':00';
+                const second = b.day + 'T' + b.hour + ':00';
+                const firstTime = new Date(first).getTime();
+                const secondTime = new Date(second).getTime();
+                return firstTime - secondTime;
+            })
+            .map((st, index) => {
+                const { hour, _id } = st;
+                return (
+                    <Showtime key={index} id={_id}>
+                        {hour}
+                    </Showtime>
+                );
+            });
         setStDisplayed(array);
     }, [nav, selectedNav]);
 
@@ -195,11 +197,8 @@ const FilmDetails = () => {
             return <Post key={index} post={post} onClick={handleClick} />;
         });
 
-    const displayPosts = postsElt.length > 0 ? (
-        <div className={classes.postsElt}>
-            {postsElt}
-        </div>
-    ) : '';
+    const displayPosts =
+        postsElt.length > 0 ? <div className={classes.postsElt}>{postsElt}</div> : '';
 
     const postForm = name ? (
         <form className={classes.form} onSubmit={e => handleSubmit(e)}>
@@ -297,10 +296,7 @@ const FilmDetails = () => {
                             </div>
                             <div className={classes.Infos}>
                                 <p>
-                                    Sortie : 
-                                    <span>
-                                        {releaseDate}
-                                    </span>
+                                    Sortie :<span>{releaseDate}</span>
                                 </p>
                                 <p>
                                     Réalisé par <span>{filmData.director}</span>
@@ -327,4 +323,12 @@ const FilmDetails = () => {
     );
 };
 
-export default FilmDetails;
+FilmDetails.propTypes = {
+    name: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+    name: state.auth.name,
+});
+
+export default connect(mapStateToProps)(FilmDetails);

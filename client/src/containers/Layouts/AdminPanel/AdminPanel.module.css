@@ -29,6 +29,7 @@
     border-bottom: solid 1px black;
     padding: 0px 20px;
     text-align: center;
+    color: black;
 }
 
 .menu a:first-of-type {

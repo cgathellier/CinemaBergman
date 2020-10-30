@@ -1,15 +1,25 @@
-.alert {
+.alertCtn {
+    width: 90vw;
+    height: 300px;
     position: absolute;
-    top: -50px;
+    top: -300px;
     left: calc(50% - 45vw);
+    z-index: 5000;
+    animation: upDown 3s ease-in-out;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+.alert {
     width: 90vw;
     height: 40px;
+    margin-top: 10px;
     display: flex;
     justify-content: center;
     align-items: center;
     color: white;
-    animation: upDown 3s ease-in-out;
-    z-index: 5000;
+    text-align: center;
 }
 
 .alert-danger {
@@ -20,39 +30,33 @@
 
 @keyframes upDown {
     0% {
-        top: -50px;
+        top: -300px;
     }
     10% {
-        top: 50px;
+        top: 10px;
     }
     90% {
-        top: 50px;
+        top: 10px;
     }
     100% {
-        top: -50px;
+        top: -300px;
     }
 }
 
 @media (min-width: 576px) {
     .alert {
-        left: calc(50% - 35vw);
         width: 70vw;
     }
 }
 
 @media (min-width: 768px) {
     .alert {
-        left: calc(50% - 30vw);
         width: 60vw;
     }
 }
 
 @media (min-width: 992px) {
     .alert {
-        left: calc(50% - 200px);
         width: 400px;
     }
-}
-
-@media (min-width: 1200px) {
 }

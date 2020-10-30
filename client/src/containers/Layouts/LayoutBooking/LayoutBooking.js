@@ -1,17 +1,16 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useEffect, useState } from 'react';
 import Row from '../../../components/Booking/Row';
 import classes from './LayoutBooking.module.css';
 import axios from 'axios';
 import Seat from '../../../components/Booking/Seat';
 import history from '../../../history';
-import { NameContext } from '../../Main';
 import { NavLink } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-
-const LayoutBooking = () => {
+const LayoutBooking = ({ name }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);
     const [bookedSeats, setBookedSeats] = useState([]);
-    const name = useContext(NameContext);
 
     const showtimeID = window.location.href.split('/booking/')[1];
 
@@ -74,19 +73,16 @@ const LayoutBooking = () => {
         <div className={classes.container}>
             <div className={classes.legend}>
                 <div>
-
-                <Seat status='free' seatID='' handleClick={handleClickLegend} />
-                <span>Places libres</span>
+                    <Seat status='free' seatID='' handleClick={handleClickLegend} />
+                    <span>Places libres</span>
                 </div>
                 <div>
-
-                <Seat status='selectedLegend' seatID='' handleClick={handleClickLegend} />
-                <span>Mes places</span>
+                    <Seat status='selectedLegend' seatID='' handleClick={handleClickLegend} />
+                    <span>Mes places</span>
                 </div>
                 <div>
-
-                <Seat status='bookedLegend' seatID='' handleClick={handleClickLegend} />
-                <span>Places occupées</span>
+                    <Seat status='bookedLegend' seatID='' handleClick={handleClickLegend} />
+                    <span>Places occupées</span>
                 </div>
             </div>
             <div className={classes.screenContainer}>
@@ -109,11 +105,15 @@ const LayoutBooking = () => {
         </div>
     );
 
-    return (
-        <div className={classes.layoutContainer}>
-            {display}
-        </div>
-    );
+    return <div className={classes.layoutContainer}>{display}</div>;
 };
 
-export default LayoutBooking;
+LayoutBooking.propTypes = {
+    name: PropTypes.string,
+};
+
+const mapStateToProps = state => ({
+    name: state.auth.name,
+});
+
+export default connect(mapStateToProps)(LayoutBooking);

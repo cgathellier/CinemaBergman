@@ -8,7 +8,7 @@ const config = require('config');
 const bcrypt = require('bcrypt');
 
 // @route           GET api/auth
-// @description     Get name and isAdmin
+// @description     Load User
 // @access          Public
 router.get('/', auth, async (req, res) => {
     try {

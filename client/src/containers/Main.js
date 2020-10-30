@@ -2,7 +2,6 @@ import React, { Fragment, useEffect, useState } from 'react';
 import { Route, Router } from 'react-router-dom';
 import axios from 'axios';
 import { Provider } from 'react-redux';
-
 import Toolbar from '../components/Toolbar/Toolbar';
 import LayoutHome from './Layouts/LayoutHome/LayoutHome';
 import LayoutFilms from './Layouts/LayoutFilms/LayoutFilms';
@@ -15,19 +14,20 @@ import history from '../history';
 import store from '../store';
 import classes from './Main.module.css';
 import Alert from '../components/Alert/Alert';
+import { loadUser } from '../actions/auth';
+import setAuthToken from '../utils/setAuthToken';
 
-const NameContext = React.createContext();
-const IsAdminContext = React.createContext();
+if (localStorage.token) {
+    setAuthToken(localStorage.token);
+}
 
 const Main = () => {
     const [filmsList, setFilmList] = useState([]);
-    const [isAdmin, setIsAdmin] = useState(false);
-    const [username, setUsername] = useState(null);
 
     useEffect(() => {
         window.scroll(0, 0);
         getData();
-        logUser();
+        store.dispatch(loadUser());
     }, []);
 
     const getData = async () => {
@@ -35,96 +35,44 @@ const Main = () => {
         await setFilmList(res.data);
     };
 
-    const logUser = async () => {
-        const token = localStorage.getItem('token');
-        if (token) {
-            const config = {
-                headers: {
-                    'x-auth-token': token,
-                },
-            };
-            const res = await axios.get('/api/auth', config);
-            if (res.status === 200) {
-                setIsAdmin(res.data.isAdmin);
-                setUsername(res.data.name);
-            } else if (res.status === 401) {
-                localStorage.removeItem('token');
-            }
-        }
-    };
-
-    const getUsername = username => {
-        setUsername(username);
-    };
-
-    const getIsAdmin = isAdmin => {
-        setIsAdmin(isAdmin);
-    };
-
     return (
         <Fragment>
             <Provider store={store}>
                 <Router history={history}>
-                    <NameContext.Provider value={username}>
-                        <IsAdminContext.Provider value={isAdmin}>
-                            <Toolbar />
-                            <div className={classes.background}>
-                                <Alert />
-                                <div className={classes.bodyCtn}>
-                                    <Route
-                                        path='/'
-                                        exact
-                                        render={() => <LayoutHome filmsList={filmsList} />}
-                                    />
-                                    <Route
-                                        path='/films'
-                                        render={props => (
-                                            <LayoutFilms filmsList={filmsList} {...props} />
-                                        )}
-                                    />
-                                    <Route
-                                        path='/nouveautes'
-                                        render={props => (
-                                            <LayoutFilms filmsList={filmsList} {...props} />
-                                        )}
-                                    />
+                    <Toolbar />
+                    <div className={classes.background}>
+                        <Alert />
+                        <div className={classes.bodyCtn}>
+                            <Route
+                                path='/'
+                                exact
+                                render={() => <LayoutHome filmsList={filmsList} />}
+                            />
+                            <Route
+                                path='/films'
+                                render={props => <LayoutFilms filmsList={filmsList} {...props} />}
+                            />
+                            <Route
+                                path='/nouveautes'
+                                render={props => <LayoutFilms filmsList={filmsList} {...props} />}
+                            />
 
-                                    <Route
-                                        path='/films/:id'
-                                        render={props => <FilmDetails {...props} />}
-                                    />
+                            <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
 
-                                    <Route path='/reservations' render={() => <LayoutTickets />} />
-                                </div>
-                                <Route path='/admin' render={() => <AdminPanel />} />
-                                <Route path='/booking' component={LayoutBooking} />
-                                <Route
-                                    path='/register'
-                                    render={() => (
-                                        <LayoutRegAuth
-                                            regOrAuth='register'
-                                            getUsername={getUsername}
-                                            getIsAdmin={getIsAdmin}
-                                        />
-                                    )}
-                                />
-                                <Route
-                                    path='/login'
-                                    render={() => (
-                                        <LayoutRegAuth
-                                            regOrAuth='login'
-                                            getUsername={getUsername}
-                                            getIsAdmin={getIsAdmin}
-                                        />
-                                    )}
-                                />
-                            </div>
-                        </IsAdminContext.Provider>
-                    </NameContext.Provider>
+                            <Route path='/reservations' render={() => <LayoutTickets />} />
+                        </div>
+                        <Route path='/admin' render={() => <AdminPanel />} />
+                        <Route path='/booking' component={LayoutBooking} />
+                        <Route
+                            path='/register'
+                            render={() => <LayoutRegAuth regOrAuth='register' />}
+                        />
+                        <Route path='/login' render={() => <LayoutRegAuth regOrAuth='login' />} />
+                    </div>
                 </Router>
             </Provider>
         </Fragment>
     );
 };
 
-export { Main, NameContext, IsAdminContext };
+export default Main;

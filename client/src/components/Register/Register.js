@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import classes from './Register.module.css';
-import axios from 'axios';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 import { connect } from 'react-redux';
 import { setAlert } from '../../actions/alert';
+import { register } from '../../actions/auth';
 
 const Register = props => {
     const [formData, setFormData] = useState({
@@ -26,30 +27,9 @@ const Register = props => {
         if (password !== password2) {
             props.setAlert('Les mots de passes ne correspondent pas', 'danger');
         } else {
-            let newUser = {
-                name,
-                email,
-                password,
-            };
-
-            try {
-                const config = {
-                    headers: {
-                        'Content-type': 'application/json',
-                    },
-                };
-
-                const body = JSON.stringify(newUser);
-
-                const res = await axios.post('/api/users', body, config);
-                localStorage.setItem('token', res.data.token);
-                props.getUsername(res.data.name);
-                props.getIsAdmin(res.data.isAdmin);
-                document.location.reload();
-                history.goBack();
-            } catch (error) {
-                console.error(error.response.data);
-            }
+            props.register(name, email, password);
+            document.location.reload();
+            history.goBack();
         }
     };
 
@@ -120,4 +100,9 @@ const Register = props => {
     );
 };
 
-export default connect(null, { setAlert })(Register);
+Register.propTypes = {
+    setAlert: PropTypes.func.isRequired,
+    register: PropTypes.func.isRequired,
+};
+
+export default connect(null, { setAlert, register })(Register);

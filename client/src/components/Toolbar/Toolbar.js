@@ -1,11 +1,11 @@
-import React, { Fragment, useContext } from 'react';
+import React, { Fragment } from 'react';
 import classes from './Toolbar.module.css';
 import { NavLink } from 'react-router-dom';
-import { IsAdminContext, NameContext } from '../../containers/Main';
+import { connect } from 'react-redux';
+import { logout } from '../../actions/auth';
+import PropTypes from 'prop-types';
 
-const Toolbar = () => {
-    const isAdmin = useContext(IsAdminContext);
-    const name = useContext(NameContext);
+const Toolbar = ({ name, isAdmin, logout }) => {
     const adminNav = isAdmin ? (
         <NavLink to='/admin' activeClassName={classes.active}>
             <div>
@@ -17,7 +17,7 @@ const Toolbar = () => {
     );
 
     const handleLogout = () => {
-        localStorage.removeItem('token');
+        logout();
         window.scroll(0, 0);
         document.location.reload();
     };
@@ -85,4 +85,15 @@ const Toolbar = () => {
     );
 };
 
-export default Toolbar;
+Toolbar.propTypes = {
+    name: PropTypes.string,
+    isAdmin: PropTypes.bool.isRequired,
+    logout: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = state => ({
+    name: state.auth.name,
+    isAdmin: state.auth.isAdmin,
+});
+
+export default connect(mapStateToProps, { logout })(Toolbar);

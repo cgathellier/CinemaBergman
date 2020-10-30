@@ -4,14 +4,6 @@ import Login from '../../../components/Login/Login';
 import classes from './LayoutRegAuth.module.css';
 
 const LayoutRegAuth = props => {
-    const getUsername = username => {
-        props.getUsername(username);
-    };
-
-    const getIsAdmin = isAdmin => {
-        props.getIsAdmin(isAdmin);
-    };
-
     const form = props.regOrAuth === 'register' ? <Register {...props} /> : <Login {...props} />;
 
     return (

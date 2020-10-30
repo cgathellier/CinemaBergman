@@ -14,7 +14,7 @@ router.post(
     '/',
     [
         check('name', "Un nom d'utilisateur est requis").not().isEmpty(),
-        check('email', 'Veuillez saisr une adresse mail valide').isEmail(),
+        check('email', 'Veuillez saisir une adresse mail valide').isEmail(),
         check('password', "Veuillez saisir un mot de passe d'au moins 6 caractères").isLength({
             min: 6,
         }),
@@ -30,13 +30,19 @@ router.post(
         try {
             let user = await User.findOne({ isAdmin: true });
             if (req.body.isAdmin && user) {
-                return res.status(401).send('Non autorisé');
+                return res.status(401).json({ errors: [{ msg: 'Non autorisé' }] });
             }
-            user = await User.findOne({ email });
+            user = await User.findOne({ name });
             if (user) {
                 return res
                     .status(400)
-                    .send('Un utilisateur a déjà été créé avec cette adresse email');
+                    .json({ errors: [{ msg: "Ce nom d'utilisateur est déjà pris" }] });
+            }
+            user = await User.findOne({ email });
+            if (user) {
+                return res.status(400).json({
+                    errors: [{ msg: 'Un utilisateur a déjà été créé avec cette adresse email' }],
+                });
             }
 
             user = new User({
@@ -64,7 +70,6 @@ router.post(
                 res.json({ token, isAdmin, name });
             });
         } catch (error) {
-            console.error(error.message);
             res.status(500).send('Erreur serveur');
         }
     }

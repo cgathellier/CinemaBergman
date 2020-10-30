@@ -5,7 +5,6 @@ const Post = require('../../models/Post');
 const Showtime = require('../../models/Showtime');
 const Booking = require('../../models/Booking');
 const auth = require('../../middleware/auth');
-const fs = require('fs');
 const { v4: uuidv4 } = require('uuid');
 
 const AWS = require('aws-sdk');
@@ -47,7 +46,9 @@ router.post(
             const reqObj = JSON.parse(req.body.film);
             let film = await Film.findOne({ title: reqObj.title });
             if (film) {
-                return res.status(500).send('Ce film est déjà dans la base de donnée');
+                return res
+                    .status(500)
+                    .json({ errors: [{ msg: 'Ce film est déjà dans la base de donnée' }] });
             }
 
             const posterName = `${uuidv4()}.${MIME_TYPES[req.files['poster'][0].mimetype]}`;
@@ -90,7 +91,7 @@ router.post(
             await film.save();
             return res.status(201).json(film);
         } catch (error) {
-            return res.status(500).json({ error: error.message });
+            return res.status(500).json({ errors: error.message });
         }
     }
 );

@@ -1,7 +1,8 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import classes from './Post.module.css';
 import Moment from 'react-moment';
-import { IsAdminContext, NameContext } from '../../containers/Main';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const Post = props => {
     const { name, date, text, _id, title } = props.post;
@@ -10,10 +11,8 @@ const Post = props => {
         props.onClick(_id);
     };
 
-    const nameContext = useContext(NameContext);
-    const isAdmin = useContext(IsAdminContext);
     const deleteBtn =
-        isAdmin || nameContext === name ? (
+        props.isAdmin || props.name === name ? (
             <div className={classes.delete} onClick={handleClick}>
                 Supprimer
             </div>
@@ -37,4 +36,14 @@ const Post = props => {
     );
 };
 
-export default Post;
+Post.propTypes = {
+    name: PropTypes.string,
+    isAdmin: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = state => ({
+    name: state.auth.name,
+    isAdmin: state.auth.isAdmin,
+});
+
+export default connect(mapStateToProps)(Post);

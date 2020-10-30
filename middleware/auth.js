@@ -4,7 +4,7 @@ const config = require('config');
 module.exports = function (req, res, next) {
     const token = req.header('x-auth-token');
     if (!token) {
-        return res.status(401).json({ message: 'No token, authorization denied' });
+        return res.status(401).json({ message: 'Pas de token, autorisation refusée' });
     }
 
     try {
@@ -13,6 +13,6 @@ module.exports = function (req, res, next) {
         req.isAdmin = decoded.isAdmin;
         next();
     } catch (error) {
-        res.status(401).send('Token is not valid');
+        res.status(401).send('Token non valide');
     }
 };
