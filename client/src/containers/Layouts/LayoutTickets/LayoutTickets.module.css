@@ -35,7 +35,7 @@
 }
 
 .getLogged div {
-    width: fit-content;
+    width: 220px;
     color: #2e2e2e;
     font-weight: 500;
     font-size: calc(0.4vw + 1rem);
@@ -47,4 +47,10 @@
     align-items: center;
     cursor: pointer;
     margin-top: 30px;
+}
+
+@media (min-width: 576px) {
+    .getLogged div {
+        width: 250px;
+    }
 }

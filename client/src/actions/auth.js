@@ -6,6 +6,7 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGOUT,
+    HIDE_MODAL,
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
@@ -98,5 +99,8 @@ export const loadUser = () => async dispatch => {
 export const logout = () => dispatch => {
     dispatch({
         type: LOGOUT,
+    });
+    dispatch({
+        type: HIDE_MODAL,
     });
 };

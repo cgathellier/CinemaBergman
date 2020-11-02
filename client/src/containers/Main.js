@@ -14,6 +14,7 @@ import history from '../history';
 import store from '../store';
 import classes from './Main.module.css';
 import Alert from '../components/Alert/Alert';
+import Modal from '../components/Modal/Modal';
 import { loadUser } from '../actions/auth';
 import setAuthToken from '../utils/setAuthToken';
 
@@ -42,6 +43,7 @@ const Main = () => {
                     <Toolbar />
                     <div className={classes.background}>
                         <Alert />
+                        <Modal />
                         <div className={classes.bodyCtn}>
                             <Route
                                 path='/'

@@ -158,6 +158,7 @@
     width: 50%;
     line-height: 150%;
     height: fit-content;
+    text-align: justify;
 }
 
 .StPostsCtn {
@@ -229,8 +230,6 @@
     width: 70%;
     display: flex;
     justify-content: center;
-    /* align-items: center; */
-    /* margin: 30px 0px 100px 0px; */
     margin-bottom: 100px;
     padding-top: 30px;
     background-color: white;
@@ -256,7 +255,7 @@
 }
 
 .getLogged div {
-    width: fit-content;
+    width: 250px;
     color: #2e2e2e;
     font-weight: 500;
     font-size: calc(0.4vw + 1rem);
@@ -381,6 +380,10 @@
 
     .submit {
         width: 100%;
+    }
+
+    .getLogged div {
+        width: 220px;
     }
 }
 

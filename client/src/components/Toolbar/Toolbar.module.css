@@ -78,6 +78,7 @@
     align-items: center;
     font-family: 'Roboto', sans-serif;
     font-size: 1.5rem;
+    color: black;
 }
 
 .username {
@@ -188,6 +189,9 @@ a:visited {
     }
     .active div {
         border-bottom: solid 5px #fbd25a;
+    }
+    .letter {
+        color: white;
     }
 }
 

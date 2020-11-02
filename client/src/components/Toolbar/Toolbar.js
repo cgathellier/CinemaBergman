@@ -4,8 +4,9 @@ import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
 import PropTypes from 'prop-types';
+import { showModal } from '../../actions/modal';
 
-const Toolbar = ({ name, isAdmin, logout }) => {
+const Toolbar = ({ name, isAdmin, logout, showModal }) => {
     const adminNav = isAdmin ? (
         <NavLink to='/admin' activeClassName={classes.active}>
             <div>
@@ -20,6 +21,10 @@ const Toolbar = ({ name, isAdmin, logout }) => {
         logout();
         window.scroll(0, 0);
         document.location.reload();
+    };
+
+    const handleModal = () => {
+        showModal();
     };
 
     const usernameDisplay = name ? (
@@ -38,13 +43,15 @@ const Toolbar = ({ name, isAdmin, logout }) => {
 
     const nameFirstLetter = name ? name.split('')[0] : '';
     const userIcon = name ? (
-        <div className={classes.User}>
+        <div className={classes.User} onClick={handleModal}>
             <div className={classes.letter}>{nameFirstLetter}</div>
         </div>
     ) : (
-        <div className={classes.User}>
-            <i className={[classes.faUser, 'fas fa-user'].join(' ')}></i>
-        </div>
+        <NavLink to='/login'>
+            <div className={classes.User}>
+                <i className={[classes.faUser, 'fas fa-user'].join(' ')}></i>
+            </div>
+        </NavLink>
     );
 
     return (
@@ -55,7 +62,7 @@ const Toolbar = ({ name, isAdmin, logout }) => {
                 </div>
                 <div className={classes.RegAuthInterface}>
                     <div className={classes.toForms}>{usernameDisplay}</div>
-                    <NavLink to='/login'>{userIcon}</NavLink>
+                    {userIcon}
                 </div>
             </div>
             <div className={classes.Menu}>
@@ -89,6 +96,7 @@ Toolbar.propTypes = {
     name: PropTypes.string,
     isAdmin: PropTypes.bool.isRequired,
     logout: PropTypes.func.isRequired,
+    showModal: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = state => ({
@@ -96,4 +104,4 @@ const mapStateToProps = state => ({
     isAdmin: state.auth.isAdmin,
 });
 
-export default connect(mapStateToProps, { logout })(Toolbar);
+export default connect(mapStateToProps, { logout, showModal })(Toolbar);
