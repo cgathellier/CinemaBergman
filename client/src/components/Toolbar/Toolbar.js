@@ -71,11 +71,6 @@ const Toolbar = ({ name, isAdmin, logout, showModal }) => {
                         <i className={['fas fa-home', classes.Icons].join(' ')}></i>Accueil
                     </div>
                 </NavLink>
-                <NavLink to='/nouveautes' activeClassName={classes.active}>
-                    <div>
-                        <i className={['fas fa-star', classes.Icons].join(' ')}></i>Nouveautés
-                    </div>
-                </NavLink>
                 <NavLink to='/films' activeClassName={classes.active}>
                     <div>
                         <i className={['fas fa-film', classes.Icons].join(' ')}></i>Films

@@ -31,20 +31,93 @@
 
 .presentation {
     width: calc(100% - 160px);
-    /* height: 50%; */
     position: absolute;
-    left: 80px;
+    left: 20px;
     bottom: 20px;
     font-weight: bold;
-    font-size: calc(1.2rem + 1.5vw);
+    font-size: calc(1.2rem + 1.4vw);
 }
 
 .presentation h2 {
+    margin-top: 0px;
     margin-bottom: -20px;
+    font-size: calc(2rem + 1.5vw);
 }
 
-@media (max-width: 500px) {
+.title {
+    display: flex;
+    align-items: baseline;
+    flex-direction: column;
+}
+
+.title i {
+    color: white;
+    font-size: 1rem;
+    transform: translateY(2px);
+}
+
+.title a {
+    display: flex;
+    align-items: baseline;
+}
+
+.link {
+    margin: 0px;
+    margin-right: 5px;
+    color: white;
+    display: flex;
+    align-items: center;
+    font-size: 1rem;
+    text-decoration: underline;
+}
+
+@media (max-width: 575px) {
     .image {
         height: 60%;
+    }
+}
+
+@media (min-width: 576px) {
+    .presentation {
+        left: 30px;
+    }
+}
+
+@media (min-width: 992px) {
+    .presentation {
+        left: 40px;
+        bottom: 30px;
+    }
+    .presentation h2 {
+        margin-top: 0px;
+    }
+
+    .title i {
+        color: white;
+        font-size: 1.5rem;
+        transform: translateY(2px);
+    }
+    .link {
+        font-size: 1.5rem;
+    }
+}
+
+@media (min-width: 1200px) {
+    .presentation {
+        left: 60px;
+        bottom: 40px;
+        font-size: calc(1.2rem + 1.4vw);
+    }
+    .presentation h2 {
+        margin-top: 0px;
+    }
+
+    .title i {
+        color: white;
+        font-size: 1.5rem;
+        transform: translateY(2px);
+    }
+    .link {
+        font-size: 1.5rem;
     }
 }

@@ -174,7 +174,7 @@
     flex-direction: column;
     align-items: center;
     background-color: white;
-    width: 70%;
+    width: 100%;
     min-height: 360px;
 }
 
@@ -218,7 +218,7 @@
 }
 
 .postsElt {
-    width: 70%;
+    width: 100%;
     padding: 20px;
     background-color: white;
     display: flex;
@@ -227,7 +227,7 @@
 }
 
 .formContainer {
-    width: 70%;
+    width: 100%;
     display: flex;
     justify-content: center;
     margin-bottom: 100px;
@@ -361,21 +361,12 @@
         margin-top: 10px;
     }
 
-    .showtimesCtn {
-        width: 100%;
-    }
-
     .showtimes {
         font-size: 2em;
     }
 
-    .postsElt {
-        width: 100%;
-    }
-
     .formContainer {
         padding: 20px;
-        width: 100%;
     }
 
     .submit {
@@ -421,21 +412,12 @@
         margin-top: 10px;
     }
 
-    .showtimesCtn {
-        width: 100%;
-    }
-
     .showtimes {
         font-size: 2em;
     }
 
-    .postsElt {
-        width: 100%;
-    }
-
     .formContainer {
         padding: 20px;
-        width: 100%;
     }
 }
 
@@ -463,18 +445,6 @@
     .imgContainer img {
         width: 100px;
         border-radius: 7px;
-    }
-
-    .showtimesCtn {
-        width: 70%;
-    }
-
-    .postsElt {
-        width: 70%;
-    }
-
-    .formContainer {
-        width: 70%;
     }
 }
 

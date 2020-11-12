@@ -52,13 +52,9 @@ const Main = () => {
                             />
                             <Route
                                 path='/films'
+                                exact
                                 render={props => <LayoutFilms filmsList={filmsList} {...props} />}
                             />
-                            <Route
-                                path='/nouveautes'
-                                render={props => <LayoutFilms filmsList={filmsList} {...props} />}
-                            />
-
                             <Route path='/films/:id' render={props => <FilmDetails {...props} />} />
 
                             <Route path='/reservations' render={() => <LayoutTickets />} />

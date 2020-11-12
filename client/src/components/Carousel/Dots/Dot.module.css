@@ -6,7 +6,6 @@
     margin-left: 0px;
     margin-right: 5px;
     transition: all ease-in-out 200ms;
-    cursor: pointer;
 }
 
 .selected {
@@ -17,5 +16,4 @@
     margin-left: 0px;
     margin-right: 5px;
     transition: all ease-in-out 200ms;
-    cursor: pointer;
 }

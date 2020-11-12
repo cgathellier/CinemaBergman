@@ -1,6 +1,6 @@
 .Container {
     width: 100%;
-    height: calc(100vh - 140px);
+    height: calc(60vh - 140px);
     display: flex;
     align-items: center;
     position: relative;
@@ -8,45 +8,45 @@
 }
 
 .dotsContainer {
+    width: 100%;
     position: absolute;
     z-index: 150;
     display: flex;
     justify-content: center;
-    align-items: center;
     bottom: 40px;
-    right: 80px;
+}
+
+.dots {
+    display: flex;
+    align-items: center;
 }
 
 @media (max-width: 575px) {
-    .dotsContainer {
-        right: 40px;
-    }
-
     .Container {
-        height: 250px;
+        height: calc(60vh - 140px);
     }
 }
 
-@media (max-width: 767px) {
-    .dotsContainer {
-        right: 60px;
+@media (min-width: 576px) {
+    .Container {
+        height: calc(60vh - 140px);
     }
 }
 
-@media (max-width: 991px) {
-    .bodyCtn {
-        width: 100%;
+@media (min-width: 768px) {
+    .Container {
+        height: calc(70vh - 140px);
     }
 }
 
-@media (max-width: 1199px) {
-    .bodyCtn {
-        width: 100%;
+@media (min-width: 992px) {
+    .Container {
+        height: calc(75vh - 140px);
     }
 }
 
 @media (min-width: 1200px) {
-    .bodyCtn {
-        width: 100%;
+    .Container {
+        height: calc(80vh - 140px);
     }
 }
