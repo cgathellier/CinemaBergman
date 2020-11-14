@@ -5,6 +5,7 @@ import Tickets from '../../../components/Tickets/Tickets';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AuthModal from '../../../components/AuthModal/AuthModal';
 
 const LayoutTickets = ({ name }) => {
     const [bookings, setBookings] = useState([]);
@@ -38,15 +39,7 @@ const LayoutTickets = ({ name }) => {
     const displayTickets = name ? (
         <div className={classes.ticketsCtn}>{tickets}</div>
     ) : (
-        <div className={classes.getLogged}>
-            Veuillez vous connecter pour accéder à vos réservations
-            <NavLink to='/login'>
-                <div>Se connecter</div>
-            </NavLink>
-            <NavLink to='/register'>
-                <div>Créer un compte</div>
-            </NavLink>
-        </div>
+        <AuthModal text='Veuillez vous connecter pour accéder à vos réservations' />
     );
 
     return (

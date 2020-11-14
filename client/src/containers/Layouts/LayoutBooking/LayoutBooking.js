@@ -7,6 +7,7 @@ import history from '../../../history';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AuthModal from '../../../components/AuthModal/AuthModal';
 
 const LayoutBooking = ({ name }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);
@@ -94,15 +95,7 @@ const LayoutBooking = ({ name }) => {
             </div>
         </div>
     ) : (
-        <div className={classes.getLogged}>
-            Veuillez vous connecter pour réserver vos places
-            <NavLink to='/login'>
-                <div>Se connecter</div>
-            </NavLink>
-            <NavLink to='/register'>
-                <div>Créer un compte</div>
-            </NavLink>
-        </div>
+        <AuthModal text='Veuillez vous connecter pour réserver vos places' />
     );
 
     return <div className={classes.layoutContainer}>{display}</div>;

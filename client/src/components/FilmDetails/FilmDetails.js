@@ -8,6 +8,7 @@ import classes from './FilmDetails.module.css';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import AuthModal from '../AuthModal/AuthModal';
 
 const JOURS = {
     0: 'DIM.',
@@ -222,35 +223,7 @@ const FilmDetails = ({ name }) => {
             <input type='submit' className={classes.submit} value='Ajouter un commentaire' />
         </form>
     ) : (
-        <form className={classes.form} onSubmit={e => handleSubmit(e)}>
-            <input
-                type='text'
-                className={classes.postTitle}
-                placeholder='Titre du commentaire'
-                name='title'
-                onChange={e => handleChange(e)}
-                value={postContent.title}
-                maxLength={40}
-            />
-            <textarea
-                type='textarea'
-                className={classes.textarea}
-                placeholder='Commentaire'
-                name='text'
-                onChange={e => handleChange(e)}
-                value={postContent.text}
-            ></textarea>
-            <input type='submit' className={classes.submit} value='Ajouter un commentaire' />
-            <div className={classes.getLogged}>
-                Veuillez vous connecter pour poster un commentaire
-                <NavLink to='/login'>
-                    <div>Se connecter</div>
-                </NavLink>
-                <NavLink to='/register'>
-                    <div>Créer un compte</div>
-                </NavLink>
-            </div>
-        </form>
+        <AuthModal text='Veuillez vous connecter pour poster un commentaire' />
     );
 
     const showtimeNav = nav.map((navDate, index) => {
