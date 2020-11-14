@@ -1,7 +1,7 @@
 import React from 'react';
-import Carousel from '../../../components/Carousel/Carousel';
-import FilmsList from '../../../components/FilmsList/FilmsList';
-import classes from './LayoutHome.module.css';
+import Carousel from '../../components/Carousel/Carousel';
+import FilmsList from '../../components/FilmsList/FilmsList';
+import classes from './Home.module.css';
 
 const LayoutHome = props => {
     const handlePosterClick = filmInfos => {

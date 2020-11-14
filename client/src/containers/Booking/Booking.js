@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import Row from '../../../components/Booking/Row';
-import classes from './LayoutBooking.module.css';
+import Row from '../../components/Booking/Row';
+import classes from './Booking.module.css';
 import axios from 'axios';
-import Seat from '../../../components/Booking/Seat';
-import history from '../../../history';
-import { NavLink } from 'react-router-dom';
+import Seat from '../../components/Booking/Seat';
+import history from '../../history';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
-import AuthModal from '../../../components/AuthModal/AuthModal';
+import AuthModal from '../../components/AuthModal/AuthModal';
 
 const LayoutBooking = ({ name }) => {
     const [selectedSeats, setSelectedSeats] = useState([]);

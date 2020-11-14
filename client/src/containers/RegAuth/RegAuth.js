@@ -1,7 +1,7 @@
 import React from 'react';
-import Register from '../../../components/Register/Register';
-import Login from '../../../components/Login/Login';
-import classes from './LayoutRegAuth.module.css';
+import Register from '../../components/Register/Register';
+import Login from '../../components/Login/Login';
+import classes from './RegAuth.module.css';
 
 const LayoutRegAuth = props => {
     const form = props.regOrAuth === 'register' ? <Register {...props} /> : <Login {...props} />;

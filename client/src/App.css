@@ -24,3 +24,57 @@ body {
 .App-link {
     color: #61dafb;
 }
+
+.background {
+    background-color: #f2f3f5;
+    width: 100%;
+    min-height: 100vh;
+    z-index: -1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.bodyCtn {
+    width: 1500px;
+    min-height: 100vh;
+    height: fit-content;
+    background-color: white;
+    padding-top: 140px;
+    margin: 0px;
+    overflow-x: hidden;
+}
+
+@media (max-width: 575px) {
+    .bodyCtn {
+        width: 100vw;
+        padding-top: 100px;
+    }
+}
+
+@media (min-width: 576px) {
+    .bodyCtn {
+        width: 100vw;
+        padding-top: 110px;
+    }
+}
+
+@media (min-width: 768px) {
+    .bodyCtn {
+        /* width: 80vw; */
+        padding-top: 110px;
+    }
+}
+
+@media (min-width: 992px) {
+    .bodyCtn {
+        width: 100vw;
+        padding-top: 140px;
+    }
+}
+
+@media (min-width: 1200px) {
+    .bodyCtn {
+        width: 80vw;
+        padding-top: 140px;
+    }
+}

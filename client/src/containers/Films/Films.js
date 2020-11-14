@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react';
-import classes from './LayoutFilms.module.css';
-import FilmsList from '../../../components/FilmsList/FilmsList';
+import classes from './Films.module.css';
+import FilmsList from '../../components/FilmsList/FilmsList';
 
 const LayoutFilms = props => {
     useEffect(() => {
