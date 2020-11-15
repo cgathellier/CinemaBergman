@@ -1,6 +1,7 @@
 .Container {
     width: 100%;
     height: calc(60vh - 140px);
+    min-height: 300px;
     display: flex;
     align-items: center;
     position: relative;
@@ -19,18 +20,6 @@
 .dots {
     display: flex;
     align-items: center;
-}
-
-@media (max-width: 575px) {
-    .Container {
-        height: calc(60vh - 140px);
-    }
-}
-
-@media (min-width: 576px) {
-    .Container {
-        height: calc(60vh - 140px);
-    }
 }
 
 @media (min-width: 768px) {

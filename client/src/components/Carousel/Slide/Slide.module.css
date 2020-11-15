@@ -16,7 +16,7 @@
 
 .image {
     width: fit-content;
-    height: 100%;
+    height: 60%;
     object-fit: cover;
 }
 
@@ -71,15 +71,12 @@
     text-decoration: underline;
 }
 
-@media (max-width: 575px) {
-    .image {
-        height: 60%;
-    }
-}
-
 @media (min-width: 576px) {
     .presentation {
         left: 30px;
+    }
+    .image {
+        height: 100%;
     }
 }
 
@@ -88,14 +85,10 @@
         left: 40px;
         bottom: 30px;
     }
-    .presentation h2 {
-        margin-top: 0px;
-    }
-
     .title i {
         color: white;
         font-size: 1.5rem;
-        transform: translateY(2px);
+        transform: translateY(3px);
     }
     .link {
         font-size: 1.5rem;
@@ -107,17 +100,5 @@
         left: 60px;
         bottom: 40px;
         font-size: calc(1.2rem + 1.4vw);
-    }
-    .presentation h2 {
-        margin-top: 0px;
-    }
-
-    .title i {
-        color: white;
-        font-size: 1.5rem;
-        transform: translateY(2px);
-    }
-    .link {
-        font-size: 1.5rem;
     }
 }

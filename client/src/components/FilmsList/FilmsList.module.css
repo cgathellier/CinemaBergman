@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 
-* {
-    box-sizing: border-box;
-}
-
 .container {
     padding: 10px;
     width: 100%;
@@ -30,28 +26,4 @@
     align-self: flex-start;
     color: #181b21;
     border-bottom: solid 4px #fbd25a;
-}
-
-@media (max-width: 575px) {
-    .container {
-        width: 100%;
-    }
-}
-
-@media (min-width: 576px) {
-    .container {
-        width: 100%;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        width: 100%;
-    }
-}
-
-@media (min-width: 992px) {
-}
-
-@media (min-width: 1200px) {
 }

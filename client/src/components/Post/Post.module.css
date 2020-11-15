@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 .container {
+    width: 100%;
     height: fit-content;
     display: flex;
     flex-direction: column;
@@ -48,12 +49,6 @@
     right: 10px;
     border-radius: 8px;
     cursor: pointer;
-}
-
-@media (max-width: 575px) {
-    .container {
-        width: 100%;
-    }
 }
 
 @media (min-width: 576px) {

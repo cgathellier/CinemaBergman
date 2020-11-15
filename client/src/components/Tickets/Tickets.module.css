@@ -28,9 +28,6 @@
     margin-bottom: 10px;
 }
 
-@media (max-width: 575px) {
-}
-
 @media (min-width: 576px) {
     .container {
         padding-left: 20px;

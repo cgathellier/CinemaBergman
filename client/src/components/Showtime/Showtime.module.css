@@ -2,10 +2,11 @@
 
 .container {
     font-family: 'Roboto', sans-serif;
-    font-weight: 1000;
+    font-weight: 900;
     font-size: 1.3em;
-    width: 150px;
-    height: 70px;
+    width: fit-content;
+    height: fit-content;
+    padding: 10px 20px;
     border: solid 1px #dadada;
     border-radius: 8px;
     display: flex;
@@ -41,21 +42,8 @@
     cursor: pointer;
 }
 
-@media (max-width: 575px) {
-    .container {
-        width: fit-content;
-        height: fit-content;
-        padding: 10px 20px;
-    }
-}
-
 @media (min-width: 576px) {
     .container {
-        width: fit-content;
-        height: fit-content;
         padding: 15px 30px;
     }
-}
-
-@media (min-width: 1200px) {
 }

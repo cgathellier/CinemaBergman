@@ -1,5 +1,4 @@
-import React, { Fragment, useEffect } from 'react';
-import classes from './Films.module.css';
+import React, { useEffect } from 'react';
 import FilmsList from '../../components/FilmsList/FilmsList';
 
 const LayoutFilms = props => {
@@ -8,11 +7,9 @@ const LayoutFilms = props => {
     }, []);
 
     return (
-        <Fragment>
-            <div className={classes.Container}>
-                <FilmsList filmsList={props.filmsList} path='/films/' />
-            </div>
-        </Fragment>
+        <div>
+            <FilmsList filmsList={props.filmsList} path='/films/' />
+        </div>
     );
 };
 

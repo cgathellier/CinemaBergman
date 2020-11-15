@@ -2,13 +2,9 @@
 
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
-* {
-    box-sizing: border-box;
-}
-
 .Toolbar {
     width: 100vw;
-    height: 140px;
+    height: 100px;
     position: fixed;
     top: 0;
     z-index: 300;
@@ -17,12 +13,14 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    align-items: center;
 }
 
 .Presentation {
     display: flex;
     justify-content: space-between;
-    padding: 20px;
+    padding: 10px 20px;
+    width: 100%;
 }
 
 .Name {
@@ -36,7 +34,7 @@
 }
 
 .toForms {
-    display: flex;
+    display: none;
     flex-direction: column;
     justify-content: center;
     align-items: flex-end;
@@ -110,8 +108,9 @@
     justify-content: center;
     align-items: center;
     cursor: pointer;
+    font-size: 0.7rem;
     font-family: 'Roboto', sans-serif;
-    font-weight: 100;
+    font-weight: 400;
     width: 100%;
     border-bottom: solid 5px white;
 }
@@ -133,37 +132,9 @@ a:visited {
     border-bottom: solid 5px #fbd25a;
 }
 
-@media (max-width: 575px) {
-    .Toolbar {
-        height: 100px;
-    }
-    .Presentation {
-        padding: 10px 20px;
-        margin-bottom: 5px;
-    }
-    .toForms {
-        display: none;
-    }
-    .Menu div {
-        font-size: 0.7rem;
-        font-weight: 400;
-        width: 100%;
-    }
-}
-
 @media (min-width: 576px) {
     .Toolbar {
         height: 110px;
-    }
-    .Presentation {
-        padding: 10px 20px;
-    }
-    .toForms {
-        display: none;
-    }
-    .Menu div {
-        font-size: 0.7rem;
-        font-weight: 400;
     }
 }
 
@@ -175,8 +146,8 @@ a:visited {
         background-repeat: no-repeat;
         box-shadow: none;
     }
-    .Presentation {
-        padding: 10px 20px;
+    .letter {
+        color: white;
     }
     .Menu div {
         font-size: 1rem;
@@ -196,13 +167,13 @@ a:visited {
     .active div {
         border-bottom: solid 5px #fbd25a;
     }
-    .letter {
-        color: white;
-    }
 }
 
 @media (min-width: 1200px) {
     .toForms {
         display: flex;
+    }
+    .Menu {
+        width: 80%;
     }
 }

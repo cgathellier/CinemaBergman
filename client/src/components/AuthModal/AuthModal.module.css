@@ -27,7 +27,7 @@
     margin-top: 30px;
 }
 
-@media (min-width: 575px) {
+@media (min-width: 576px) {
     .getLogged div {
         width: 250px;
     }
