@@ -419,6 +419,9 @@ body {
   cursor: pointer;
   margin-top: 30px;
 }
+.authModal__container a {
+  text-decoration: none;
+}
 
 .row__container {
   display: flex;

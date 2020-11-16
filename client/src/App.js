@@ -1,5 +1,4 @@
 import React, { Fragment, useEffect, useState } from 'react';
-// import './App.css';
 import './prefixed/style.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Router } from 'react-router-dom';
@@ -38,44 +37,6 @@ function App() {
         await setFilmList(res.data);
     };
     return (
-        // <BrowserRouter>
-        //     <Fragment>
-        //         <Provider store={store}>
-        //             <Router history={history}>
-        //                 <Toolbar />
-        //                 <div className='background'>
-        //                     <Alert />
-        //                     <LogoutModal />
-        //                     <div className='bodyCtn'>
-        //                         <Route
-        //                             path='/'
-        //                             exact
-        //                             render={() => <Home filmsList={filmsList} />}
-        //                         />
-        //                         <Route
-        //                             path='/films'
-        //                             exact
-        //                             render={props => <Films filmsList={filmsList} {...props} />}
-        //                         />
-        //                         <Route
-        //                             path='/films/:id'
-        //                             render={props => <FilmDetails {...props} />}
-        //                         />
-
-        //                         <Route path='/reservations' render={() => <Tickets />} />
-        //                     </div>
-        //                     <Route path='/admin' render={() => <AdminPanel />} />
-        //                     <Route path='/booking' component={Booking} />
-        //                     <Route
-        //                         path='/register'
-        //                         render={() => <RegAuth regOrAuth='register' />}
-        //                     />
-        //                     <Route path='/login' render={() => <RegAuth regOrAuth='login' />} />
-        //                 </div>
-        //             </Router>
-        //         </Provider>
-        //     </Fragment>
-        // </BrowserRouter>
         <BrowserRouter>
             <Fragment>
                 <Provider store={store}>
