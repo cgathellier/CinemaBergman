@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './Slider.module.css';
 
 const Slider = props => {
     const style = {
@@ -9,7 +8,7 @@ const Slider = props => {
     };
 
     return (
-        <div className={classes.slider} style={style}>
+        <div className='slider' style={style}>
             {props.children}
         </div>
     );

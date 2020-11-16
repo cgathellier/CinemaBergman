@@ -79,46 +79,6 @@
     margin-right: 5px;
 }
 
-.Toolbar {
-    width: 100%;
-    border-bottom: solid 1px rgb(59, 63, 68, 0.5);
-    display: flex;
-    font-size: calc(0.1vw + 1rem);
-    font-weight: 600;
-    padding: 20px 0px;
-}
-
-.Toolbar span {
-    display: flex;
-    width: 50%;
-    justify-content: center;
-    align-items: center;
-    flex: 1;
-    cursor: pointer;
-}
-
-.Toolbar span i {
-    margin-right: 5px;
-}
-
-.Toolbar span:not(:last-of-type) {
-    border-right: solid 2px rgb(59, 63, 68, 0.8);
-}
-
-.PlusSign {
-    font-size: 1.2rem;
-    font-weight: 200;
-    color: #1c212a;
-    background: #babbbd;
-    border-radius: 50%;
-    width: 18px;
-    height: 18px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-right: 5px;
-}
-
 .Presentation {
     display: flex;
     align-items: center;

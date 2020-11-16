@@ -1,5 +1,6 @@
 import React, { Fragment, useEffect, useState } from 'react';
-import './App.css';
+// import './App.css';
+import './prefixed/style.css';
 import { BrowserRouter } from 'react-router-dom';
 import { Route, Router } from 'react-router-dom';
 import axios from 'axios';
@@ -15,7 +16,7 @@ import FilmDetails from './components/FilmDetails/FilmDetails';
 import history from './history';
 import store from './store';
 import Alert from './components/Alert/Alert';
-import Modal from './components/Modal/Modal';
+import LogoutModal from './components/LogoutModal/LogoutModal';
 import { loadUser } from './actions/auth';
 import setAuthToken from './utils/setAuthToken';
 
@@ -37,15 +38,53 @@ function App() {
         await setFilmList(res.data);
     };
     return (
+        // <BrowserRouter>
+        //     <Fragment>
+        //         <Provider store={store}>
+        //             <Router history={history}>
+        //                 <Toolbar />
+        //                 <div className='background'>
+        //                     <Alert />
+        //                     <LogoutModal />
+        //                     <div className='bodyCtn'>
+        //                         <Route
+        //                             path='/'
+        //                             exact
+        //                             render={() => <Home filmsList={filmsList} />}
+        //                         />
+        //                         <Route
+        //                             path='/films'
+        //                             exact
+        //                             render={props => <Films filmsList={filmsList} {...props} />}
+        //                         />
+        //                         <Route
+        //                             path='/films/:id'
+        //                             render={props => <FilmDetails {...props} />}
+        //                         />
+
+        //                         <Route path='/reservations' render={() => <Tickets />} />
+        //                     </div>
+        //                     <Route path='/admin' render={() => <AdminPanel />} />
+        //                     <Route path='/booking' component={Booking} />
+        //                     <Route
+        //                         path='/register'
+        //                         render={() => <RegAuth regOrAuth='register' />}
+        //                     />
+        //                     <Route path='/login' render={() => <RegAuth regOrAuth='login' />} />
+        //                 </div>
+        //             </Router>
+        //         </Provider>
+        //     </Fragment>
+        // </BrowserRouter>
         <BrowserRouter>
             <Fragment>
                 <Provider store={store}>
                     <Router history={history}>
                         <Toolbar />
-                        <div className='background'>
+                        <div className='App__background'>
                             <Alert />
-                            <Modal />
-                            <div className='bodyCtn'>
+                            <LogoutModal />
+                            <div className='App__bodyCtn'>
                                 <Route
                                     path='/'
                                     exact

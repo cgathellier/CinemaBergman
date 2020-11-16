@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
-import classes from './Register.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 import { connect } from 'react-redux';
@@ -34,19 +33,19 @@ const Register = props => {
     };
 
     return (
-        <div className={classes.container}>
-            <div className={classes.Name}>
+        <div className='regAuth__container'>
+            <div className='regAuth__name'>
                 <NavLink to='/'>Cinéma Bergman</NavLink>
             </div>
             <div>
                 <Link to='/'>
-                    <p className={classes.toHome}>
+                    <p className='regAuth__toHome'>
                         <i className='fas fa-angle-left'></i>Retourner à la page d'accueil
                     </p>
                 </Link>
             </div>
-            <form className={classes.Form} onSubmit={e => onSubmit(e)}>
-                <div className={classes.field}>
+            <form className='regAuth__form' onSubmit={e => onSubmit(e)}>
+                <div className='regAuth__field'>
                     <input
                         type='text'
                         placeholder="Nom d'utilisateur *"
@@ -56,7 +55,7 @@ const Register = props => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='regAuth__field'>
                     <input
                         type='email'
                         placeholder='Email *'
@@ -66,7 +65,7 @@ const Register = props => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='regAuth__field'>
                     <input
                         type='password'
                         placeholder='Mot de passe *'
@@ -76,7 +75,7 @@ const Register = props => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='regAuth__field'>
                     <input
                         type='password'
                         placeholder='Confirmation du mot de passe *'
@@ -86,12 +85,12 @@ const Register = props => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <input type='submit' className={classes.submit} value='Continuer'></input>
+                <input type='submit' className='regAuth__submit' value='Continuer'></input>
             </form>
-            <div className={classes.Registered}>
+            <div className='regAuth__alternateBloc'>
                 Vous avez déjà un compte ?
                 <NavLink to='/login'>
-                    <p className={classes.toLogin}>
+                    <p className='regAuth__alternateLinks'>
                         Connectez-vous<i className='fas fa-angle-right'></i>
                     </p>
                 </NavLink>

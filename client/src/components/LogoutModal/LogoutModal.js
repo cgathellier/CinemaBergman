@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import classes from './Modal.module.css';
 import { hideModal } from '../../actions/modal';
 import { logout } from '../../actions/auth';
 
-const Modal = ({ displayModal, logout, hideModal }) => {
+const LogoutModal = ({ displayModal, logout, hideModal }) => {
     const handleLogout = () => {
         logout();
     };
@@ -16,12 +15,12 @@ const Modal = ({ displayModal, logout, hideModal }) => {
 
     if (displayModal) {
         return (
-            <div className={classes.container}>
-                <div className={classes.backdrop} onClick={handleHideModal}></div>
-                <div className={classes.modal}>
+            <div className='logoutModal__container'>
+                <div className='logoutModal__backdrop' onClick={handleHideModal}></div>
+                <div className='logoutModal__modal'>
                     <div>Se déconnecter</div>
-                    <div className={classes.iconCtn} onClick={handleLogout}>
-                        <i className={['fas fa-sign-out-alt', classes.icon].join(' ')}></i>
+                    <div className='logoutModal__iconCtn' onClick={handleLogout}>
+                        <i className='fas fa-sign-out-alt logoutModal__icon'></i>
                     </div>
                 </div>
             </div>
@@ -30,7 +29,7 @@ const Modal = ({ displayModal, logout, hideModal }) => {
     return null;
 };
 
-Modal.propTypes = {
+LogoutModal.propTypes = {
     displayModal: PropTypes.bool.isRequired,
 };
 
@@ -38,4 +37,4 @@ const mapStateToProps = state => ({
     displayModal: state.modal.displayModal,
 });
 
-export default connect(mapStateToProps, { logout, hideModal })(Modal);
+export default connect(mapStateToProps, { logout, hideModal })(LogoutModal);

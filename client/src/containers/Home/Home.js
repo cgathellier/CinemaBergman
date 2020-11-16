@@ -1,7 +1,6 @@
 import React from 'react';
 import Carousel from '../../components/Carousel/Carousel';
 import FilmsList from '../../components/FilmsList/FilmsList';
-import classes from './Home.module.css';
 
 const LayoutHome = props => {
     const handlePosterClick = filmInfos => {
@@ -11,7 +10,7 @@ const LayoutHome = props => {
     const nouveautes = props.filmsList.filter((_, index) => index < 4);
 
     return (
-        <div className={classes.Container}>
+        <div className='Home__Container'>
             <Carousel films={nouveautes} />
             <FilmsList
                 filmsList={props.filmsList}

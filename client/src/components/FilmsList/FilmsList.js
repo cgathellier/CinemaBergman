@@ -1,6 +1,5 @@
 import React from 'react';
 import FilmItem from './FilmItem/FilmItem';
-import classes from './FilmsList.module.css';
 
 const FilmsList = props => {
     let filmItems;
@@ -12,9 +11,9 @@ const FilmsList = props => {
     }
 
     return (
-        <div className={classes.container}>
-            <div className={classes.presentation}>{props.presentation}</div>
-            <div className={classes.FilmsList}>{filmItems}</div>
+        <div className='filmList__container'>
+            <div className='filmList__presentation'>{props.presentation}</div>
+            <div className='filmList__list'>{filmItems}</div>
         </div>
     );
 };

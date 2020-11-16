@@ -1,10 +1,8 @@
 import axios from 'axios';
 import React, { Fragment, useEffect, useState } from 'react';
-import { NavLink } from 'react-router-dom';
 import Post from '../Post/Post';
 import Nav from '../Showtime/Nav';
 import Showtime from '../Showtime/Showtime';
-import classes from './FilmDetails.module.css';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -199,13 +197,13 @@ const FilmDetails = ({ name }) => {
         });
 
     const displayPosts =
-        postsElt.length > 0 ? <div className={classes.postsElt}>{postsElt}</div> : '';
+        postsElt.length > 0 ? <div className='details__postsElt'>{postsElt}</div> : '';
 
     const postForm = name ? (
-        <form className={classes.form} onSubmit={e => handleSubmit(e)}>
+        <form className='details__form' onSubmit={e => handleSubmit(e)}>
             <input
                 type='text'
-                className={classes.postTitle}
+                className='details__postTitle'
                 placeholder='Titre du commentaire'
                 name='title'
                 onChange={e => handleChange(e)}
@@ -214,13 +212,13 @@ const FilmDetails = ({ name }) => {
             />
             <textarea
                 type='textarea'
-                className={classes.textarea}
+                className='details__textarea'
                 placeholder='Commentaire'
                 name='text'
                 onChange={e => handleChange(e)}
                 value={postContent.text}
             ></textarea>
-            <input type='submit' className={classes.submit} value='Ajouter un commentaire' />
+            <input type='submit' className='details__submit' value='Ajouter un commentaire' />
         </form>
     ) : (
         <AuthModal text='Veuillez vous connecter pour poster un commentaire' />
@@ -245,29 +243,25 @@ const FilmDetails = ({ name }) => {
 
     return (
         <Fragment>
-            <div className={classes.Container}>
-                <img src={filmData.snap} alt={filmData.title} className={classes.Instant} />
-                <div className={classes.grad}>
+            <div className='details__container'>
+                <img src={filmData.snap} alt={filmData.title} className='details__snap' />
+                <div className='details__grad'>
                     <div>
-                        <p className={classes.Title}>{filmData.title}</p>
-                        <p className={classes.GenreDuration}>
+                        <p className='details__title'>{filmData.title}</p>
+                        <p className='details__genreDuration'>
                             {filmData.genre} ({filmData.duration})
-                            <span className={classes.PublicBtn}>{filmData.classification}</span>
+                            <span className='details__public'>{filmData.classification}</span>
                         </p>
-                        <a className={classes.SeancesBtn} href='#showtimes'>
+                        <a className='details__seancesBtn' href='#showtimes'>
                             <i className='far fa-clock'></i> Séances
                         </a>
                     </div>
                     <div>
-                        <div className={classes.Presentation}>
-                            <div className={classes.imgContainer}>
-                                <img
-                                    src={filmData.poster}
-                                    alt={filmData.title}
-                                    className={classes.Poster}
-                                />
+                        <div className='details__presentation'>
+                            <div className='details__imgContainer'>
+                                <img src={filmData.poster} alt={filmData.title} />
                             </div>
-                            <div className={classes.Infos}>
+                            <div className='details__infos'>
                                 <p>
                                     Sortie :<span>{releaseDate}</span>
                                 </p>
@@ -277,19 +271,19 @@ const FilmDetails = ({ name }) => {
                                 <p>Avec {filmData.actors}</p>
                             </div>
                         </div>
-                        <div className={classes.Synopsis}>{filmData.synopsis}</div>
+                        <div className='details__synopsis'>{filmData.synopsis}</div>
                     </div>
                 </div>
             </div>
-            <div className={classes.StPostsCtn}>
-                <div className={classes.showtimesCtn} id='showtimes'>
-                    <div className={classes.showtimes}>Séances</div>
-                    <div className={classes.showtimesNavCtn}>{showtimeNav}</div>
-                    <div className={classes.showtimesEltCtn}>{stDisplayed}</div>
+            <div className='details__stPostsCtn'>
+                <div className='details__showtimesCtn' id='showtimes'>
+                    <div className='details__showtimes'>Séances</div>
+                    <div className='details__showtimesNavCtn'>{showtimeNav}</div>
+                    <div className='details__showtimesEltCtn'>{stDisplayed}</div>
                 </div>
-                <div className={classes.postsContainer}>
+                <div className='details__postsContainer'>
                     {displayPosts}
-                    <div className={classes.formContainer}>{postForm}</div>
+                    <div className='details__formContainer'>{postForm}</div>
                 </div>
             </div>
         </Fragment>

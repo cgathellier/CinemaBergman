@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import classes from './Login.module.css';
 import { Link, NavLink } from 'react-router-dom';
 import history from '../../history';
 import { connect } from 'react-redux';
@@ -26,19 +25,19 @@ const Login = props => {
     };
 
     return (
-        <div className={classes.container}>
-            <div className={classes.Name}>
+        <div className='regAuth__container'>
+            <div className='regAuth__name'>
                 <NavLink to='/'>Cinéma Bergman</NavLink>
             </div>
             <div>
                 <Link to='/'>
-                    <p className={classes.toHome}>
+                    <p className='regAuth__toHome'>
                         <i className='fas fa-angle-left'></i>Retourner à la page d'accueil
                     </p>
                 </Link>
             </div>
-            <form className={classes.Form} onSubmit={e => onSubmit(e)}>
-                <div className={classes.field}>
+            <form className='regAuth__form' onSubmit={e => onSubmit(e)}>
+                <div className='regAuth__field'>
                     <input
                         type='email'
                         placeholder='Email'
@@ -48,7 +47,7 @@ const Login = props => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='regAuth__field'>
                     <input
                         type='password'
                         placeholder='Mot de passe'
@@ -58,12 +57,12 @@ const Login = props => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <input type='submit' className={classes.submit} value='Connexion'></input>
+                <input type='submit' className='regAuth__submit' value='Connexion'></input>
             </form>
-            <div className={classes.notRegistered}>
+            <div className='regAuth__alternateBloc'>
                 Vous n'avez pas encore de compte ?
                 <NavLink to='/register'>
-                    <p className={classes.toRegister}>
+                    <p className='regAuth__alternateLinks'>
                         Inscrivez-vous<i className='fas fa-angle-right'></i>
                     </p>
                 </NavLink>

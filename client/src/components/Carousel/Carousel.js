@@ -1,7 +1,6 @@
 import React, { useEffect, useRef, useState, useLayoutEffect } from 'react';
 import Arrows from './Arrows/Arrows';
 
-import classes from './Carousel.module.css';
 import Slider from './Slider/Slider';
 import Slide from './Slide/Slide';
 import Dot from './Dots/Dot';
@@ -259,9 +258,8 @@ const Carousel = ({ films }) => {
             handleMouseUp(e);
         }
     };
-
     return (
-        <div className={classes.Container} ref={widthRef}>
+        <div className='carousel__container' ref={widthRef}>
             <Slider width={width * 3} translate={translate} transition={transition}>
                 {slides.map((slide, index) => (
                     <Slide
@@ -288,8 +286,8 @@ const Carousel = ({ films }) => {
                 handleClick={() => nextSlide()}
                 display={swipping || window.innerWidth < 1200 ? 'none' : 'flex'}
             />
-            <div className={classes.dotsContainer}>
-                <div className={classes.dots}>
+            <div className='carousel__dotsCtn'>
+                <div className='carousel__dots'>
                     {films.map((film, index) => (
                         <Dot
                             key={index}

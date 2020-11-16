@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
-import classes from './Showtime.module.css';
 
 const Showtime = props => {
     const onClickCross = () => {
@@ -8,15 +7,15 @@ const Showtime = props => {
     };
 
     const content = props.onClickCross ? (
-        <div className={classes.container}>
+        <div className='showtime__container'>
             {props.children}
-            <div className={classes.crossContainer} onClick={() => onClickCross()}>
-                <i className={['far fa-times-circle', classes.cross].join(' ')}></i>
+            <div className='showtime__crossContainer' onClick={() => onClickCross()}>
+                <i className='far fa-times-circle showtime__cross'></i>
             </div>
         </div>
     ) : (
         <NavLink to={`/booking/${props.id}`}>
-            <div className={classes.container}>{props.children}</div>
+            <div className='showtime__container'>{props.children}</div>
         </NavLink>
     );
     return <Fragment>{content}</Fragment>;

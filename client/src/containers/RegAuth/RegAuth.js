@@ -1,21 +1,20 @@
 import React from 'react';
 import Register from '../../components/Register/Register';
 import Login from '../../components/Login/Login';
-import classes from './RegAuth.module.css';
 
 const LayoutRegAuth = props => {
     const form = props.regOrAuth === 'register' ? <Register {...props} /> : <Login {...props} />;
 
     return (
-        <div className={classes.container}>
-            <div className={classes.illustration}>
+        <div className='RegAuthLayout__container'>
+            <div className='RegAuthLayout__illustration'>
                 <img
                     src='https://i.ibb.co/jZSq9gq/cinema.jpg'
                     alt='Grande salle du Cinema Bergman'
-                    className={classes.imgCinema}
+                    className='RegAuthLayout__imgCinema'
                 />
             </div>
-            <div className={classes.form}>{form}</div>
+            <div className='RegAuthLayout__form'>{form}</div>
         </div>
     );
 };

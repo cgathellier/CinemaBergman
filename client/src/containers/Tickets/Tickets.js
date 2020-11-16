@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import classes from './Tickets.module.css';
 import axios from 'axios';
 import Tickets from '../../components/Tickets/Tickets';
 import { connect } from 'react-redux';
@@ -36,14 +35,14 @@ const LayoutTickets = ({ name }) => {
     });
 
     const displayTickets = name ? (
-        <div className={classes.ticketsCtn}>{tickets}</div>
+        <div className='Tickets__ticketsCtn'>{tickets}</div>
     ) : (
         <AuthModal text='Veuillez vous connecter pour accéder à vos réservations' />
     );
 
     return (
-        <div className={classes.container}>
-            <div className={classes.title}>Vos réservations</div>
+        <div className='Tickets__container'>
+            <div className='Tickets__title'>Vos réservations</div>
             {displayTickets}
         </div>
     );

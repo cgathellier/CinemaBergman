@@ -1,17 +1,16 @@
 import React from 'react';
-import classes from './Nav.module.css';
 
 const Nav = props => {
-    const navStyle = props.selected === 'true' ? 'selectedContainer' : 'container';
+    const navStyle = props.selected === 'true' ? 'nav__selectedContainer' : 'nav__container';
 
     const handleClick = () => {
         props.handleClick(props.index);
     };
     return (
-        <div className={classes[navStyle]} onClick={() => handleClick()}>
-            <div className={classes.day}>{props.day}</div>
-            <div className={classes.date}>{props.date}</div>
-            <div className={classes.month}>{props.month}</div>
+        <div className={navStyle} onClick={() => handleClick()}>
+            <div className='nav__day'>{props.day}</div>
+            <div className='nav__date'>{props.date}</div>
+            <div className='nav__month'>{props.month}</div>
         </div>
     );
 };

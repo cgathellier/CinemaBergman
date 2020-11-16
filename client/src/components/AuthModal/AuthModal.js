@@ -1,10 +1,9 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
-import classes from './AuthModal.module.css';
 
 const AuthModal = ({ text }) => {
     return (
-        <div className={classes.getLogged}>
+        <div className='authModal__container'>
             {text}
             <NavLink to='/login'>
                 <div>Se connecter</div>

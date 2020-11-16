@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import classes from './AddMovie.module.css';
 import axios from 'axios';
 import history from '../../../history';
 
@@ -45,7 +44,7 @@ const AddMovie = () => {
 
     useEffect(() => {
         window.scroll(0, 0);
-    }, [])
+    }, []);
 
     const onChange = e => {
         setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -106,9 +105,9 @@ const AddMovie = () => {
     };
 
     return (
-        <div className={classes.container}>
-            <form className={classes.Form} onSubmit={e => onSubmit(e)}>
-                <div className={classes.field}>
+        <div className='admin__container'>
+            <form className='admin__form' onSubmit={e => onSubmit(e)}>
+                <div className='admin__field'>
                     <input
                         type='text'
                         placeholder='Titre *'
@@ -118,7 +117,7 @@ const AddMovie = () => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <input
                         type='text'
                         placeholder='Réalisateur *'
@@ -128,7 +127,7 @@ const AddMovie = () => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <input
                         type='text'
                         placeholder='Acteurs et actrices, séparés par une virgule *'
@@ -138,7 +137,7 @@ const AddMovie = () => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <input
                         type='text'
                         placeholder='Durée *'
@@ -148,7 +147,7 @@ const AddMovie = () => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={[classes.field, classes.list].join(' ')}>
+                <div className='admin__field admin__list'>
                     <label htmlFor='Genre'>Genre *</label>
                     <select
                         type='text'
@@ -172,7 +171,7 @@ const AddMovie = () => {
                         <option value='Policier'>Policier</option>
                     </select>
                 </div>
-                <div className={[classes.field, classes.list].join(' ')}>
+                <div className='admin__field admin__list'>
                     <label htmlFor='Classification'>Classification *</label>
                     <select
                         type='text'
@@ -188,7 +187,7 @@ const AddMovie = () => {
                         <option value='-18'>-18</option>
                     </select>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <label htmlFor='release'>Date de sortie *</label>
                     <input
                         type='date'
@@ -199,7 +198,7 @@ const AddMovie = () => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <input
                         type='text'
                         placeholder='Synopsis *'
@@ -209,7 +208,7 @@ const AddMovie = () => {
                         onChange={e => onChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <label htmlFor='poster'>Affiche du film *</label>
                     <input
                         type='file'
@@ -220,7 +219,7 @@ const AddMovie = () => {
                         onChange={e => onPosterChange(e)}
                     ></input>
                 </div>
-                <div className={classes.field}>
+                <div className='admin__field'>
                     <label htmlFor='snap'>Image extraite du film *</label>
                     <input
                         type='file'
@@ -234,7 +233,7 @@ const AddMovie = () => {
 
                 <input
                     type='submit'
-                    className={classes.submit}
+                    className='addMovie__submit'
                     value='Poursuivre et ajouter des séances'
                 ></input>
             </form>

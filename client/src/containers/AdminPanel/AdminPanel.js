@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import classes from './AdminPanel.module.css';
 import { NavLink } from 'react-router-dom';
 import AddMovie from '../../components/Admin/AddMovie/AddMovie';
 import ModifyMovie from '../../components/Admin/ModifyMovie/ModifyMovie';
@@ -11,16 +10,16 @@ const AdminPanel = () => {
     const path = window.location.href.split('/admin/')[1];
     const form = path === 'addmovie' ? <AddMovie /> : <ModifyMovie />;
     return (
-        <div className={classes.container}>
-            <nav className={classes.menu}>
-                <NavLink to='/admin/addmovie' activeClassName={classes.active}>
+        <div className='AdminPanel__container'>
+            <nav className='AdminPanel__menu'>
+                <NavLink to='/admin/addmovie' activeClassName='AdminPanel__active'>
                     <div>Ajouter un film</div>
                 </NavLink>
-                <NavLink to='/admin/modifymovie' activeClassName={classes.active}>
+                <NavLink to='/admin/modifymovie' activeClassName='AdminPanel__active'>
                     <div>Ajouter des séances, modifier ou supprimer un film</div>
                 </NavLink>
             </nav>
-            <div className={classes.formContainer}>{form}</div>
+            <div className='AdminPanel__formContainer'>{form}</div>
         </div>
     );
 };

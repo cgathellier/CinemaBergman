@@ -1,6 +1,5 @@
 import React from 'react';
 import Seat from './Seat';
-import classes from './Row.module.css';
 
 const Row = props => {
     const handleClick = seatID => {
@@ -22,7 +21,7 @@ const Row = props => {
         const seat = <Seat status={status} key={i} seatID={seatID} handleClick={handleClick} />;
         seats.push(seat);
     }
-    return <div className={classes.rowContainer}>{seats}</div>;
+    return <div className='row__container'>{seats}</div>;
 };
 
 export default Row;

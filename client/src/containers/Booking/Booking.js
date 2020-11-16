@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import Row from '../../components/Booking/Row';
-import classes from './Booking.module.css';
 import axios from 'axios';
 import Seat from '../../components/Booking/Seat';
 import history from '../../history';
@@ -70,8 +69,8 @@ const LayoutBooking = ({ name }) => {
     });
 
     const display = name ? (
-        <div className={classes.container}>
-            <div className={classes.legend}>
+        <div className='Booking__container'>
+            <div className='Booking__legend'>
                 <div>
                     <Seat status='free' seatID='' handleClick={handleClickLegend} />
                     <span>Places libres</span>
@@ -85,11 +84,11 @@ const LayoutBooking = ({ name }) => {
                     <span>Places occupées</span>
                 </div>
             </div>
-            <div className={classes.screenContainer}>
-                <div className={classes.screen}></div>
+            <div className='Booking__screenContainer'>
+                <div className='Booking__screen'></div>
             </div>
             {rows}
-            <div className={classes.validation} onClick={handleSubmit}>
+            <div className='Booking__validation' onClick={handleSubmit}>
                 Poursuivre
             </div>
         </div>
@@ -97,7 +96,7 @@ const LayoutBooking = ({ name }) => {
         <AuthModal text='Veuillez vous connecter pour réserver vos places' />
     );
 
-    return <div className={classes.layoutContainer}>{display}</div>;
+    return <div className='Booking__layout'>{display}</div>;
 };
 
 LayoutBooking.propTypes = {

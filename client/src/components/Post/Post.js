@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './Post.module.css';
 import Moment from 'react-moment';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
@@ -13,7 +12,7 @@ const Post = props => {
 
     const deleteBtn =
         props.isAdmin || props.name === name ? (
-            <div className={classes.delete} onClick={handleClick}>
+            <div className='post__delete' onClick={handleClick}>
                 Supprimer
             </div>
         ) : (
@@ -21,10 +20,10 @@ const Post = props => {
         );
 
     return (
-        <div className={classes.container}>
-            <div className={classes.title}>{title}</div>
-            <div className={classes.text}>{text}</div>
-            <div className={classes.header}>
+        <div className='post__container'>
+            <div className='post__title'>{title}</div>
+            <div className='post__text'>{text}</div>
+            <div className='post__header'>
                 <div>{name}</div>
                 <div>
                     <Moment format='DD/MM/YYYY'>{date}</Moment> à{' '}

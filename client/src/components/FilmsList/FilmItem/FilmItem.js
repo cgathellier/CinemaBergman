@@ -1,5 +1,4 @@
 import React from 'react';
-import classes from './FilmItem.module.css';
 import { Link } from 'react-router-dom';
 
 const genre = {
@@ -38,16 +37,20 @@ const filmItem = ({ filmInfos, path }) => {
     };
     const style = { backgroundColor: `${color[getGenreKey(filmInfos.genre)]}` };
     return (
-        <div className={classes.FilmItem}>
-            <div className={classes.imgContainer}>
+        <div className='filmItem'>
+            <div className='imgContainer'>
                 <Link to={path + filmInfos._id}>
-                    <img src={filmInfos.poster} alt={filmInfos.title} className={classes.Poster} />
+                    <img
+                        src={filmInfos.poster}
+                        alt={filmInfos.title}
+                        className='filmItem__poster'
+                    />
                 </Link>
-                <div className={classes.genre} title={filmInfos.genre} style={style}>
+                <div className='filmItem__genre' title={filmInfos.genre} style={style}>
                     {filmInfos.genre}
                 </div>
             </div>
-            <div className={classes.title} title={filmInfos.title}>
+            <div className='filmItem__title' title={filmInfos.title}>
                 {filmInfos.title}
             </div>
         </div>

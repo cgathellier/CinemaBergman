@@ -1,5 +1,4 @@
 import React, { Fragment } from 'react';
-import classes from './Toolbar.module.css';
 import { NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../../actions/auth';
@@ -8,9 +7,9 @@ import { showModal } from '../../actions/modal';
 
 const Toolbar = ({ name, isAdmin, logout, showModal }) => {
     const adminNav = isAdmin ? (
-        <NavLink to='/admin' activeClassName={classes.active}>
+        <NavLink to='/admin' activeClassName='toolbar__active'>
             <div>
-                <i className={['fas fa-user-lock', classes.Icons].join(' ')}></i>Admin
+                <i className='fas fa-user-lock toolbar__icons'></i>Admin
             </div>
         </NavLink>
     ) : (
@@ -29,8 +28,8 @@ const Toolbar = ({ name, isAdmin, logout, showModal }) => {
 
     const usernameDisplay = name ? (
         <Fragment>
-            <div className={classes.username}>{name}</div>
-            <div className={classes.logoutBtn} onClick={handleLogout}>
+            <div className='toolbar__username'>{name}</div>
+            <div className='toolbar__logoutBtn' onClick={handleLogout}>
                 Se déconnecter
             </div>
         </Fragment>
@@ -43,47 +42,47 @@ const Toolbar = ({ name, isAdmin, logout, showModal }) => {
 
     const nameFirstLetter = name ? name.split('')[0] : '';
     const userIcon = name ? (
-        <div className={classes.User} onClick={handleModal}>
-            <div className={classes.letter}>{nameFirstLetter}</div>
+        <div className='toolbar__user' onClick={handleModal}>
+            <div className='toolbar__letter'>{nameFirstLetter}</div>
         </div>
     ) : (
         <NavLink to='/login'>
-            <div className={classes.User}>
-                <i className={[classes.faUser, 'fas fa-user'].join(' ')}></i>
+            <div className='toolbar__user'>
+                <i className='faUser fas fa-user'></i>
             </div>
         </NavLink>
     );
 
     return (
-        <div className={classes.Toolbar}>
-            <div className={classes.Presentation}>
-                <div className={classes.Name}>
+        <header className='toolbar'>
+            <div className='toolbar__presentation'>
+                <div className='toolbar__name'>
                     <NavLink to='/'>Cinéma Bergman</NavLink>
                 </div>
-                <div className={classes.RegAuthInterface}>
-                    <div className={classes.toForms}>{usernameDisplay}</div>
+                <div className='toolbar__regAuthInterface'>
+                    <div className='toolbar__toForms'>{usernameDisplay}</div>
                     {userIcon}
                 </div>
             </div>
-            <div className={classes.Menu}>
-                <NavLink to='/' exact activeClassName={classes.active}>
+            <nav className='toolbar__menu'>
+                <NavLink to='/' exact activeClassName='toolbar__active'>
                     <div>
-                        <i className={['fas fa-home', classes.Icons].join(' ')}></i>Accueil
+                        <i className='fas fa-home toolbar__icons'></i>Accueil
                     </div>
                 </NavLink>
-                <NavLink to='/films' activeClassName={classes.active}>
+                <NavLink to='/films' activeClassName='toolbar__active'>
                     <div>
-                        <i className={['fas fa-film', classes.Icons].join(' ')}></i>Films
+                        <i className='fas fa-film toolbar__icons'></i>Films
                     </div>
                 </NavLink>
-                <NavLink to='/reservations' activeClassName={classes.active}>
+                <NavLink to='/reservations' activeClassName='toolbar__active'>
                     <div>
-                        <i className={['fas fa-ticket-alt', classes.Icons].join(' ')}></i>Billets
+                        <i className='fas fa-ticket-alt toolbar__icons'></i>Billets
                     </div>
                 </NavLink>
                 {adminNav}
-            </div>
-        </div>
+            </nav>
+        </header>
     );
 };
 

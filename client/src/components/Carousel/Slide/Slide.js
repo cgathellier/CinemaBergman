@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { NavLink } from 'react-router-dom';
-import classes from './Slide.module.css';
 
 const Slide = props => {
     const {
@@ -20,14 +19,14 @@ const Slide = props => {
 
     const display = props.filmData ? (
         <Fragment>
-            <img src={props.filmData.snap} alt={props.filmData.title} className={classes.image} />
-            <div className={classes.grad}>
-                <div className={classes.presentation}>
+            <img src={props.filmData.snap} alt={props.filmData.title} className='slide__image' />
+            <div className='slide__grad'>
+                <div className='slide__presentation'>
                     <h2>Nouveauté</h2>
-                    <p className={classes.title}>
+                    <p className='slide__title'>
                         {props.filmData.title}
                         <NavLink to={`/films/${props.filmData._id}`}>
-                            <span className={classes.link}>Découvrir</span>
+                            <span className='slide__link'>Découvrir</span>
                             <i className='fas fa-angle-right'></i>
                         </NavLink>
                     </p>
@@ -38,7 +37,7 @@ const Slide = props => {
 
     return (
         <div
-            className={classes.Slide}
+            className='slide'
             style={style}
             onTouchStart={onTouchStart}
             // onTouchMove={onTouchMove}
