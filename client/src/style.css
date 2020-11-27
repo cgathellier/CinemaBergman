@@ -15,7 +15,7 @@
   }
 }
 body {
-  margin: 0px;
+  margin: 0;
 }
 
 * {
@@ -26,6 +26,7 @@ body {
   background-color: #f2f3f5;
   width: 100%;
   min-height: 100vh;
+  padding-left: calc(100vw - 100%);
   z-index: -1000;
   display: flex;
   justify-content: center;
@@ -1679,7 +1680,7 @@ body {
     display: flex;
   }
   .toolbar__menu {
-    width: 80%;
+    width: 80vw;
   }
 }
 
