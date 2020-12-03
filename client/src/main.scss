@@ -30,6 +30,7 @@ body {
 }
 
 .App {
+<<<<<<< Updated upstream
     &__background {
         background-color: #f2f3f5;
         width: 100%;
@@ -48,6 +49,26 @@ body {
         margin: 0px;
         overflow-x: hidden;
     }
+=======
+	&__background {
+		background-color: #f2f3f5;
+		width: 100%;
+		min-height: 100vh;
+		z-index: -1000;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+	&__bodyCtn {
+		width: 100vw;
+		min-height: 100vh;
+		height: fit-content;
+		background-color: white;
+		padding-top: 100px;
+		margin: 0px;
+		overflow-x: hidden;
+	}
+>>>>>>> Stashed changes
 }
 
 // containers
@@ -1615,6 +1636,7 @@ body {
 }
 
 @media (min-width: 1200px) {
+<<<<<<< Updated upstream
     .App__bodyCtn {
         width: 80vw;
         padding-top: 140px;
@@ -1719,4 +1741,115 @@ body {
             width: 80%;
         }
     }
+=======
+	.App {
+		&__background {
+			padding-left: calc(100vw - 100%);
+		}
+		&__bodyCtn {
+			width: 80vw;
+			padding-top: 140px;
+		}
+	}
+	.AdminPanel__container {
+		margin-top: 140px;
+	}
+	.Booking__layout {
+		margin-top: 140px;
+		height: calc(100vh - 140px);
+	}
+	.admin__container {
+		padding: 50px 200px;
+	}
+	.seat:not(.booked):hover {
+		transform: scale(1.2);
+	}
+	.slide__presentation {
+		left: 60px;
+		bottom: 40px;
+		font-size: calc(1.2rem + 1.4vw);
+	}
+	.carousel__container {
+		height: calc(80vh - 140px);
+	}
+	.details {
+		&__grad {
+			padding: 25px 40px;
+			background: linear-gradient(to top, $color-primary 55%, transparent);
+		}
+		&__title {
+			font-size: 3.5rem;
+		}
+		&__genreDuration {
+			font-size: 1.6rem;
+		}
+		&__public {
+			font-size: 1.5rem;
+		}
+		&__seancesBtn {
+			font-size: 1.5rem;
+		}
+		&__presentation {
+			margin-top: 40px;
+		}
+		&__imgContainer img {
+			width: 150px;
+		}
+		&__infos p {
+			font-size: 1.3rem;
+		}
+		&__synopsis {
+			font-size: 1.3rem;
+			width: 50%;
+		}
+		&__showtimes {
+			font-size: 3em;
+		}
+		&__showtimesNavCtn {
+			font-size: 1.2rem;
+		}
+		&__formContainer {
+			font-size: 2rem;
+		}
+	}
+	.filmItem {
+		width: calc(100% / 6);
+	}
+	.logoutModal {
+		&__modal {
+			width: 40vw;
+			height: 200px;
+		}
+		&__iconCtn {
+			width: 60px;
+			height: 60px;
+		}
+	}
+	.post__container {
+		width: 60%;
+	}
+	.ticket {
+		&__container {
+			padding-left: 40px;
+		}
+		&__imgContainer img {
+			width: 240px;
+		}
+		&__infos {
+			font-size: 1.5rem;
+		}
+		&__title {
+			font-size: 2rem;
+			margin-bottom: 20px;
+		}
+	}
+	.toolbar {
+		&__toForms {
+			display: flex;
+		}
+		&__menu {
+			width: 80vw;
+		}
+	}
+>>>>>>> Stashed changes
 }
