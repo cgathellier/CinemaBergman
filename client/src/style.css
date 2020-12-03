@@ -15,7 +15,7 @@
   }
 }
 body {
-  margin: 0;
+  margin: 0px;
 }
 
 * {
@@ -26,7 +26,6 @@ body {
   background-color: #f2f3f5;
   width: 100%;
   min-height: 100vh;
-  padding-left: calc(100vw - 100%);
   z-index: -1000;
   display: flex;
   justify-content: center;
@@ -1574,6 +1573,9 @@ body {
   }
 }
 @media (min-width: 1200px) {
+  .App__background {
+    padding-left: calc(100vw - 100%);
+  }
   .App__bodyCtn {
     width: 80vw;
     padding-top: 140px;
