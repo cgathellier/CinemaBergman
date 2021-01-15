@@ -1,3 +1,4 @@
 node_modules/
 posters/
 config/default.json
+.eslintcache

@@ -1,21 +1,28 @@
-import React from 'react';
+import * as React from 'react';
 import FilmItem from './FilmItem/FilmItem';
+import { connect } from 'react-redux';
 
-const FilmsList = props => {
-    let filmItems;
-    if (props.filmsList) {
-        let filmsList = props.filmsList;
-        filmItems = filmsList.map((film, index) => {
-            return <FilmItem filmInfos={film} key={film.title + index} {...props} />;
-        });
-    }
+const FilmsList = ({ presentation, path, films }) => (
+	<div className='filmList__container'>
+		<div className='filmList__presentation'>{presentation}</div>
+		<div className='filmList__list'>
+			{films
+				? films.map((film, index) => {
+						return (
+							<FilmItem
+								filmInfos={film}
+								key={film.title + index}
+								path={path}
+							/>
+						);
+				  })
+				: ''}
+		</div>
+	</div>
+);
 
-    return (
-        <div className='filmList__container'>
-            <div className='filmList__presentation'>{props.presentation}</div>
-            <div className='filmList__list'>{filmItems}</div>
-        </div>
-    );
-};
+const mapStateToProps = state => ({
+	films: state.films,
+});
 
-export default FilmsList;
+export default connect(mapStateToProps)(FilmsList);

@@ -1,8 +1,5 @@
-import React from 'react';
+import * as React from 'react';
 
-const Dot = props => {
-    const style = props.selected === 'true' ? 'dot--selected' : 'dot';
-    return <div className={style}></div>;
-};
+const Dot = ({ selected }) => <div className={selected ? 'dot--selected' : 'dot'}></div>;
 
 export default Dot;

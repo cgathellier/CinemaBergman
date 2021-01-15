@@ -1,11 +1,7 @@
-import React from 'react';
+import * as React from 'react';
 
-const Seat = props => {
-    const seatStyle = props.status;
-    const handleClick = () => {
-        props.handleClick(props.seatID);
-    };
-    return <div className={`${seatStyle} seat`} onClick={() => handleClick()}></div>;
+const Seat = ({ status, seatID, handleClick }) => {
+	return <div className={`${status} seat`} onClick={() => handleClick(seatID)}></div>;
 };
 
 export default Seat;

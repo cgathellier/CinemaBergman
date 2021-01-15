@@ -1,244 +1,72 @@
-import React, { useEffect, useState } from 'react';
+import * as React from 'react';
 import axios from 'axios';
 import history from '../../../history';
+import AdminForm from '../AdminForm';
+import adminReducer from '../../../utils/adminReducer';
+import { configFormData } from '../../../utils/axiosConfigs';
 
-class Film {
-    title;
-    director;
-    actors;
-    duration;
-    genre;
-    classification;
-    release;
-    poster;
-    snap;
-    synopsis;
-}
+const initialState = {
+	title: '',
+	director: '',
+	actors: '',
+	duration: '',
+	genre: 'Comédie',
+	classification: 'Tous publics',
+	release: '',
+	poster: '',
+	snap: '',
+	synopsis: '',
+};
 
 const AddMovie = () => {
-    const [formData, setFormData] = useState({
-        title: '',
-        director: '',
-        actors: '',
-        duration: '',
-        genre: 'Comédie',
-        classification: 'Tous publics',
-        release: '',
-        poster: '',
-        snap: '',
-        synopsis: '',
-    });
+	const [state, dispatch] = React.useReducer(adminReducer, initialState);
 
-    const {
-        title,
-        director,
-        actors,
-        duration,
-        genre,
-        classification,
-        release,
-        poster,
-        snap,
-        synopsis,
-    } = formData;
+	React.useEffect(() => {
+		window.scroll(0, 0);
+	}, []);
 
-    useEffect(() => {
-        window.scroll(0, 0);
-    }, []);
+	const onSubmit = e => {
+		e.preventDefault();
 
-    const onChange = e => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
+		try {
+			const newFilm = {
+				...state,
+				poster: '',
+				snap: '',
+			};
 
-    const onPosterChange = e => {
-        const newPoster = e.target.files[0];
-        setFormData({ ...formData, poster: newPoster });
-    };
+			(async function (film, poster, snap) {
+				const formData = new FormData();
+				formData.append('film', JSON.stringify(film));
+				formData.append('poster', poster);
+				formData.append('snap', snap);
+				const res = await axios.post('/api/films', formData, configFormData);
+				if (res.status === 201) {
+					window.scroll(0, 0);
+					history.push(`/admin/modifymovie/${res.data._id}`);
+				}
+			})(newFilm, state.poster, state.snap);
+		} catch (error) {
+			console.log(error);
+		}
+	};
 
-    const onSnapChange = e => {
-        const newSnap = e.target.files[0];
-        setFormData({ ...formData, snap: newSnap });
-    };
-
-    const onSubmit = e => {
-        e.preventDefault();
-
-        try {
-            const token = localStorage.getItem('token');
-
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                    'x-auth-token': token,
-                },
-            };
-
-            const newFilm = new Film();
-            newFilm.title = title;
-            newFilm.director = director;
-            newFilm.actors = actors;
-            newFilm.duration = duration;
-            newFilm.genre = genre;
-            newFilm.classification = classification;
-            newFilm.release = release;
-            newFilm.poster = '';
-            newFilm.snap = '';
-            newFilm.synopsis = synopsis;
-
-            const createNewFilmWithFile = async (film, poster, snap) => {
-                const formData = new FormData();
-                formData.append('film', JSON.stringify(film));
-                formData.append('poster', poster);
-                formData.append('snap', snap);
-                const res = await axios.post('/api/films', formData, config);
-                if (res.status === 201) {
-                    window.scroll(0, 0);
-                    history.push(`/admin/modifymovie/${res.data._id}`);
-                }
-                return res.data;
-            };
-
-            createNewFilmWithFile(newFilm, poster, snap);
-        } catch (error) {
-            console.log(error);
-        }
-    };
-
-    return (
-        <div className='admin__container'>
-            <form className='admin__form' onSubmit={e => onSubmit(e)}>
-                <div className='admin__field'>
-                    <input
-                        type='text'
-                        placeholder='Titre *'
-                        value={title}
-                        name='title'
-                        required
-                        onChange={e => onChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field'>
-                    <input
-                        type='text'
-                        placeholder='Réalisateur *'
-                        value={director}
-                        name='director'
-                        required
-                        onChange={e => onChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field'>
-                    <input
-                        type='text'
-                        placeholder='Acteurs et actrices, séparés par une virgule *'
-                        value={actors}
-                        name='actors'
-                        required
-                        onChange={e => onChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field'>
-                    <input
-                        type='text'
-                        placeholder='Durée *'
-                        value={duration}
-                        name='duration'
-                        required
-                        onChange={e => onChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field admin__list'>
-                    <label htmlFor='Genre'>Genre *</label>
-                    <select
-                        type='text'
-                        value={genre}
-                        name='genre'
-                        required
-                        onChange={e => onChange(e)}
-                        id='Genre'
-                    >
-                        <option value='Comédie'>Comédie</option>
-                        <option value='Drame'>Drame</option>
-                        <option value='Historique'>Historique</option>
-                        <option value='Thriller'>Thriller</option>
-                        <option value='Horreur'>Horreur</option>
-                        <option value='Romance'>Romance</option>
-                        <option value='Science-Fiction'>Science-Fiction</option>
-                        <option value='Guerre'>Guerre</option>
-                        <option value='Action'>Action</option>
-                        <option value='Documentaire'>Documentaire</option>
-                        <option value='Aventure'>Aventure</option>
-                        <option value='Policier'>Policier</option>
-                    </select>
-                </div>
-                <div className='admin__field admin__list'>
-                    <label htmlFor='Classification'>Classification *</label>
-                    <select
-                        type='text'
-                        value={classification}
-                        name='classification'
-                        required
-                        onChange={e => onChange(e)}
-                        id='Classification'
-                    >
-                        <option value='Tous publics'>Tous publics</option>
-                        <option value='-12'>-12</option>
-                        <option value='-16'>-16</option>
-                        <option value='-18'>-18</option>
-                    </select>
-                </div>
-                <div className='admin__field'>
-                    <label htmlFor='release'>Date de sortie *</label>
-                    <input
-                        type='date'
-                        id='release'
-                        value={release}
-                        name='release'
-                        required
-                        onChange={e => onChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field'>
-                    <input
-                        type='text'
-                        placeholder='Synopsis *'
-                        value={synopsis}
-                        name='synopsis'
-                        required
-                        onChange={e => onChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field'>
-                    <label htmlFor='poster'>Affiche du film *</label>
-                    <input
-                        type='file'
-                        accept='.jpeg,.jpg,.png'
-                        id='poster'
-                        name='image'
-                        required
-                        onChange={e => onPosterChange(e)}
-                    ></input>
-                </div>
-                <div className='admin__field'>
-                    <label htmlFor='snap'>Image extraite du film *</label>
-                    <input
-                        type='file'
-                        accept='.jpeg,.jpg,.png'
-                        id='snap'
-                        name='image'
-                        required
-                        onChange={e => onSnapChange(e)}
-                    ></input>
-                </div>
-
-                <input
-                    type='submit'
-                    className='addMovie__submit'
-                    value='Poursuivre et ajouter des séances'
-                ></input>
-            </form>
-        </div>
-    );
+	return (
+		<div className='admin__container'>
+			<AdminForm
+				onSubmit={onSubmit}
+				dispatch={dispatch}
+				state={state}
+				submit={
+					<input
+						type='submit'
+						className='addMovie__submit'
+						value='Poursuivre et ajouter des séances'
+					></input>
+				}
+			/>
+		</div>
+	);
 };
 
 export default AddMovie;

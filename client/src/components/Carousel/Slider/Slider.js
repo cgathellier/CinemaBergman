@@ -1,17 +1,16 @@
-import React from 'react';
+import * as React from 'react';
 
-const Slider = props => {
-    const style = {
-        width: `${props.width}px`,
-        transform: `translateX(-${props.translate}px)`,
-        transition: `transform ease-in-out ${props.transition}s`,
-    };
-
-    return (
-        <div className='slider' style={style}>
-            {props.children}
-        </div>
-    );
-};
+const Slider = ({ width, translate, transition, children }) => (
+	<div
+		className='slider'
+		style={{
+			width: `${width}px`,
+			transform: `translateX(-${translate}px)`,
+			transition: `transform ease-in-out ${transition}s`,
+		}}
+	>
+		{children}
+	</div>
+);
 
 export default Slider;

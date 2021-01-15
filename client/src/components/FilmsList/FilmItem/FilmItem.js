@@ -1,60 +1,43 @@
-import React from 'react';
+import * as React from 'react';
 import { Link } from 'react-router-dom';
 
-const genre = {
-    0: 'Comédie',
-    1: 'Drame',
-    2: 'Historique',
-    3: 'Thriller',
-    4: 'Horreur',
-    5: 'Romance',
-    6: 'Science-Fiction',
-    7: 'Guerre',
-    8: 'Action',
-    9: 'Documentaire',
-    10: 'Aventure',
-    11: 'Policier',
-};
-
 const color = {
-    0: '#32a1f2',
-    1: '#4A0A0D',
-    2: '#3f1c1c',
-    3: '#262930',
-    4: '#9b1717',
-    5: '#d6599e',
-    6: '#5c52ce',
-    7: '#000000',
-    8: '#e25e06',
-    9: '#006315',
-    10: '#36c4c9',
-    11: '#FBD25A',
+	Comédie: '#32a1f2',
+	Drame: '#4A0A0D',
+	Historique: '#3f1c1c',
+	Thriller: '#262930',
+	Horreur: '#9b1717',
+	Romance: '#d6599e',
+	'Science-Fiction': '#5c52ce',
+	Guerre: '#000000',
+	Action: '#e25e06',
+	Documentaire: '#006315',
+	Aventure: '#36c4c9',
+	Policier: '#FBD25A',
 };
 
-const filmItem = ({ filmInfos, path }) => {
-    const getGenreKey = value => {
-        return Object.keys(genre).find(key => genre[key] === value);
-    };
-    const style = { backgroundColor: `${color[getGenreKey(filmInfos.genre)]}` };
-    return (
-        <div className='filmItem'>
-            <div className='imgContainer'>
-                <Link to={path + filmInfos._id}>
-                    <img
-                        src={filmInfos.poster}
-                        alt={filmInfos.title}
-                        className='filmItem__poster'
-                    />
-                </Link>
-                <div className='filmItem__genre' title={filmInfos.genre} style={style}>
-                    {filmInfos.genre}
-                </div>
-            </div>
-            <div className='filmItem__title' title={filmInfos.title}>
-                {filmInfos.title}
-            </div>
-        </div>
-    );
-};
+const filmItem = ({ filmInfos, path }) => (
+	<div className='filmItem'>
+		<div className='imgContainer'>
+			<Link to={path + filmInfos._id}>
+				<img
+					src={filmInfos.poster}
+					alt={filmInfos.title}
+					className='filmItem__poster'
+				/>
+			</Link>
+			<div
+				className='filmItem__genre'
+				title={filmInfos.genre}
+				style={{ backgroundColor: `${color[filmInfos.genre]}` }}
+			>
+				{filmInfos.genre}
+			</div>
+		</div>
+		<div className='filmItem__title' title={filmInfos.title}>
+			{filmInfos.title}
+		</div>
+	</div>
+);
 
 export default filmItem;

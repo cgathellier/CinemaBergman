@@ -1,18 +1,14 @@
-import React from 'react';
+import * as React from 'react';
 
-const Nav = props => {
-    const navStyle = props.selected === 'true' ? 'nav__selectedContainer' : 'nav__container';
-
-    const handleClick = () => {
-        props.handleClick(props.index);
-    };
-    return (
-        <div className={navStyle} onClick={() => handleClick()}>
-            <div className='nav__day'>{props.day}</div>
-            <div className='nav__date'>{props.date}</div>
-            <div className='nav__month'>{props.month}</div>
-        </div>
-    );
-};
+const Nav = ({ selected, day, date, month, handleClick, index }) => (
+	<div
+		className={selected === 'true' ? 'nav__selectedContainer' : 'nav__container'}
+		onClick={() => handleClick(index)}
+	>
+		<div className='nav__day'>{day}</div>
+		<div className='nav__date'>{date}</div>
+		<div className='nav__month'>{month}</div>
+	</div>
+);
 
 export default Nav;

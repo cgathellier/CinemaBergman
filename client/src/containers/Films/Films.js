@@ -1,16 +1,16 @@
-import React, { useEffect } from 'react';
+import * as React from 'react';
 import FilmsList from '../../components/FilmsList/FilmsList';
 
-const LayoutFilms = props => {
-    useEffect(() => {
-        window.scroll(0, 0);
-    }, []);
+const Films = () => {
+	React.useEffect(() => {
+		window.scroll(0, 0);
+	}, []);
 
-    return (
-        <div>
-            <FilmsList filmsList={props.filmsList} path='/films/' />
-        </div>
-    );
+	return (
+		<div>
+			<FilmsList path='/films/' />
+		</div>
+	);
 };
 
-export default LayoutFilms;
+export default Films;
