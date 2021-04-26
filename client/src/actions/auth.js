@@ -10,7 +10,7 @@ import {
 } from './types';
 import { setAlert } from './alert';
 import axios from 'axios';
-import setAuthToken from '../utils/setAuthToken';
+import initHeaders from '../utils/setAuthToken';
 
 const config = {
 	headers: {
@@ -74,7 +74,7 @@ export const login = (email, password) => async dispatch => {
 
 export const loadUser = () => async dispatch => {
 	if (localStorage.token) {
-		setAuthToken(localStorage.token);
+		initHeaders.setAuthToken(localStorage.token);
 	}
 
 	try {

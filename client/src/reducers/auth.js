@@ -8,11 +8,40 @@ import {
 	LOGOUT,
 } from '../actions/types';
 
+class Storage {
+	setItem(name, payload) {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				try {
+					localStorage.setItem(name, payload);
+					resolve('');
+				} catch (error) {
+					reject(new Error('Une erreur est survenue'));
+				}
+			}, 1);
+		});
+	}
+
+	removeItem(name) {
+		return new Promise((resolve, reject) => {
+			setTimeout(() => {
+				try {
+					localStorage.removeItem(name);
+					resolve('');
+				} catch (error) {
+					reject(new Error('Une erreur est survenue'));
+				}
+			}, 1);
+		});
+	}
+}
+
+const storage = new Storage();
+
 const initialState = {
 	token: localStorage.getItem('token'),
 	name: null,
 	isAdmin: false,
-	loading: true,
 	_id: null,
 };
 
@@ -24,7 +53,6 @@ export default function auth(state = initialState, action) {
 			return {
 				...state,
 				...payload,
-				loading: false,
 			};
 		case REGISTER_SUCCESS:
 		case LOGIN_SUCCESS:
@@ -32,7 +60,6 @@ export default function auth(state = initialState, action) {
 			return {
 				...state,
 				...payload,
-				loading: false,
 			};
 		case REGISTER_FAIL:
 		case AUTH_ERROR:
@@ -44,7 +71,6 @@ export default function auth(state = initialState, action) {
 				token: null,
 				name: null,
 				isAdmin: false,
-				loading: false,
 				_id: null,
 			};
 		default:
